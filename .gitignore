@@ -1,0 +1,3 @@
+# 進捗写真・動画はrepoに置かない（スマホの非公開アルバムで管理）
+tracking/photos/*
+!tracking/photos/.gitkeep
