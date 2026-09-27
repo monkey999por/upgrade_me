@@ -47,6 +47,21 @@
 | 皮膚科専門医の所属先（大宮区11名） | [日本皮膚科学会 皮膚科専門医MAP（2026-09-27取得）](https://www.dermatol.or.jp/spmap/) | A（学会の公式名簿） |
 | 各院の施術メニュー | [はなふさ皮膚科 大宮院](https://mitakabiyou.com/omiya)／[肌クリニック大宮](https://e-hifu.jp/beauty/treatment/) | C（院の公式サイト） |
 
+### ダーマペンのスケジュール
+| 主張 | 出典 | 信頼度 |
+|---|---|---|
+| はなふさ皮膚科 大宮院のダーマペン料金（トライアル・5回コース） | [はなふさ皮膚科 大宮院 料金表](https://mitakabiyou.com/omiya/price) | C（院の公式情報） |
+| はなふさ皮膚科：3–8週間おき。赤みは数時間〜数日、内出血は1–2週間 | [はなふさ皮膚科 ダーマペン](https://mitakabiyou.com/damapen) | C（院の公式情報） |
+| 肌クリニック大宮：2週間〜1ヶ月おき・1–3回、赤み1–3日、施術前後のレチノイン酸・ピーリング剤の制限、料金 | [肌クリニック大宮 毛穴黒ずみダーマペン](https://e-hifu.jp/darmapen/) | C（院の公式情報） |
+| 毛穴の開きには1ヶ月おきに3–5回、変化を感じやすいのは施術の2–4週間後 | [江坂駅前花ふさ皮ふ科の解説](https://esaka-hanafusa-hifuka.com/column/dermapen4-effect-timing-sessions/)（はなふさ皮膚科とは別の医院） | C |
+| マイクロニードリングは4–6週間おきが一般的。コラーゲンの産生は施術の4–6週間後がピーク。2週間おき6回でコラーゲンが増えたという研究 | [Microneedling: Advances and widening horizons（PMC4976400）](https://pmc.ncbi.nlm.nih.gov/articles/PMC4976400/) | C（総説） |
+
+### 矯正のスケジュール
+| 主張 | 出典 | 信頼度 |
+|---|---|---|
+| 初診相談 → 精密検査（約90分）→ 約1週間以降に診断 → 装着。動的治療1–3年、保定1–2年以上、通院4–8週間に1回 | [長津田矯正歯科クリニック](https://nagatsutakyouseishika.com/4174)／[おのせ歯科の解説](https://yokohamabay.onose-dentaloffice.com/column/kyousei-shiryou-kikan-phase-youin-jitan/) | C（医院の解説） |
+| インビザラインはスキャンから装置の到着まで3週間〜1ヶ月半（海外で製造） | [海岸歯科室 CHIBA STATION](https://www.kaigan-chiba.com/entry.php?eid=318811) | C（医院の解説） |
+
 ## 歯並び
 | 主張 | 出典 | 信頼度 |
 |---|---|---|

@@ -43,5 +43,4 @@
 
 ## 記録
 - ネタ帳・Homework for Life：スマホのメモアプリに1ファイルで（毎日追記）
-- daily_log.csv の `story_memo` 列：その日にネタを1本書いたら 1
 - weekly_review.md：その週のベストネタのタイトルと、日曜の動画で見つけた改善点

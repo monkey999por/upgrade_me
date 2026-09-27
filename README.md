@@ -34,8 +34,8 @@
 | — | [sources](plan/sources.md) | 出典と信頼度（A–D） |
 
 ## 記録
-- 毎日：[tracking/daily_log.csv](tracking/daily_log.csv)（食事の詳細は あすけん）
-- 毎週日曜：[tracking/weekly_review.md](tracking/weekly_review.md)
+- 毎日：各アプリに任せる（体重・体脂肪＝体組成計、歩数・睡眠＝スマートウォッチ、食事＝あすけん）。手入力の記録はなし
+- 毎週日曜：Claudeに報告 → 判定と記録（[tracking/weekly_review.md](tracking/weekly_review.md)）
 - 写真：Instagram匿名アカに毎週投稿（元の写真はスマホのカメラロールに残す。repoには置かない）
 
 ## 今回の8週間の対象外（フェーズ2で扱う）
