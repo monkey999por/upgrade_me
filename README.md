@@ -30,6 +30,7 @@
 | 07 | [inner-speaking](plan/07_inner-speaking.md) | 電車での話し方トレーニング（起承転結・Homework for Life） |
 | 08 | [recovery-rules](plan/08_recovery-rules.md) | 数値が外れたときの if-then ルール |
 | 09 | [voice-articulation](plan/09_voice-articulation.md) | 滑舌と声の出し方（車の発声メニュー、プレゼンの話し方、1分原稿、あめんぼの歌） |
+| 10 | [social-reps](plan/10_social-reps.md) | 人と関わる土台：週2回（VRChat＋トーストマスターズ／勉強会）＋仕事の中で毎日 |
 | — | [sources](plan/sources.md) | 出典と信頼度（A–D） |
 
 ## 記録
