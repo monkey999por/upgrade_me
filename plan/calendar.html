@@ -109,6 +109,18 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
 
 /* calendar */
 .legend { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--muted); }
+.legend-box summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px; }
+.legend-box summary::-webkit-details-marker { display: none; }
+.legend-box summary::after { content: "▾"; color: var(--muted); font-size: 12px; }
+.legend-box:not([open]) summary::after { content: "▸"; }
+.legend-grid { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 12px; margin: 0; font-size: 13.5px; align-items: center; }
+.legend-grid dt { display: flex; }
+.legend-grid dd { margin: 0; min-width: 0; }
+.legend-grid dd a { text-underline-offset: 3px; }
+.legend-grid .ph { font-size: 13px; padding: 1px 8px; border-radius: 6px; background: var(--soft); }
+.evs-sample { color: var(--event); font-size: 12.5px; }
+.today-sample { font-family: var(--font-display); font-weight: 600; border: 2px solid var(--ink); border-radius: 6px; padding: 0 6px; font-variant-numeric: tabular-nums; }
+.pick-sample { width: 28px; height: 24px; border-radius: 6px; background: var(--office); color: var(--on-ink); display: inline-grid; place-items: center; font-size: 12.5px; }
 .week { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 10px; min-width: 0; }
 .week.current { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
 .whead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
@@ -499,7 +511,19 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     const todayKey = key(today);
     const curW = weekOf(today);
     let html = `<div style="display:grid;gap:14px">
-      <div class="legend">${["U", "L", "Push", "Pull", "Legs"].map(t => a(LINK[t], chip(t))).join("")}${chip("office")}${chip("rest")}<span>出社日を選ぶと、残りの日に U→L→Push→Pull→Legs が入る（${a(LINK.rules, "ルール")}）</span></div>`;
+      <details class="panel legend-box" id="legend"${store.get("legendOpen", true) ? " open" : ""}>
+        <summary><h3>凡例</h3></summary>
+        <dl class="legend-grid">
+          ${["U", "L", "Push", "Pull", "Legs"].map(t => `<dt>${chip(t)}</dt><dd>${a(LINK[t], SESSION_NAME[t])}の筋トレ${WALK.includes(t) ? "＋傾斜ウォーク20分" : ""}</dd>`).join("")}
+          <dt><span class="chip hiit">HIIT</span></dt><dd>筋トレの後にバイクHIIT（${a(LINK.cardio, "やり方")}）</dd>
+          <dt>${chip("office")}</dt><dd>出社日＝休養日。筋トレなし、1万歩＋話し方トレーニング</dd>
+          <dt>${chip("rest")}</dt><dd>休養日（出社が1日以下の週だけ出る）</dd>
+          <dt><span class="evs-sample">紫の文字</span></dt><dd>その日の予定・予約・判定。日曜は週次レビュー</dd>
+          <dt><span class="today-sample">${md(clamp(today))}</span></dt><dd>太い枠は今日。日付をタップするとその日の「今日」タブが開く</dd>
+          <dt><span class="ph">本番</span></dt><dd>週の横のラベルはトレーニングの段階（${a(LINK.phase, "段階の中身")}）</dd>
+          <dt><span class="pick-sample">火</span></dt><dd>曜日ボタンで出社日を選ぶと、残りの日に U→L→Push→Pull→Legs が並び直す（${a(LINK.rules, "ルール")}）</dd>
+        </dl>
+      </details>`;
     for (let w = 0; w < 8; w++) {
       const plan = planWeek(w);
       const s = addDays(START, w * 7);
@@ -532,6 +556,8 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       store.set("office", officeDays);
       renderCalendar();
     }));
+    const lg = document.getElementById("legend");
+    if (lg) lg.addEventListener("toggle", () => store.set("legendOpen", lg.open));
     views.calendar.querySelectorAll(".day").forEach(b => b.addEventListener("click", () => {
       const [y, m, dd] = b.dataset.date.split("-").map(Number);
       current = new Date(y, m - 1, dd);
