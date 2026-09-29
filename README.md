@@ -1,6 +1,6 @@
 # upgrade_me：垢抜け8週間プラン
 
-**期間：2026-09-27（日）〜 2026-11-22（日）**　／　**いつ何をやるか・今日のTODO → [plan/calendar.html](plan/calendar.html)**（スマホ用：[公開版](https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD)）
+**期間：2026-09-27（日）〜 2026-11-22（日）**　／　**いつ何をやるか・今日やること → [plan/calendar.html](plan/calendar.html)**（スマホ用：[公開版](https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD)）
 
 ## ゴール
 - **太っている状態をなくす＝脂肪を本気で減らす**。体重の数字は目標にしない。1,900kcalの赤字＋ジムの有酸素（HIIT・傾斜ウォーク）＋1日1万歩で脂肪を落とし、ジム中心の筋トレ週5回で筋肉を戻す
@@ -23,7 +23,7 @@
 | # | ファイル | 内容 |
 |---|---|---|
 | 00 | [goals-kpi](plan/00_goals-kpi.md) | 開始値・最終目標・週ごとの目標ライン |
-| — | [**calendar.html**](plan/calendar.html) | **8週間の日別カレンダー（筋トレ・予約・イベント）＋今日のTODO**。ブラウザで開く |
+| — | [**calendar.html**](plan/calendar.html) | **8週間の日別カレンダー（筋トレ・予約・イベント）、「今日」だけのこと、毎日のルーティン**。ブラウザで開く |
 | 01 | [calendar](plan/01_calendar.md) | 8週間のマイルストーン、出社日に合わせた筋トレの割り当てルール |
 | 02 | [daily-routine](plan/02_daily-routine.md) | 在宅日／出社日／休日の時刻つきの1日（就寝1:00・起床7:00） |
 | 03 | [training](plan/03_training.md) | 筋肥大の週5分割（U/L/Push/Pull/Legs）・強さと進め方・ジムの有酸素（HIIT＋傾斜ウォーク）・1日1万歩 |

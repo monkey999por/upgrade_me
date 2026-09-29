@@ -150,12 +150,14 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
     </div>
     <div class="progress"><span id="prog-label"></span><div class="bar"><i id="prog-bar"></i></div></div>
     <nav class="tabs" role="tablist">
-      <button id="tab-today" role="tab" aria-selected="true" data-tab="today">今日のTODO</button>
+      <button id="tab-today" role="tab" aria-selected="true" data-tab="today">今日</button>
+      <button id="tab-routine" role="tab" aria-selected="false" data-tab="routine">毎日のルーティン</button>
       <button id="tab-calendar" role="tab" aria-selected="false" data-tab="calendar">カレンダー</button>
     </nav>
   </header>
 
   <section id="view-today" role="tabpanel" aria-labelledby="tab-today"></section>
+  <section id="view-routine" role="tabpanel" aria-labelledby="tab-routine" hidden></section>
   <section id="view-calendar" role="tabpanel" aria-labelledby="tab-calendar" hidden></section>
 </div>
 
@@ -273,77 +275,116 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
     return `<span class="chip ${type}">${type}</span>`;
   };
 
-  // ---- 今日のTODO（02_daily-routine.md） ----
-  function buildTodo(d) {
-    const info = dayInfo(d);
-    const { dow, type } = info;
-    const gym = SESSIONS[type];
-    const office = type === "office";
-    const groups = [];
-    const meal = MEALS[dow];
-    groups.push(["朝", [
+  // ---- 毎日のルーティン（02_daily-routine.md のうち、毎日同じもの） ----
+  const ROUTINE = [
+    ["朝", [
       ["m-weigh", "7:00", "体重・体脂肪を測る", "起床 → トイレ → 服を着ていない状態で"],
       ["m-mirror", "7:05", "鏡で正面と横顔を10秒見る", "気になる点を1つだけ言葉にする"],
       ["m-skin", "7:10", "洗顔 → 保湿 → 日焼け止め", "SPF30以上"],
-      ["m-food", "7:15", `朝食：${meal[0]}`, MEAT_NIGHT.includes(dow) ? "＋ビタミンD（今夜は肉の日）" : "サプリなし（魚の日）"],
+      ["m-food", "7:15", "朝食（朝の型A–D）", "今日の型は「今日」タブの食事欄"],
       ["m-sleep", "7:30", "前夜の睡眠時間を確認", "6時間未満が週3日で08の#2"]
-    ]]);
-    const mid = [];
-    if (dow === 0 && info.w < 8) {
-      mid.push(["s-measure", "朝", "ウエスト・首回りを測る", "起床後すぐ、息を吐き切って"]);
-      mid.push(["s-photo", "8:00", "写真4枚（正面・横・背面・横顔）→ Instagram", "むくみが引いてから"]);
-      mid.push(["s-report", "午前", "Claudeに週次の報告", "weekly_review の「送るもの」＋来週の出社日をこのページで設定"]);
-    }
-    if (office) {
-      mid.push(["o-train", "行き", "話し方トレーニング（07）", "前半インプット、後半は今日のネタを起承転結でメモ"]);
-      mid.push(["o-lunch", "昼", "コンビニのセット＋昼休みに10分歩く", "P20g以上の商品1つ＋主食1つ＋野菜1つ"]);
-      mid.push(["o-talk", "日中", "自分から話しかける（雑談・相談・お礼）1回", ""]);
-      mid.push(["o-back", "帰り", "会話の振り返り＋Homework for Life 1行", ""]);
-      mid.push(["o-steps", "夜", "歩数1万歩（足りなければ家のトレッドミル）", "筋トレはしない日"]);
-    } else {
-      const weekday = dow >= 1 && dow <= 5;
-      if (weekday) {
-        mid.push(["h-walk", "日中", "50分作業 → トレッドミル15分 × 4回", "5–6km/h、合計60分。ジムと合わせて1万歩"]);
-        mid.push(["h-voice", "日中", "家の発声メニュー5分（09）", ""]);
-        mid.push(["h-talk", "日中", "自分から話しかける（雑談・相談・お礼）1回", ""]);
-      } else {
-        mid.push(["w-walk", "日中", "歩行を合計60分以上（1万歩）", ""]);
-      }
-      mid.push(["h-lunch", "12:00", "昼食", meal[1] || BASE_LUNCH]);
-      mid.push(["h-snack", "15:30", "間食（間食の型から1つ）", gym ? "筋トレ直後に回してもよい" : "プロテイン＋低脂肪乳＋アーモンドなど"]);
-      if (gym) {
-        mid.push(["g-gym", weekday ? "18:30" : "午前", `ジム：${type}（${gym.name}）${info.hiit ? "＋バイクHIIT" : ""}${WALK.includes(type) ? "＋傾斜ウォーク20分" : ""}`, PHASE[info.w] ? PHASE[info.w].rule : ""]);
-        mid.push(["g-car", "移動中", "車で顔・首＋発声のルーティン15分（05→09）", ""]);
-      } else if (type === "rest") {
-        mid.push(["r-car", "どこかで", "顔・首＋発声のルーティン15分（05→09）", "休養日。筋トレなし"]);
-      }
-    }
-    if (dow === 0 || dow === 3) mid.push(["prep", dow === 0 ? "午後" : "夜", "作り置き60分", dow === 0 ? "今週の献立を04の表から決めて買い出し → メインを切り分けて下味" : "後半分の買い出しと作り置き"]);
-    mid.push(["dinner", "20:30", "夕食", meal[2] + (office ? "＋ブロッコリー100g（コンビニの日の追加分）" : "")]);
-    if (dow === 0 && info.w < 8) mid.push(["s-voice", "夜", "1分原稿の録音＋2分トークの自撮り → 見返す（09）", ""]);
-    groups.push([office ? "出社日" : gym ? "在宅・筋トレ" : "日中", mid]);
-    groups.push(["夜", [
-      ["n-prep", "23:30", "翌日の準備（ジムバッグ・弁当）", "あすけんの入れ忘れ確認・タンパク質150g以上か"],
+    ]],
+    ["日中", [
+      ["d-steps", "", "1万歩", "足りなければ夜に家のトレッドミル"],
+      ["d-face", "", "顔・首＋発声のルーティン15分（05→09）", "車の中で。車に乗らない日は家で"],
+      ["d-talk", "", "自分から話しかける1回（雑談・相談・お礼）", ""],
+      ["d-snack", "15:30", "間食（間食の型から1つ）", "筋トレの日は筋トレ直後でもよい"]
+    ]],
+    ["夜", [
+      ["n-asken", "23:30", "あすけんの入れ忘れ確認・翌日の準備", "タンパク質170gに届いたか"],
       ["n-skin", "0:00", "コンタクトを外す → 洗顔 → 保湿", "〜11/22はレチノールを使わない"],
       ["n-posture", "0:10", "姿勢ケア5分＋セルフマッサージ3分＋目元1分", "日中に済ませていればスキップ"],
       ["n-phone", "0:30", "スマホを置く・照明を落とす", ""],
       ["n-sleep", "1:00", "就寝", ""]
-    ]]);
-    return { info, groups };
+    ]]
+  ];
+
+  // ---- その日だけのこと ----
+  function buildDay(d) {
+    const info = dayInfo(d);
+    const { dow, type, w } = info;
+    const gym = SESSIONS[type];
+    const items = [];
+    const weekday = dow >= 1 && dow <= 5;
+    if (MEAT_NIGHT.includes(dow)) items.push(["x-vitd", "朝", "ビタミンDを飲む", "今夜は肉の日"]);
+    if (dow === 0 && w < 8) {
+      items.push(["s-measure", "朝", "ウエスト・首回りを測る", "起床後すぐ、息を吐き切って"]);
+      items.push(["s-photo", "8:00", "写真4枚（正面・横・背面・横顔）→ Instagram", "むくみが引いてから"]);
+      items.push(["s-report", "午前", "Claudeに週次の報告", "weekly_review の「送るもの」。来週の出社日をカレンダーで設定"]);
+    }
+    if (type === "office") {
+      items.push(["o-train", "行き", "話し方トレーニング（07）", "前半インプット、後半は今日のネタを起承転結でメモ"]);
+      items.push(["o-lunch", "昼", "コンビニのセット＋昼休みに10分歩く", "P20g以上の商品1つ＋主食1つ＋野菜1つ"]);
+      items.push(["o-back", "帰り", "会話の振り返り＋Homework for Life 1行", ""]);
+    } else if (weekday) {
+      items.push(["h-walk", "日中", "50分作業 → トレッドミル15分 × 4回", "5–6km/h、合計60分"]);
+      items.push(["h-voice", "日中", "家の発声メニュー5分（09）", ""]);
+    }
+    if (gym) {
+      items.push(["g-gym", weekday ? "18:30" : "午前", `ジム：${type}（${gym.name}）${info.hiit ? "＋HIIT" : ""}${WALK.includes(type) ? "＋傾斜ウォーク20分" : ""}`, PHASE[w].rule]);
+    }
+    if (dow === 0 && w < 8) items.push(["prep", "午後", "献立を決めて買い出し → 作り置き60分", "04の入れ替え表から1週間分"]);
+    if (dow === 3) items.push(["prep", "夜", "後半分の買い出しと作り置き60分", ""]);
+    if (dow === 0 && w < 8) items.push(["s-voice", "夜", "1分原稿の録音＋2分トークの自撮り → 見返す（09）", ""]);
+    return { info, items };
   }
 
-  // ---- render: today ----
   let current = clamp(today);
   const viewToday = document.getElementById("view-today");
+  const viewRoutine = document.getElementById("view-routine");
 
-  function renderToday() {
-    const d = current;
-    const { info, groups } = buildTodo(d);
-    const k = key(d);
-    const checks = store.get("todo:" + k, {});
+  const itemHtml = (checks) => ([id, t, label, sub]) => `
+    <label class="item${checks[id] ? " checked" : ""}" for="c-${id}">
+      <input type="checkbox" id="c-${id}" data-id="${id}"${checks[id] ? " checked" : ""}>
+      <span class="t">${t}</span>
+      <span class="x"><span>${label}</span>${sub ? `<small>${sub}</small>` : ""}</span>
+    </label>`;
+
+  function dayNav(d, info) {
+    const wn = info.w < 8 ? `W${info.w + 1}` : "判定日";
+    return `<div class="daynav">
+      <button class="navbtn" data-nav="-1" aria-label="前の日">‹</button>
+      <span class="date">${md(d)}（${DOW[info.dow]}）</span>
+      <button class="navbtn" data-nav="1" aria-label="次の日">›</button>
+      <span class="wk">${wn}${info.w < 8 ? " · " + PHASE[info.w].label : ""}</span>
+      ${chip(info.type)}
+      ${key(d) !== key(clamp(today)) ? `<button class="navbtn today" data-nav="0">今日へ</button>` : ""}
+    </div>`;
+  }
+
+  function checklist(title, groups, k, checks) {
     const all = groups.flatMap(g => g[1]);
     const done = all.filter(i => checks[i[0]]).length;
-    const events = (DATED[k] || []);
+    return `<div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
+        <h3>${title}</h3><span class="count">${done} / ${all.length}</span>
+      </div>
+      <div class="bar"><i style="width:${all.length ? done / all.length * 100 : 0}%"></i></div>
+      ${all.length ? groups.map(([g, items]) => `<div class="todo-group">${g ? `<h4>${g}</h4>` : ""}${items.map(itemHtml(checks)).join("")}</div>`).join("") : `<div class="note">今日だけのことはありません。毎日のルーティンだけでOK。</div>`}
+    </div>`;
+  }
+
+  function wire(view, k, rerender) {
+    view.querySelectorAll("input[type=checkbox]").forEach(cb => cb.addEventListener("change", () => {
+      const c = store.get("todo:" + k, {});
+      c[cb.dataset.id] = cb.checked;
+      store.set("todo:" + k, c);
+      rerender();
+    }));
+    view.querySelectorAll("[data-nav]").forEach(b => b.addEventListener("click", () => {
+      const n = +b.dataset.nav;
+      current = n === 0 ? clamp(today) : clamp(addDays(current, n));
+      rerender();
+    }));
+  }
+
+  // ---- render: today（その日だけのこと） ----
+  function renderToday() {
+    const d = current;
+    const { info, items } = buildDay(d);
+    const k = key(d);
+    const checks = store.get("todo:" + k, {});
+    const events = (DATED[k] || []).concat(info.w < 8 && info.dow === 0 && !(DATED[k] || []).length ? ["週次レビュー"] : []);
     const wn = info.w < 8 ? `W${info.w + 1}` : "判定日";
     const gym = SESSIONS[info.type];
     const ph = PHASE[info.w];
@@ -361,61 +402,50 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
       </div>`;
     } else {
       const label = info.type === "office" ? "出社日＝休養日" : info.type === "judge" ? "最終判定の日" : "休養日";
-      sessionHtml = `<div class="panel"><h3>今日のジム</h3><div class="session-head">${chip(info.type)}<b>${label}</b></div><div class="note">筋トレなし。歩数1万歩だけ守る。</div></div>`;
+      sessionHtml = `<div class="panel"><h3>今日のジム</h3><div class="session-head">${chip(info.type)}<b>${label}</b></div><div class="note">筋トレなし。</div></div>`;
     }
     const meal = MEALS[info.dow];
-    const lunch = info.type === "office" ? "コンビニのセット（①定番 ②麺 ③時間がない）" : (meal[1] || BASE_LUNCH);
+    const office = info.type === "office";
+    const lunch = office ? "コンビニのセット（①定番 ②麺 ③時間がない）" : (meal[1] || BASE_LUNCH);
 
     viewToday.innerHTML = `
       <div style="display:grid;gap:16px">
-        <div class="daynav">
-          <button class="navbtn" id="prev-day" aria-label="前の日">‹</button>
-          <span class="date">${md(d)}（${DOW[info.dow]}）</span>
-          <button class="navbtn" id="next-day" aria-label="次の日">›</button>
-          <span class="wk">${wn}${info.w < 8 ? " · " + ph.label : ""}</span>
-          ${chip(info.type)}
-          ${key(d) !== key(clamp(today)) ? `<button class="navbtn today" id="go-today">今日へ</button>` : ""}
-        </div>
+        ${dayNav(d, info)}
+        ${events.length ? `<div class="panel"><h3>今日の予定</h3><div class="events">${events.map(e => `<div class="ev">${e}</div>`).join("")}</div></div>` : ""}
         <div class="grid2">
-          <div class="panel">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
-              <h3>毎日のTODO</h3><span class="count">${done} / ${all.length}</span>
-            </div>
-            <div class="bar"><i style="width:${all.length ? done / all.length * 100 : 0}%"></i></div>
-            ${groups.map(([title, items]) => `<div class="todo-group"><h4>${title}</h4>${items.map(([id, t, label, sub]) => `
-              <label class="item${checks[id] ? " checked" : ""}" for="c-${id}">
-                <input type="checkbox" id="c-${id}" data-id="${id}"${checks[id] ? " checked" : ""}>
-                <span class="t">${t}</span>
-                <span class="x"><span>${label}</span>${sub ? `<small>${sub}</small>` : ""}</span>
-              </label>`).join("")}</div>`).join("")}
-          </div>
           <div style="display:grid;gap:16px;min-width:0">
-            ${events.length || (info.w < 8 && info.dow === 0) ? `<div class="panel"><h3>今日の予定</h3><div class="events">${events.map(e => `<div class="ev">${e}</div>`).join("")}${info.w < 8 && info.dow === 0 ? `<div class="ev">週次レビュー（計測・写真・Claudeに報告）</div>` : ""}</div></div>` : ""}
-            ${sessionHtml}
+            ${checklist("今日だけのこと", [["", items]], k, checks)}
             <div class="panel">
               <h3>今日の食事（1,900kcal・P170g）</h3>
               <div class="meal"><b>朝</b><span>${meal[0]}</span></div>
               <div class="meal"><b>昼</b><span>${lunch}</span></div>
               <div class="meal"><b>間食</b><span>プロテイン＋低脂肪乳＋アーモンド（または間食の型）</span></div>
-              <div class="meal"><b>夜</b><span>${meal[2]}</span></div>
-              <div class="note">04の1週間の献立例より。ご飯は昼150g・夜100g、夜のメインは入れ替え表の1.2倍。</div>
+              <div class="meal"><b>夜</b><span>${meal[2]}${office ? "＋ブロッコリー100g" : ""}</span></div>
+              <div class="note">ご飯は昼150g・夜100g、夜のメインは入れ替え表の1.2倍（04）。</div>
             </div>
-            ${info.w < 8 ? `<div class="panel"><h3>${wn}にやること</h3><div class="events">${WEEK_NOTES[info.w].map(n => `<div class="ev wknote">${n}</div>`).join("")}<div class="ev wknote">人と関わる枠：VRChat 1回＋対面 1回</div></div></div>` : ""}
+          </div>
+          <div style="display:grid;gap:16px;min-width:0">
+            ${sessionHtml}
+            ${info.w < 8 ? `<div class="panel"><h3>${wn}のうちにやること</h3><div class="events">${WEEK_NOTES[info.w].map(n => `<div class="ev wknote">${n}</div>`).join("")}<div class="ev wknote">人と関わる枠：VRChat 1回＋対面 1回</div></div></div>` : ""}
           </div>
         </div>
       </div>`;
+    wire(viewToday, k, renderToday);
+  }
 
-    viewToday.querySelectorAll("input[type=checkbox]").forEach(cb => cb.addEventListener("change", () => {
-      const c = store.get("todo:" + k, {});
-      c[cb.dataset.id] = cb.checked;
-      store.set("todo:" + k, c);
-      renderToday();
-    }));
-    const go = (n) => { current = clamp(addDays(current, n)); renderToday(); };
-    document.getElementById("prev-day").onclick = () => go(-1);
-    document.getElementById("next-day").onclick = () => go(1);
-    const gt = document.getElementById("go-today");
-    if (gt) gt.onclick = () => { current = clamp(today); renderToday(); };
+  // ---- render: 毎日のルーティン ----
+  function renderRoutine() {
+    const d = current;
+    const info = dayInfo(d);
+    const k = key(d);
+    const checks = store.get("todo:" + k, {});
+    viewRoutine.innerHTML = `
+      <div style="display:grid;gap:16px;max-width:560px">
+        ${dayNav(d, info)}
+        ${checklist("毎日のルーティン", ROUTINE, k, checks)}
+        <div class="note">毎日同じ内容。その日だけのことは「今日」タブ。</div>
+      </div>`;
+    wire(viewRoutine, k, renderRoutine);
   }
 
   // ---- render: calendar ----
@@ -476,9 +506,8 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
 
   function show(tab) {
     document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === tab)));
-    document.getElementById("view-today").hidden = tab !== "today";
-    document.getElementById("view-calendar").hidden = tab !== "calendar";
-    if (tab === "today") renderToday(); else renderCalendar();
+    ["today", "routine", "calendar"].forEach(t => { document.getElementById("view-" + t).hidden = tab !== t; });
+    if (tab === "today") renderToday(); else if (tab === "routine") renderRoutine(); else renderCalendar();
     store.set("tab", tab);
     window.scrollTo(0, 0);
   }
@@ -486,6 +515,8 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
 
   renderProgress();
   const hash = location.hash.replace("#", "");
-  show(hash === "calendar" || hash === "today" ? hash : store.get("tab", "today"));
+  const TABS = ["today", "routine", "calendar"];
+  const saved = store.get("tab", "today");
+  show(TABS.includes(hash) ? hash : TABS.includes(saved) ? saved : "today");
 })();
 </script>
