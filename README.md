@@ -1,6 +1,11 @@
 # upgrade_me：垢抜け8週間プラン
 
-**期間：2026-09-27（日）〜 2026-11-22（日）**　／　**いつ何をやるか・今日やること → [plan/calendar.html](plan/calendar.html)**（スマホ用：[公開版](https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD)）
+**期間：2026-09-27（日）〜 2026-11-22（日）**
+
+**いつ何をやるか・今日やること（スマホで開く）**
+https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
+
+元のファイル：[plan/calendar.html](plan/calendar.html)（上のURLはこのファイルを公開したもの。claude.aiにログインしていれば見られる）
 
 ## ゴール
 - **太っている状態をなくす＝脂肪を本気で減らす**。体重の数字は目標にしない。1,900kcalの赤字＋ジムの有酸素（HIIT・傾斜ウォーク）＋1日1万歩で脂肪を落とし、ジム中心の筋トレ週5回で筋肉を戻す
