@@ -10,7 +10,10 @@
 | 有酸素運動は週300分程度まで、量に応じて体重・ウエスト・体脂肪が改善 | [JAMA Network Open 2024 メタ解析（116件のRCT）](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2828487) | A |
 | 運動は細切れでも積み上げてよい（「10分以上続ける」という条件は撤廃） | [WHO Guidelines on physical activity (2020)](https://www.ncbi.nlm.nih.gov/books/NBK566046/) | A |
 | ウォーキングは5分ウォームアップ → 速歩 → 5分クールダウン | [ACSM: Starting a walking program](https://www.acsm.org/docs/default-source/files-for-resource-library/starting-a-walking-program.pdf) | A |
-| 水中運動で体組成が改善 | [PubMed 37167802（システマティックレビュー／メタ解析）](https://pubmed.ncbi.nlm.nih.gov/37167802/) | A |
+| 水中運動で体組成が改善（※水泳は2026-09-29の見直しで計画から外した） | [PubMed 37167802（システマティックレビュー／メタ解析）](https://pubmed.ncbi.nlm.nih.gov/37167802/) | A |
+| 筋肥大は1部位あたりの週のセット数が多いほど大きい（週10セット以上で最大） | [Schoenfeld, Ogborn & Krieger, J Sports Sci 2017（メタ解析）](https://doi.org/10.1080/02640414.2016.1210197) | A |
+| 同じ量なら、1部位を週2回に分けて鍛える方が週1回より筋肥大が大きい | [Schoenfeld et al., Sports Med 2016（メタ解析）](https://doi.org/10.1007/s40279-016-0543-8) | A |
+| 筋トレで増えた筋核は、トレーニングをやめて筋肉が細くなっても残る（マッスルメモリーの仕組み） | [Bruusgaard et al., PNAS 2010](https://doi.org/10.1073/pnas.0913935107) | C（動物実験） |
 
 ## 栄養・サプリ
 | 主張 | 出典 | 信頼度 |
@@ -19,7 +22,7 @@
 | 高用量の亜鉛は銅の吸収を妨げる | [NIH ODS: Zinc fact sheet](https://ods.od.nih.gov/factsheets/Zinc-HealthProfessional/) | A |
 | コラーゲンサプリ：企業からの資金提供がない研究・質の高い研究に絞ると効果が消える | [Am J Med 2025 メタ解析（23件のRCT）](https://www.sciencedirect.com/science/article/pii/S0002934325002839) | A |
 | ニキビと栄養サプリ：亜鉛は最も研究されているが結果は一貫しない | [PMC11015159 システマティックレビュー（42研究）](https://pmc.ncbi.nlm.nih.gov/articles/PMC11015159/) | A |
-| 食材ごとの栄養素（100gあたり）。固定メニューの計算に使用 | [文部科学省 日本食品標準成分表（八訂）増補2023年（Excel、2026-03-27更新）](https://www.mext.go.jp/a_menu/syokuhinseibun/mext_00001.html)／[食品成分データベース](https://fooddb.mext.go.jp/) | A（公的データ） |
+| 食材ごとの栄養素（100gあたり）。基準メニュー・入れ替え表の計算に使用 | [文部科学省 日本食品標準成分表（八訂）増補2023年（Excel、2026-03-27更新）](https://www.mext.go.jp/a_menu/syokuhinseibun/mext_00001.html)／[食品成分データベース](https://fooddb.mext.go.jp/) | A（公的データ） |
 | 18–29歳男性：たんぱく質 推奨65g・13–20%E／炭水化物50–65%E／食物繊維20g以上／n-3系2.2g／ビタミンD 9.0μg（上限100）／カリウム目標3,000mg以上／カルシウム800mg／マグネシウム340mg／鉄7.0mg／亜鉛9.0mg（上限40）／ビタミンB1 1.1mg／葉酸240μg／ビタミンC 100mg | [厚生労働省 日本人の食事摂取基準（2025年版）](https://www.mhlw.go.jp/web/t_doc?dataId=78ab4652&dataType=0&pageNo=2) | A |
 | タンパク質は1回0.4g/kgを1日4回以上に分けると筋肉の合成に効率がよい | [Schoenfeld & Aragon, JISSN 2018](https://jissn.biomedcentral.com/articles/10.1186/s12970-018-0215-1) | C（総説） |
 | あすけんの栄養計算は日本食品標準成分表2020年版（八訂）に準拠 | [あすけん公式FAQ](https://www.asken.jp/info/5148) | C（提供元の説明） |

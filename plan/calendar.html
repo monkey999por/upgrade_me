@@ -1,0 +1,489 @@
+<meta charset="utf-8">
+<title>upgrade_me 8週間カレンダー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+/* Layout: one column, two tabs (今日 / カレンダー). Training days are color-coded like Olympic bumper plates. */
+:root {
+  --bg: #f3f4f1;
+  --surface: #ffffff;
+  --fg: #1c2025;
+  --muted: #5b636d;
+  --line: #d8dbd6;
+  --soft: #e9ebe7;
+  --ink: #1c2025;
+  --on-ink: #f3f4f1;
+  --u: #c4362c;      /* 25kg red */
+  --l: #2356a3;      /* 20kg blue */
+  --push: #c99a00;   /* 15kg yellow */
+  --pull: #2d7a47;   /* 10kg green */
+  --legs: #474d55;   /* black plate */
+  --office: #7a6a58;
+  --rest: #8a9199;
+  --event: #8b3a8f;
+  --done: #2d7a47;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Noto Sans JP", sans-serif;
+  --font-body: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171a; --surface: #1d2125; --fg: #e7e9e5; --muted: #9aa2ab; --line: #2f353b; --soft: #262b30;
+    --ink: #e7e9e5; --on-ink: #14171a;
+    --u: #f0685d; --l: #6d9ce8; --push: #f0c53d; --pull: #5fbf7f; --legs: #aab1ba;
+    --office: #c2ad94; --rest: #8f979f; --event: #d58ad9; --done: #5fbf7f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171a; --surface: #1d2125; --fg: #e7e9e5; --muted: #9aa2ab; --line: #2f353b; --soft: #262b30;
+  --ink: #e7e9e5; --on-ink: #14171a;
+  --u: #f0685d; --l: #6d9ce8; --push: #f0c53d; --pull: #5fbf7f; --legs: #aab1ba;
+  --office: #c2ad94; --rest: #8f979f; --event: #d58ad9; --done: #5fbf7f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.6; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 20px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--l); outline-offset: 2px; }
+
+/* header */
+.top { display: grid; gap: 12px; }
+.brand { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.brand h1 { font-family: var(--font-display); font-weight: 700; font-size: 30px; letter-spacing: .01em; line-height: 1.1; }
+.brand .span { color: var(--muted); font-family: var(--font-display); font-size: 17px; font-variant-numeric: tabular-nums; }
+.progress { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 16px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar { flex: 1; height: 6px; border-radius: 3px; background: var(--soft); overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--ink); }
+.tabs { display: flex; gap: 4px; background: var(--soft); padding: 4px; border-radius: 12px; width: fit-content; }
+.tabs button { border: 0; background: transparent; padding: 7px 18px; border-radius: 9px; cursor: pointer; font-weight: 500; }
+.tabs button[aria-selected="true"] { background: var(--surface); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+
+/* chips */
+.chip { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-display); font-weight: 600; font-size: 14px; letter-spacing: .03em; padding: 1px 8px; border-radius: 999px; color: #fff; line-height: 1.5; white-space: nowrap; }
+.chip.U { background: var(--u); } .chip.L { background: var(--l); } .chip.Push { background: var(--push); color: #1c2025; }
+.chip.Pull { background: var(--pull); } .chip.Legs { background: var(--legs); }
+:root[data-theme="dark"] .chip.Legs, :root[data-theme="dark"] .chip.U, :root[data-theme="dark"] .chip.L, :root[data-theme="dark"] .chip.Pull { color: #14171a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chip.U, :root:not([data-theme="light"]) .chip.L, :root:not([data-theme="light"]) .chip.Pull, :root:not([data-theme="light"]) .chip.Legs { color: #14171a; } }
+.chip.office { background: transparent; color: var(--office); border: 1.5px solid var(--office); }
+.chip.rest { background: transparent; color: var(--rest); border: 1.5px dashed var(--rest); }
+.chip.hiit { background: transparent; color: var(--fg); border: 1.5px solid var(--line); font-size: 12px; padding: 0 6px; }
+
+/* today */
+.daynav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.daynav .date { font-family: var(--font-display); font-weight: 700; font-size: 26px; font-variant-numeric: tabular-nums; }
+.daynav .wk { color: var(--muted); font-family: var(--font-display); font-size: 17px; }
+.navbtn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 2px 12px; cursor: pointer; }
+.navbtn.today { font-size: 13px; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 760px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 10px; min-width: 0; }
+.panel h3 { font-size: 13px; letter-spacing: .08em; color: var(--muted); font-weight: 700; }
+.events { display: grid; gap: 6px; }
+.ev { display: flex; gap: 8px; align-items: baseline; }
+.ev::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--event); flex: none; transform: translateY(-1px); }
+.ev.wknote::before { background: transparent; border: 1.5px solid var(--event); }
+.todo-group { display: grid; gap: 2px; }
+.todo-group + .todo-group { margin-top: 6px; }
+.todo-group h4 { margin: 0 0 2px; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .06em; }
+.item { display: grid; grid-template-columns: 22px 44px minmax(0, 1fr); gap: 8px; align-items: start; padding: 6px 4px; border-radius: 6px; cursor: pointer; }
+.item:hover { background: var(--soft); }
+.item input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--done); cursor: pointer; }
+.item .t { font-family: var(--font-display); font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 1px; }
+.item .x { min-width: 0; }
+.item .x small { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+.item.checked .x > span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+.count { font-family: var(--font-display); font-weight: 600; font-size: 20px; font-variant-numeric: tabular-nums; }
+.session-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.session-head b { font-size: 17px; }
+.phase { font-size: 13px; color: var(--muted); }
+table.ex { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.ex td { padding: 5px 0; border-top: 1px solid var(--soft); vertical-align: top; }
+table.ex td:last-child { text-align: right; font-family: var(--font-display); font-size: 15px; white-space: nowrap; padding-left: 10px; font-variant-numeric: tabular-nums; }
+.meal { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 6px; font-size: 14px; }
+.meal b { color: var(--muted); font-weight: 500; }
+.note { font-size: 12.5px; color: var(--muted); }
+
+/* calendar */
+.legend { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--muted); }
+.week { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 10px; min-width: 0; }
+.week.current { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.whead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.whead .wn { font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 1; }
+.whead .wd { font-family: var(--font-display); color: var(--muted); font-size: 16px; font-variant-numeric: tabular-nums; }
+.whead .ph { font-size: 13px; padding: 1px 8px; border-radius: 6px; background: var(--soft); }
+.office-pick { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
+.office-pick button { width: 28px; height: 26px; border-radius: 6px; border: 1px solid var(--line); background: transparent; cursor: pointer; font-size: 12.5px; }
+.office-pick button[aria-pressed="true"] { background: var(--office); border-color: var(--office); color: var(--on-ink); }
+.days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.day { border: 1px solid var(--soft); border-radius: 8px; padding: 6px 5px; min-height: 92px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; background: transparent; text-align: left; min-width: 0; }
+.day:hover { border-color: var(--line); background: var(--soft); }
+.day.is-today { border-color: var(--ink); border-width: 2px; padding: 5px 4px; }
+.day .d { font-family: var(--font-display); font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; display: flex; justify-content: space-between; gap: 2px; }
+.day .d .dow { color: var(--muted); font-weight: 500; }
+.day.sun .d .dow { color: var(--u); }
+.day .evs { display: grid; gap: 2px; font-size: 11.5px; line-height: 1.35; color: var(--event); overflow-wrap: anywhere; }
+.day .chip { font-size: 13px; padding: 0 6px; width: fit-content; }
+.wnotes { display: grid; gap: 3px; font-size: 13px; }
+.wnotes .ev { gap: 6px; }
+.judge { background: var(--ink); color: var(--on-ink); border-radius: var(--r); padding: 14px 16px; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.judge b { font-family: var(--font-display); font-size: 24px; }
+@media (max-width: 560px) {
+  .day { min-height: 76px; padding: 4px 3px; }
+  .day .chip { font-size: 12px; padding: 0 4px; }
+  .day .evs { font-size: 10.5px; }
+  .day .chip.hiit { font-size: 10px; padding: 0 3px; }
+  .day .d .dow { display: none; }
+  .day .d { font-size: 14px; }
+}
+@media (prefers-reduced-motion: no-preference) { .bar > i { transition: width .3s; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>upgrade_me 8週間</h1>
+      <span class="span">2026.09.27 – 11.22</span>
+    </div>
+    <div class="progress"><span id="prog-label"></span><div class="bar"><i id="prog-bar"></i></div></div>
+    <nav class="tabs" role="tablist">
+      <button id="tab-today" role="tab" aria-selected="true" data-tab="today">今日のTODO</button>
+      <button id="tab-calendar" role="tab" aria-selected="false" data-tab="calendar">カレンダー</button>
+    </nav>
+  </header>
+
+  <section id="view-today" role="tabpanel" aria-labelledby="tab-today"></section>
+  <section id="view-calendar" role="tabpanel" aria-labelledby="tab-calendar" hidden></section>
+</div>
+
+<script>
+(() => {
+  const START = new Date(2026, 8, 27);           // 9/27 (Sun)
+  const END = new Date(2026, 10, 22);            // 11/22 (Sun) 最終判定
+  const DOW = ["日", "月", "火", "水", "木", "金", "土"];
+  const DEFAULT_OFFICE = [2, 4];                 // 火・木
+
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("um:" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem("um:" + k, JSON.stringify(v)); } catch (e) {} }
+  };
+
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const key = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const md = d => `${d.getMonth() + 1}/${d.getDate()}`;
+  const dayIndex = d => Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - START) / 86400000);
+  const weekOf = d => Math.floor(dayIndex(d) / 7);  // 0 = W1, 8 = 判定日
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const clamp = d => d < START ? START : d > END ? END : d;
+
+  // ---- 03_training.md ----
+  const SESSIONS = {
+    U: { name: "上半身（重め）", ex: [["ベンチプレス", "4×6–8"], ["ベントオーバーロー", "4×6–8"], ["インクラインダンベルプレス", "3×8–10"], ["ラットプルダウン", "3×8–10"], ["サイドレイズ", "3×12–15"], ["EZバーカール＋ケーブルプレスダウン", "各2×10–12"]] },
+    L: { name: "下半身（重め）", ex: [["スクワット", "4×5–8"], ["ルーマニアンデッドリフト", "3×8–10"], ["レッグプレス", "3×10–12"], ["ライイングレッグカール", "3×10–12"], ["カーフレイズ", "4×10–15"], ["ハンギングレッグレイズ", "3×10–15"]] },
+    Push: { name: "押す日", ex: [["インクラインベンチプレス", "4×6–10"], ["ダンベルショルダープレス", "3×8–10"], ["ディップス or チェストプレス", "3×8–12"], ["ケーブルフライ", "3×12–15"], ["サイドレイズ", "4×12–20"], ["オーバーヘッドトライセプス", "3×10–12"]] },
+    Pull: { name: "引く日", ex: [["懸垂 or ラットプルダウン（重め）", "4×6–10"], ["シーテッドロー", "3×8–12"], ["ワンハンドダンベルロー", "3×10–12"], ["フェイスプル", "3×15"], ["リアレイズ", "3×15–20"], ["インクラインカール＋ハンマーカール", "3×10–12＋2×12"]] },
+    Legs: { name: "脚", ex: [["ハックスクワット or スミススクワット", "4×8–10"], ["ブルガリアンスクワット", "3×8–10/脚"], ["ヒップスラスト", "3×8–12"], ["レッグエクステンション", "3×12–15"], ["シーテッドレッグカール", "3×10–15"], ["カーフレイズ（座って）", "4×12–15"], ["ケーブルクランチ", "3×12–15"]] }
+  };
+  const PHASE = [
+    { label: "導入週", rule: "各種目2セット・あと3–4回で止める。重量探し" },
+    { label: "慣らし", rule: "表のセット数 −1・あと2–3回で止める" },
+    { label: "本番", rule: "表のセット数どおり・あと1–2回" },
+    { label: "本番", rule: "表のセット数どおり・あと1–2回" },
+    { label: "本番", rule: "表のセット数どおり・あと1–2回" },
+    { label: "デロード", rule: "重量そのまま・セット数を半分・HIITなし" },
+    { label: "追い込み", rule: "最終セットは限界まで（BIG3は1回残す）" },
+    { label: "追い込み", rule: "最終セットは限界まで（BIG3は1回残す）" }
+  ];
+
+  // ---- 01_calendar.md / 00 / 10 ----
+  const DATED = {
+    "2026-09-27": ["Day1：計測・写真4枚・動画"],
+    "2026-10-04": ["初回の週次レビュー"],
+    "2026-10-10": ["トーストマスターズ見学① 10:00"],
+    "2026-10-11": ["#4 調整期間の判定（カロリー確定）"],
+    "2026-10-24": ["トーストマスターズ見学② 10:00"],
+    "2026-10-25": ["中間判定（ウエスト−2cm・体脂肪18%）"],
+    "2026-11-08": ["ダーマペン最後の施術の期限", "手法の見直し（08）"],
+    "2026-11-14": ["トーストマスターズ見学③ 10:00"],
+    "2026-11-22": ["最終判定：計測・Before/After・次の8週間を計画"]
+  };
+  const WEEK_NOTES = [
+    ["皮膚科2院のカウンセリング（在宅日）→ ダーマペン1回目（9/30–10/8）", "一般歯科で虫歯チェック・クリーニング", "矯正歯科2–3院の相談を予約", "眉を整える（W2まで）", "トーストマスターズに見学のメール・VRChat初回"],
+    ["矯正の初診相談（2–3院）→ 精密検査を予約", "ダーマペン1回目（まだなら）"],
+    ["矯正の精密検査", "黒ずみ型：肌2回目（10/13–10/22）"],
+    ["矯正の治療計画の説明 → 1週間考える", "施術後の経過を写真で記録"],
+    ["矯正の契約 → 前処置", "黒ずみ型：肌3回目（10/27–11/6）"],
+    ["開き型：肌2回目（10/28–11/6）", "ワイヤーなら装置の装着"],
+    ["施術なし（赤み・内出血を引かせる）"],
+    ["マウスピースの装着開始（12月にずれ込んでもOK）", "最後に食事を削らない"]
+  ];
+
+  // ---- 04_nutrition.md 1週間の献立例（曜日で引く） ----
+  const MEALS = [
+    ["A 和の定番", "鶏むねの塩麹焼き・ご飯200g・ブロッコリー・トマト", "牛もも赤身ステーキ・玄米ご飯・ほうれん草・豆腐としめじ"],
+    ["B オートミール", "鶏もも（皮なし）の照り焼き・ご飯200g・蒸し野菜", "生鮭のホイル焼き・ご飯200g・小松菜・冷奴"],
+    ["A 和の定番", null, "豚ヒレのピカタ・ご飯200g・キャベツ・わかめのみそ汁"],
+    ["C パン", "ささみの梅しそ焼き・ざるそば・オクラと納豆", "さばの塩焼き100g・ご飯200g・豆腐とまいたけ（油・アーモンドなし）"],
+    ["D 鮭おにぎり", null, "えび・いかのトマトパスタ（パプリカ・ブロッコリー）"],
+    ["A 和の定番", "豚ももの生姜焼き・ご飯200g・ピーマンともやし", "まぐろ赤身の漬け丼・ほうれん草・豆腐とわかめのみそ汁"],
+    ["B オートミール", "たらの鍋焼きうどん（白菜・にんじん・しいたけ）", "寿司8–10貫 or 鶏むね"]
+  ];
+  const BASE_LUNCH = "鶏むね150g・ご飯200g・ブロッコリー・トマト（基準メニュー）";
+  const MEAT_NIGHT = [0, 2]; // 日・火はビタミンD
+
+  // ---- 出社日と筋トレの割り当て ----
+  const officeDays = store.get("office", {});
+  const getOffice = w => officeDays[w] || DEFAULT_OFFICE;
+
+  function planWeek(w) {
+    const office = getOffice(w);
+    const free = [0, 1, 2, 3, 4, 5, 6].filter(d => !office.includes(d));
+    const seqs = { 7: ["U", "L", "Push", "rest", "Pull", "Legs", "rest"], 6: ["U", "L", "Push", "rest", "Pull", "Legs"], 5: ["U", "L", "Push", "Pull", "Legs"], 4: ["U", "L", "U", "L"] };
+    const seq = seqs[free.length] || ["U", "L", "U"].slice(0, free.length);
+    const out = Array(7).fill(null).map((_, d) => ({ type: office.includes(d) ? "office" : "rest", hiit: false }));
+    free.forEach((d, i) => { out[d].type = seq[i] || "rest"; });
+    // HIIT: W1–2 は Push（なければ最初のU）、W3以降は U と Push、W6 はなし
+    if (w !== 5) {
+      const hasPush = out.some(o => o.type === "Push");
+      out.forEach((o, i) => {
+        if (w <= 1) { if (o.type === "Push") o.hiit = true; }
+        else if (o.type === "Push" || (o.type === "U" && out.findIndex(x => x.type === "U") === i)) o.hiit = true;
+      });
+      if (w <= 1 && !hasPush) { const u = out.find(o => o.type === "U"); if (u) u.hiit = true; }
+    }
+    return out;
+  }
+
+  function dayInfo(d) {
+    const w = weekOf(d), dow = d.getDay();
+    if (w >= 8) return { w, dow, type: "judge", hiit: false };
+    const p = planWeek(w)[dow];
+    return { w, dow, type: p.type, hiit: p.hiit };
+  }
+
+  const chip = (type, small) => {
+    if (type === "office") return `<span class="chip office">出社</span>`;
+    if (type === "rest") return `<span class="chip rest">休養</span>`;
+    if (type === "judge") return `<span class="chip office">判定</span>`;
+    return `<span class="chip ${type}">${type}</span>`;
+  };
+
+  // ---- 今日のTODO（02_daily-routine.md） ----
+  function buildTodo(d) {
+    const info = dayInfo(d);
+    const { dow, type } = info;
+    const gym = SESSIONS[type];
+    const office = type === "office";
+    const groups = [];
+    const meal = MEALS[dow];
+    groups.push(["朝", [
+      ["m-weigh", "7:00", "体重・体脂肪を測る", "起床 → トイレ → 服を着ていない状態で"],
+      ["m-mirror", "7:05", "鏡で正面と横顔を10秒見る", "気になる点を1つだけ言葉にする"],
+      ["m-skin", "7:10", "洗顔 → 保湿 → 日焼け止め", "SPF30以上"],
+      ["m-food", "7:15", `朝食：${meal[0]}`, MEAT_NIGHT.includes(dow) ? "＋ビタミンD（今夜は肉の日）" : "サプリなし（魚の日）"],
+      ["m-sleep", "7:30", "前夜の睡眠時間を確認", "6時間未満が週3日で08の#2"]
+    ]]);
+    const mid = [];
+    if (dow === 0 && info.w < 8) {
+      mid.push(["s-measure", "朝", "ウエスト・首回りを測る", "起床後すぐ、息を吐き切って"]);
+      mid.push(["s-photo", "8:00", "写真4枚（正面・横・背面・横顔）→ Instagram", "むくみが引いてから"]);
+      mid.push(["s-report", "午前", "Claudeに週次の報告", "weekly_review の「送るもの」＋来週の出社日をこのページで設定"]);
+    }
+    if (office) {
+      mid.push(["o-train", "行き", "話し方トレーニング（07）", "前半インプット、後半は今日のネタを起承転結でメモ"]);
+      mid.push(["o-lunch", "昼", "コンビニのセット＋昼休みに10分歩く", "P20g以上の商品1つ＋主食1つ＋野菜1つ"]);
+      mid.push(["o-talk", "日中", "自分から話しかける（雑談・相談・お礼）1回", ""]);
+      mid.push(["o-back", "帰り", "会話の振り返り＋Homework for Life 1行", ""]);
+      mid.push(["o-steps", "夜", "歩数1万歩（8,000未満なら家のトレッドミル）", "筋トレはしない日"]);
+    } else {
+      const weekday = dow >= 1 && dow <= 5;
+      if (weekday) {
+        mid.push(["h-walk", "日中", "50分作業 → トレッドミル10–15分 × 4回", "5–6km/h、合計40–60分"]);
+        mid.push(["h-voice", "日中", "家の発声メニュー5分（09）", ""]);
+        mid.push(["h-talk", "日中", "自分から話しかける（雑談・相談・お礼）1回", ""]);
+      } else {
+        mid.push(["w-walk", "日中", "歩行を合計60分（8,000歩以上）", ""]);
+      }
+      mid.push(["h-lunch", "12:00", "昼食", meal[1] || BASE_LUNCH]);
+      mid.push(["h-snack", "15:30", "間食（間食の型から1つ）", gym ? "筋トレ直後に回してもよい" : "プロテイン＋低脂肪乳＋アーモンドなど"]);
+      if (gym) {
+        mid.push(["g-gym", weekday ? "18:30" : "午前", `ジム：${type}（${gym.name}）${info.hiit && info.w !== 5 ? "＋バイクHIIT" : ""}`, PHASE[info.w] ? PHASE[info.w].rule : ""]);
+        mid.push(["g-car", "移動中", "車で顔・首＋発声のルーティン15分（05→09）", ""]);
+      } else if (type === "rest") {
+        mid.push(["r-car", "どこかで", "顔・首＋発声のルーティン15分（05→09）", "休養日。筋トレなし"]);
+      }
+    }
+    if (dow === 0 || dow === 3) mid.push(["prep", dow === 0 ? "午後" : "夜", "作り置き60分", dow === 0 ? "今週の献立を04の表から決めて買い出し → メインを切り分けて下味" : "後半分の買い出しと作り置き"]);
+    mid.push(["dinner", "20:30", "夕食", meal[2] + (office ? "＋ブロッコリー100g（コンビニの日の追加分）" : "")]);
+    if (dow === 0 && info.w < 8) mid.push(["s-voice", "夜", "1分原稿の録音＋2分トークの自撮り → 見返す（09）", ""]);
+    groups.push([office ? "出社日" : gym ? "在宅・筋トレ" : "日中", mid]);
+    groups.push(["夜", [
+      ["n-prep", "23:30", "翌日の準備（ジムバッグ・弁当）", "あすけんの入れ忘れ確認・タンパク質150g以上か"],
+      ["n-skin", "0:00", "コンタクトを外す → 洗顔 → 保湿", "〜11/22はレチノールを使わない"],
+      ["n-posture", "0:10", "姿勢ケア5分＋セルフマッサージ3分＋目元1分", "日中に済ませていればスキップ"],
+      ["n-phone", "0:30", "スマホを置く・照明を落とす", ""],
+      ["n-sleep", "1:00", "就寝", ""]
+    ]]);
+    return { info, groups };
+  }
+
+  // ---- render: today ----
+  let current = clamp(today);
+  const viewToday = document.getElementById("view-today");
+
+  function renderToday() {
+    const d = current;
+    const { info, groups } = buildTodo(d);
+    const k = key(d);
+    const checks = store.get("todo:" + k, {});
+    const all = groups.flatMap(g => g[1]);
+    const done = all.filter(i => checks[i[0]]).length;
+    const events = (DATED[k] || []);
+    const wn = info.w < 8 ? `W${info.w + 1}` : "判定日";
+    const gym = SESSIONS[info.type];
+    const ph = PHASE[info.w];
+
+    let sessionHtml = "";
+    if (gym) {
+      sessionHtml = `<div class="panel">
+        <h3>今日のジム</h3>
+        <div class="session-head">${chip(info.type)}<b>${gym.name}</b>${info.hiit ? `<span class="chip hiit">＋HIIT</span>` : ""}</div>
+        <div class="phase">${wn} ${ph.label}：${ph.rule}</div>
+        <table class="ex"><tbody>${gym.ex.map(e => `<tr><td>${e[0]}</td><td>${e[1]}</td></tr>`).join("")}</tbody></table>
+        ${info.hiit ? `<div class="note">最後にバイクHIIT：20秒きつく＋100秒軽く × ${info.w <= 1 ? 6 : "6–8"}本</div>` : ""}
+        <div class="note">上限回数を全セットでできたら次回+2.5kg。重量×回数を記録。</div>
+      </div>`;
+    } else {
+      const label = info.type === "office" ? "出社日＝休養日" : info.type === "judge" ? "最終判定の日" : "休養日";
+      sessionHtml = `<div class="panel"><h3>今日のジム</h3><div class="session-head">${chip(info.type)}<b>${label}</b></div><div class="note">筋トレなし。歩数8,000歩以上だけ守る。</div></div>`;
+    }
+    const meal = MEALS[info.dow];
+    const lunch = info.type === "office" ? "コンビニのセット（①定番 ②麺 ③時間がない）" : (meal[1] || BASE_LUNCH);
+
+    viewToday.innerHTML = `
+      <div style="display:grid;gap:16px">
+        <div class="daynav">
+          <button class="navbtn" id="prev-day" aria-label="前の日">‹</button>
+          <span class="date">${md(d)}（${DOW[info.dow]}）</span>
+          <button class="navbtn" id="next-day" aria-label="次の日">›</button>
+          <span class="wk">${wn}${info.w < 8 ? " · " + ph.label : ""}</span>
+          ${chip(info.type)}
+          ${key(d) !== key(clamp(today)) ? `<button class="navbtn today" id="go-today">今日へ</button>` : ""}
+        </div>
+        <div class="grid2">
+          <div class="panel">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
+              <h3>毎日のTODO</h3><span class="count">${done} / ${all.length}</span>
+            </div>
+            <div class="bar"><i style="width:${all.length ? done / all.length * 100 : 0}%"></i></div>
+            ${groups.map(([title, items]) => `<div class="todo-group"><h4>${title}</h4>${items.map(([id, t, label, sub]) => `
+              <label class="item${checks[id] ? " checked" : ""}" for="c-${id}">
+                <input type="checkbox" id="c-${id}" data-id="${id}"${checks[id] ? " checked" : ""}>
+                <span class="t">${t}</span>
+                <span class="x"><span>${label}</span>${sub ? `<small>${sub}</small>` : ""}</span>
+              </label>`).join("")}</div>`).join("")}
+          </div>
+          <div style="display:grid;gap:16px;min-width:0">
+            ${events.length || (info.w < 8 && info.dow === 0) ? `<div class="panel"><h3>今日の予定</h3><div class="events">${events.map(e => `<div class="ev">${e}</div>`).join("")}${info.w < 8 && info.dow === 0 ? `<div class="ev">週次レビュー（計測・写真・Claudeに報告）</div>` : ""}</div></div>` : ""}
+            ${sessionHtml}
+            <div class="panel">
+              <h3>今日の食事（2,100kcal・P160g）</h3>
+              <div class="meal"><b>朝</b><span>${meal[0]}</span></div>
+              <div class="meal"><b>昼</b><span>${lunch}</span></div>
+              <div class="meal"><b>間食</b><span>プロテイン＋低脂肪乳＋アーモンド（または間食の型）</span></div>
+              <div class="meal"><b>夜</b><span>${meal[2]}</span></div>
+              <div class="note">04の1週間の献立例より。入れ替え表の同じ枠ならどれに替えてもよい。</div>
+            </div>
+            ${info.w < 8 ? `<div class="panel"><h3>${wn}にやること</h3><div class="events">${WEEK_NOTES[info.w].map(n => `<div class="ev wknote">${n}</div>`).join("")}<div class="ev wknote">人と関わる枠：VRChat 1回＋対面 1回</div></div></div>` : ""}
+          </div>
+        </div>
+      </div>`;
+
+    viewToday.querySelectorAll("input[type=checkbox]").forEach(cb => cb.addEventListener("change", () => {
+      const c = store.get("todo:" + k, {});
+      c[cb.dataset.id] = cb.checked;
+      store.set("todo:" + k, c);
+      renderToday();
+    }));
+    const go = (n) => { current = clamp(addDays(current, n)); renderToday(); };
+    document.getElementById("prev-day").onclick = () => go(-1);
+    document.getElementById("next-day").onclick = () => go(1);
+    const gt = document.getElementById("go-today");
+    if (gt) gt.onclick = () => { current = clamp(today); renderToday(); };
+  }
+
+  // ---- render: calendar ----
+  const viewCal = document.getElementById("view-calendar");
+  function renderCalendar() {
+    const todayKey = key(today);
+    const curW = weekOf(today);
+    let html = `<div style="display:grid;gap:14px">
+      <div class="legend">${["U", "L", "Push", "Pull", "Legs"].map(t => chip(t)).join("")}${chip("office")}${chip("rest")}<span>曜日ボタンで出社日を選ぶと、残りの日に U→L→Push→Pull→Legs が入る</span></div>`;
+    for (let w = 0; w < 8; w++) {
+      const plan = planWeek(w);
+      const s = addDays(START, w * 7);
+      const office = getOffice(w);
+      html += `<article class="week${w === curW ? " current" : ""}">
+        <div class="whead"><span class="wn">W${w + 1}</span><span class="wd">${md(s)} – ${md(addDays(s, 6))}</span><span class="ph">${PHASE[w].label}</span>
+          <span class="office-pick" style="margin-left:auto">出社日
+            ${DOW.map((n, i) => `<button type="button" id="o-${w}-${i}" data-w="${w}" data-d="${i}" aria-pressed="${office.includes(i)}" aria-label="W${w + 1} ${n}曜を出社日にする">${n}</button>`).join("")}
+          </span></div>
+        <div class="days">${plan.map((p, i) => {
+          const d = addDays(s, i), k = key(d);
+          const evs = (DATED[k] || []).concat(i === 0 && !(DATED[k] || []).length ? ["週次レビュー"] : []);
+          return `<button type="button" class="day${k === todayKey ? " is-today" : ""}${i === 0 ? " sun" : ""}" data-date="${k}">
+            <span class="d"><span>${md(d)}</span><span class="dow">${DOW[i]}</span></span>
+            ${chip(p.type)}${p.hiit ? `<span class="chip hiit">HIIT</span>` : ""}
+            ${evs.length ? `<span class="evs">${evs.join("<br>")}</span>` : ""}
+          </button>`;
+        }).join("")}</div>
+        <div class="wnotes">${WEEK_NOTES[w].map(n => `<div class="ev wknote">${n}</div>`).join("")}</div>
+      </article>`;
+    }
+    html += `<div class="judge"><b>11/22（日）最終判定</b><span>ウエスト・体脂肪率・ベンチを計測、Before/After写真と動画、次の8週間の計画</span></div></div>`;
+    viewCal.innerHTML = html;
+
+    viewCal.querySelectorAll(".office-pick button").forEach(b => b.addEventListener("click", () => {
+      const w = +b.dataset.w, d = +b.dataset.d;
+      const list = getOffice(w).slice();
+      const i = list.indexOf(d);
+      if (i >= 0) list.splice(i, 1); else list.push(d);
+      officeDays[w] = list.sort();
+      store.set("office", officeDays);
+      renderCalendar();
+      renderProgress();
+    }));
+    viewCal.querySelectorAll(".day").forEach(b => b.addEventListener("click", () => {
+      const [y, m, dd] = b.dataset.date.split("-").map(Number);
+      current = new Date(y, m - 1, dd);
+      show("today");
+    }));
+  }
+
+  function renderProgress() {
+    const total = dayIndex(END) + 1;
+    const n = Math.min(Math.max(dayIndex(today) + 1, 0), total);
+    const w = weekOf(clamp(today));
+    document.getElementById("prog-label").textContent = n <= 0 ? "開始前" : `${w < 8 ? "W" + (w + 1) : "判定"} · Day ${n} / ${total}`;
+    document.getElementById("prog-bar").style.width = (n / total * 100) + "%";
+  }
+
+  function show(tab) {
+    document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === tab)));
+    document.getElementById("view-today").hidden = tab !== "today";
+    document.getElementById("view-calendar").hidden = tab !== "calendar";
+    if (tab === "today") renderToday(); else renderCalendar();
+    store.set("tab", tab);
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+
+  renderProgress();
+  const hash = location.hash.replace("#", "");
+  show(hash === "calendar" || hash === "today" ? hash : store.get("tab", "today"));
+})();
+</script>
