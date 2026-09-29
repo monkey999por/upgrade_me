@@ -1,6 +1,6 @@
 # upgrade_me：垢抜け8週間プラン
 
-**期間：2026-09-27（日）〜 2026-11-22（日）**　／　**いつ何をやるか・今日のTODO → [plan/calendar.html](plan/calendar.html)**
+**期間：2026-09-27（日）〜 2026-11-22（日）**　／　**いつ何をやるか・今日のTODO → [plan/calendar.html](plan/calendar.html)**（スマホ用：[公開版](https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD)）
 
 ## ゴール
 - **太っている状態をなくす＝脂肪を減らす**。体重の数字は目標にしない。ジム中心の筋トレ週5回で筋肉を戻して増やしながら、ゆるいカロリーの赤字で脂肪を落とす
