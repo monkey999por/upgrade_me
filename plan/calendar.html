@@ -216,15 +216,15 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   const slug = h => h.toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, "").replace(/\s/g, "-");
   const L = (file, heading) => REPO + file + (heading ? "#" + slug(heading) : "");
   const F = {
-    kpi: "plan/00_goals-kpi.md", rules: "plan/01_week-rules.md", routine: "plan/02_daily-routine.md",
+    kpi: "plan/00_goals-kpi.md",
     train: "plan/03_training.md", food: "plan/04_nutrition.md", face: "plan/05_face-neck-posture.md",
     skin: "plan/06_skin-teeth.md", speak: "plan/07_inner-speaking.md", recover: "plan/08_recovery-rules.md",
     voice: "plan/09_voice-articulation.md", social: "plan/10_social-reps.md", review: "tracking/weekly_review.md"
   };
   const LINK = {
-    morning: L(F.routine, "朝のルーティン"), daytime: L(F.routine, "日中のルーティン"), night: L(F.routine, "夜のルーティン"),
-    home: L(F.routine, "在宅日にやること"), office: L(F.routine, "出社日にやること"), sunday: L(F.routine, "日曜にやること"),
-    minimum: L(F.routine, "最低限の日"),
+    walking: L(F.train, "ウォーキング（毎日1万歩が目標）"), skinDaily: L(F.skin, "今日から毎日（自宅ケア）"),
+    posture: L(F.face, "毎日の姿勢ケア（5分、在宅日のトレッドミルの前後や入浴後）"), insta: L(F.face, "Instagramの運用"),
+    workTalk: L(F.social, "仕事の中で毎日（出社日もテレワークの日も）"),
     U: L(F.train, "U：上半身（重め）"), L: L(F.train, "L：下半身（重め）"), Push: L(F.train, "Push：押す日"),
     Pull: L(F.train, "Pull：引く日"), Legs: L(F.train, "Legs：脚"),
     phase: L(F.train, "強さ：段階ごとにRIR（あと何回できるか）で決める"), cardio: L(F.train, "ジムの有酸素（HIIT＋傾斜ウォーク）"),
@@ -239,7 +239,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     amenbo: L(F.voice, "あめんぼの歌（北原白秋「五十音」1922年）"), meeting: L(F.voice, "プレゼン・会議での話し方のルール（実際の場面で意識するのは3つだけ）"),
     tm: L(F.social, "枠B：対面"), vrc: L(F.social, "枠A：VRChat"),
     send: L(F.review, "Claudeに送るもの（コピーして埋める）"), targets: L(F.kpi, "週ごとの目標ライン"),
-    recover: L(F.recover), rules: L(F.rules), kpi: L(F.kpi)
+    recover: L(F.recover), kpi: L(F.kpi)
   };
 
   const START = new Date(2026, 8, 27);           // 9/27 (Sun)
@@ -310,24 +310,24 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   // 毎日のルーティン（中身は 02）
   const ROUTINE = [
     ["朝", [
-      ["m-weigh", "7:00", "体重・体脂肪を測る", LINK.morning],
-      ["m-mirror", "7:05", "鏡で正面と横顔を見る", LINK.morning],
-      ["m-skin", "7:10", "洗顔 → 保湿 → 日焼け止め", LINK.morning],
-      ["m-food", "7:15", "朝食", LINK.morning],
-      ["m-sleep", "7:30", "睡眠時間を確認", LINK.morning]
+      ["m-weigh", "7:00", "体重・体脂肪を測る", ""],
+      ["m-mirror", "7:05", "鏡で正面と横顔を見る", ""],
+      ["m-skin", "7:10", "洗顔 → 保湿 → 日焼け止め", LINK.skinDaily],
+      ["m-food", "7:15", "朝食", LINK.swap],
+      ["m-sleep", "7:30", "睡眠時間を確認", ""]
     ]],
     ["日中", [
-      ["d-steps", "", "1万歩", LINK.daytime],
+      ["d-steps", "", "1万歩", LINK.walking],
       ["d-face", "", "顔・首＋発声 15分", LINK.car],
-      ["d-talk", "", "自分から話しかける", LINK.daytime],
-      ["d-snack", "15:30", "間食", LINK.daytime]
+      ["d-talk", "", "自分から話しかける", LINK.workTalk],
+      ["d-snack", "15:30", "間食", LINK.swap]
     ]],
     ["夜", [
-      ["n-asken", "23:30", "あすけん確認・翌日の準備", LINK.night],
-      ["n-skin", "0:00", "洗顔 → 保湿", LINK.night],
-      ["n-posture", "0:10", "姿勢ケア＋マッサージ＋目元", LINK.night],
-      ["n-phone", "0:30", "スマホを置く", LINK.night],
-      ["n-sleep", "1:00", "就寝", LINK.night]
+      ["n-asken", "23:30", "あすけん確認・翌日の準備", ""],
+      ["n-skin", "0:00", "洗顔 → 保湿", LINK.skinDaily],
+      ["n-posture", "0:10", "姿勢ケア＋マッサージ＋目元", LINK.posture],
+      ["n-phone", "0:30", "スマホを置く", ""],
+      ["n-sleep", "1:00", "就寝", ""]
     ]]
   ];
   // ======================================================================
@@ -375,7 +375,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     if (MEAT_NIGHT.includes(dow)) items.push(["x-vitd", "朝", "ビタミンD（今夜は肉）", LINK.supp]);
     if (dow === 0 && w < 8) {
       items.push(["s-measure", "起床後", "ウエスト・首回りを測る", LINK.measure]);
-      items.push(["s-photo", "8:00", "写真4枚 → Instagram", LINK.sunday]);
+      items.push(["s-photo", "8:00", "写真4枚 → Instagram", LINK.insta]);
       items.push(["s-report", "午前", "Claudeに週次の報告・来週の出社日を設定", LINK.send]);
     }
     if (type === "office") {
@@ -383,7 +383,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       items.push(["o-lunch", "昼", "コンビニのセット＋10分歩く", LINK.konbini]);
       items.push(["o-back", "帰り", "振り返り＋Homework for Life", LINK.back]);
     } else if (weekday) {
-      items.push(["h-walk", "日中", "トレッドミル休憩 15分×4", LINK.home]);
+      items.push(["h-walk", "日中", "トレッドミル休憩 15分×4", LINK.walking]);
       items.push(["h-voice", "日中", "家の発声メニュー 5分", LINK.voiceHome]);
     }
     if (SESSION_NAME[type]) {
@@ -406,7 +406,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     <div class="item${checks[id] ? " checked" : ""}">
       <input type="checkbox" id="c-${id}" data-id="${id}" aria-label="${label}"${checks[id] ? " checked" : ""}>
       <span class="t">${t}</span>
-      <a class="x" href="${href}" target="_blank" rel="noopener"><span>${label}</span></a>
+      ${href ? `<a class="x" href="${href}" target="_blank" rel="noopener"><span>${label}</span></a>` : `<span class="x plain"><span>${label}</span></span>`}
     </div>`;
 
   function checklist(title, groups, checks, empty) {
@@ -418,7 +418,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       </div>
       <div class="bar"><i style="width:${all.length ? done / all.length * 100 : 0}%"></i></div>
       ${all.length ? groups.map(([g, items]) => `<div class="todo-group">${g ? `<h4>${g}</h4>` : ""}${items.map(itemHtml(checks)).join("")}</div>`).join("") : `<div class="note">${empty}</div>`}
-      <div class="note">項目名をタップすると、やり方（markdown）が開く。</div>
+      <div class="note">↗ の項目をタップすると、やり方（markdown）が開く。</div>
     </div>`;
   }
 
@@ -501,7 +501,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       <div style="display:grid;gap:16px;max-width:560px">
         ${dayNav(d, info)}
         ${checklist("毎日のルーティン", ROUTINE, checks, "")}
-        <div class="note">崩れた日は ${a(LINK.minimum, "最低限の日")} の4つだけ。</div>
+        <div class="note">崩れた日は「体重を測る・あすけんにざっくり入力・日焼け止め・1:00に寝る」の4つだけ。</div>
       </div>`;
     wire(views.routine, k, renderRoutine);
   }
@@ -521,7 +521,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
           <dt><span class="evs-sample">紫の文字</span></dt><dd>その日の予定・予約・判定。日曜は週次レビュー</dd>
           <dt><span class="today-sample">${md(clamp(today))}</span></dt><dd>太い枠は今日。日付をタップするとその日の「今日」タブが開く</dd>
           <dt><span class="ph">本番</span></dt><dd>週の横のラベルはトレーニングの段階（${a(LINK.phase, "段階の中身")}）</dd>
-          <dt><span class="pick-sample">火</span></dt><dd>曜日ボタンで出社日を選ぶと、残りの日に U→L→Push→Pull→Legs が並び直す（${a(LINK.rules, "ルール")}）</dd>
+          <dt><span class="pick-sample">火</span></dt><dd>曜日ボタンで出社日を選ぶと、残りの日に U→L→Push→Pull→Legs が並び直す</dd>
         </dl>
       </details>`;
     for (let w = 0; w < 8; w++) {
@@ -585,7 +585,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       ${BOOKINGS.map(b => `<tr><td>${a(b.link, b.name)}</td><td class="when">W${b.week + 1}</td><td class="when">${b.date ? fmt(b.date) + (b.time ? " " + b.time : "") : "未定"}</td><td>${b.place || ""}</td></tr>`).join("")}
       </tbody></table></div></div>
       <div class="panel"><h3>中身（何を・どうやるか）</h3><div class="docs">
-        ${[["00 ゴールとKPI", F.kpi], ["01 週の組み方", F.rules], ["02 ルーティンのやり方", F.routine], ["03 トレーニング", F.train], ["04 食事", F.food], ["05 顔・首・姿勢", F.face], ["06 肌と歯並び", F.skin], ["07 話し方トレーニング", F.speak], ["08 外れたときのルール", F.recover], ["09 滑舌と声", F.voice], ["10 人と関わる", F.social], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
+        ${[["00 ゴールとKPI", F.kpi], ["03 トレーニング", F.train], ["04 食事", F.food], ["05 顔・首・姿勢", F.face], ["06 肌と歯並び", F.skin], ["07 話し方トレーニング", F.speak], ["08 外れたときのルール", F.recover], ["09 滑舌と声", F.voice], ["10 人と関わる", F.social], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
       </div></div>
     </div>`;
     views.roadmap.innerHTML = html;
