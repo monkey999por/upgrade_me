@@ -7,7 +7,7 @@
 1. 起床後すぐにウエスト・首回りを測る（測り方は[05](../plan/05_face-neck-posture.md)）
 2. 8:00以降（起床後1時間以上たってから）に写真4枚（正面・横・背面・横顔、コンタクトで）→ Instagramに投稿
 3. Claudeに「送るもの」を渡す
-4. Claudeの判定を受けて、来週の出社日を [calendar.html](../plan/calendar.html) で選び、筋トレの日を決める（[01](../plan/01_calendar.md)）
+4. Claudeの判定を受けて、来週の出社日を [calendar.html](../plan/calendar.html) で選び、筋トレの日を決める（[01](../plan/01_week-rules.md)）
 5. 夜：1分原稿の録音＋2分トークの自撮り（[09](../plan/09_voice-articulation.md)）→ 数値は翌週の報告に入れる
 
 ## Claudeに送るもの（コピーして埋める）

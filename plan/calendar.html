@@ -142,6 +142,40 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
 @media (prefers-reduced-motion: no-preference) { .bar > i { transition: width .3s; } }
 </style>
 
+<style>
+/* links out to the markdown that holds the "what / how" */
+a { color: inherit; }
+.item a.x { text-decoration: none; }
+.item a.x:hover > span, .item a.x:focus-visible > span { text-decoration: underline; text-underline-offset: 3px; }
+.item a.x::after { content: " ↗"; color: var(--muted); font-size: 12px; }
+.item { grid-template-columns: 22px 44px minmax(0, 1fr); }
+.linkrow { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 14px; }
+.linkrow a { text-underline-offset: 3px; }
+.linkrow b { color: var(--muted); font-weight: 500; min-width: 36px; }
+/* roadmap */
+.rm { display: grid; gap: 10px; }
+.rm-week { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: grid; gap: 8px; }
+.rm-week.current { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.tracks { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 4px 10px; font-size: 13.5px; }
+.tracks dt { color: var(--muted); font-size: 12.5px; letter-spacing: .04em; padding-top: 1px; }
+.tracks dd { margin: 0; min-width: 0; }
+.tracks dd a { text-underline-offset: 3px; }
+.milestone { display: flex; gap: 8px; align-items: baseline; font-size: 13.5px; color: var(--event); font-weight: 500; }
+table.book { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.book th { text-align: left; font-size: 12.5px; color: var(--muted); font-weight: 500; padding: 4px 8px 4px 0; }
+table.book td { border-top: 1px solid var(--soft); padding: 6px 8px 6px 0; vertical-align: top; }
+table.book td.when { font-family: var(--font-display); font-size: 15px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tbl { overflow-x: auto; }
+.docs { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 16px; font-size: 14px; }
+.docs a { text-underline-offset: 3px; }
+.tabs button { white-space: nowrap; }
+.milestone .count { white-space: nowrap; }
+@media (max-width: 560px) {
+  .tabs { width: 100%; }
+  .tabs button { flex: 1; padding: 7px 4px; font-size: 14px; }
+}
+</style>
+
 <div class="wrap">
   <header class="top">
     <div class="brand">
@@ -151,18 +185,51 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
     <div class="progress"><span id="prog-label"></span><div class="bar"><i id="prog-bar"></i></div></div>
     <nav class="tabs" role="tablist">
       <button id="tab-today" role="tab" aria-selected="true" data-tab="today">今日</button>
-      <button id="tab-routine" role="tab" aria-selected="false" data-tab="routine">毎日のルーティン</button>
+      <button id="tab-routine" role="tab" aria-selected="false" data-tab="routine">毎日</button>
       <button id="tab-calendar" role="tab" aria-selected="false" data-tab="calendar">カレンダー</button>
+      <button id="tab-roadmap" role="tab" aria-selected="false" data-tab="roadmap">ロードマップ</button>
     </nav>
   </header>
 
   <section id="view-today" role="tabpanel" aria-labelledby="tab-today"></section>
   <section id="view-routine" role="tabpanel" aria-labelledby="tab-routine" hidden></section>
   <section id="view-calendar" role="tabpanel" aria-labelledby="tab-calendar" hidden></section>
+  <section id="view-roadmap" role="tabpanel" aria-labelledby="tab-roadmap" hidden></section>
 </div>
 
 <script>
 (() => {
+  // このページは「いつ」だけを持つ。「何を・どうやるか」は GitHub の markdown へリンクする。
+  const REPO = "https://github.com/monkey999por/upgrade_me/blob/main/";
+  const slug = h => h.toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, "").replace(/\s/g, "-");
+  const L = (file, heading) => REPO + file + (heading ? "#" + slug(heading) : "");
+  const F = {
+    kpi: "plan/00_goals-kpi.md", rules: "plan/01_week-rules.md", routine: "plan/02_daily-routine.md",
+    train: "plan/03_training.md", food: "plan/04_nutrition.md", face: "plan/05_face-neck-posture.md",
+    skin: "plan/06_skin-teeth.md", speak: "plan/07_inner-speaking.md", recover: "plan/08_recovery-rules.md",
+    voice: "plan/09_voice-articulation.md", social: "plan/10_social-reps.md", review: "tracking/weekly_review.md"
+  };
+  const LINK = {
+    morning: L(F.routine, "朝のルーティン"), daytime: L(F.routine, "日中のルーティン"), night: L(F.routine, "夜のルーティン"),
+    home: L(F.routine, "在宅日にやること"), office: L(F.routine, "出社日にやること"), sunday: L(F.routine, "日曜にやること"),
+    minimum: L(F.routine, "最低限の日"),
+    U: L(F.train, "U：上半身（重め）"), L: L(F.train, "L：下半身（重め）"), Push: L(F.train, "Push：押す日"),
+    Pull: L(F.train, "Pull：引く日"), Legs: L(F.train, "Legs：脚"),
+    phase: L(F.train, "強さ：段階ごとにRIR（あと何回できるか）で決める"), cardio: L(F.train, "ジムの有酸素（HIIT＋傾斜ウォーク）"),
+    menu: L(F.food, "1週間の献立例（入れ替え表から組んだ例）"), swap: L(F.food, "入れ替え表（食品のバリエーション）"),
+    konbini: L(F.food, "コンビニの日（出社日の昼など）"), prep: L(F.food, "作り置き（日曜・水曜、各60分）"),
+    supp: L(F.food, "サプリ（食事で足りない分だけ）"),
+    measure: L(F.face, "週1回の計測（日曜の朝）"), car: L(F.face, "車の中のルーティン（毎日・15分＝前半：表情筋7分 → 後半：発声・滑舌8分）"),
+    dermapen: L(F.skin, "ダーマペンの間隔と回数（逆算のルール）"), ortho: L(F.skin, "進め方（最短で始める。治療自体は8週間のあとも続く）"),
+    skinChoose: L(F.skin, "皮膚科の選び方"), aftercare: L(F.skin, "施術の前後に守ること"),
+    go: L(F.speak, "行き（60分）"), back: L(F.speak, "帰り（60分）"),
+    voiceHome: L(F.voice, "家（在宅日に5分。休憩のトレッドミル前後などに）"), voiceSun: L(F.voice, "日曜（週1回の記録・10分）"),
+    amenbo: L(F.voice, "あめんぼの歌（北原白秋「五十音」1922年）"), meeting: L(F.voice, "プレゼン・会議での話し方のルール（実際の場面で意識するのは3つだけ）"),
+    tm: L(F.social, "枠B：対面"), vrc: L(F.social, "枠A：VRChat"),
+    send: L(F.review, "Claudeに送るもの（コピーして埋める）"), targets: L(F.kpi, "週ごとの目標ライン"),
+    recover: L(F.recover), rules: L(F.rules), kpi: L(F.kpi)
+  };
+
   const START = new Date(2026, 8, 27);           // 9/27 (Sun)
   const END = new Date(2026, 10, 22);            // 11/22 (Sun) 最終判定
   const DOW = ["日", "月", "火", "水", "木", "金", "土"];
@@ -172,7 +239,6 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
     get(k, d) { try { const v = localStorage.getItem("um:" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem("um:" + k, JSON.stringify(v)); } catch (e) {} }
   };
-
   const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
   const key = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
   const md = d => `${d.getMonth() + 1}/${d.getDate()}`;
@@ -181,67 +247,82 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const clamp = d => d < START ? START : d > END ? END : d;
+  const a = (href, text) => `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
 
-  // ---- 03_training.md ----
-  const SESSIONS = {
-    U: { name: "上半身（重め）", ex: [["ベンチプレス", "4×6–8"], ["ベントオーバーロー", "4×6–8"], ["インクラインダンベルプレス", "3×8–10"], ["ラットプルダウン", "3×8–10"], ["サイドレイズ", "3×12–15"], ["EZバーカール＋ケーブルプレスダウン", "各2×10–12"]] },
-    L: { name: "下半身（重め）", ex: [["スクワット", "4×5–8"], ["ルーマニアンデッドリフト", "3×8–10"], ["レッグプレス", "3×10–12"], ["ライイングレッグカール", "3×10–12"], ["カーフレイズ", "4×10–15"], ["ハンギングレッグレイズ", "3×10–15"]] },
-    Push: { name: "押す日", ex: [["インクラインベンチプレス", "4×6–10"], ["ダンベルショルダープレス", "3×8–10"], ["ディップス or チェストプレス", "3×8–12"], ["ケーブルフライ", "3×12–15"], ["サイドレイズ", "4×12–20"], ["オーバーヘッドトライセプス", "3×10–12"]] },
-    Pull: { name: "引く日", ex: [["懸垂 or ラットプルダウン（重め）", "4×6–10"], ["シーテッドロー", "3×8–12"], ["ワンハンドダンベルロー", "3×10–12"], ["フェイスプル", "3×15"], ["リアレイズ", "3×15–20"], ["インクラインカール＋ハンマーカール", "3×10–12＋2×12"]] },
-    Legs: { name: "脚", ex: [["ハックスクワット or スミススクワット", "4×8–10"], ["ブルガリアンスクワット", "3×8–10/脚"], ["ヒップスラスト", "3×8–12"], ["レッグエクステンション", "3×12–15"], ["シーテッドレッグカール", "3×10–15"], ["カーフレイズ（座って）", "4×12–15"], ["ケーブルクランチ", "3×12–15"]] }
-  };
-  const PHASE = [
-    { label: "導入週", rule: "各種目2セット・あと3–4回で止める。重量探し" },
-    { label: "慣らし", rule: "表のセット数 −1・あと2–3回で止める" },
-    { label: "本番", rule: "表のセット数どおり・あと1–2回" },
-    { label: "本番", rule: "表のセット数どおり・あと1–2回" },
-    { label: "本番", rule: "表のセット数どおり・あと1–2回" },
-    { label: "デロード", rule: "重量そのまま・セット数を半分・HIITなし" },
-    { label: "追い込み", rule: "最終セットは限界まで（BIG3は1回残す）" },
-    { label: "追い込み", rule: "最終セットは限界まで（BIG3は1回残す）" }
-  ];
+  // ================= スケジュールのデータ（ここを更新する） =================
+  const SESSION_NAME = { U: "上半身（重め）", L: "下半身（重め）", Push: "押す日", Pull: "引く日", Legs: "脚" };
+  // 週ごとの段階（中身は 03 の「強さ」）
+  const PHASE = ["導入", "慣らし", "本番", "本番", "本番", "デロード", "追い込み", "追い込み"];
+  const HIIT_BY_PHASE = { "導入": ["Push"], "慣らし": ["Push"], "本番": ["U", "Push"], "デロード": [], "追い込み": ["U", "Push"] };
+  const WALK = ["U", "Push", "Pull"];            // 筋トレ後の傾斜ウォーク20分
 
-  // ---- 01_calendar.md / 00 / 10 ----
+  // 日付が決まっている予定
   const DATED = {
-    "2026-09-27": ["Day1：計測・写真4枚・動画"],
-    "2026-10-04": ["初回の週次レビュー"],
-    "2026-10-10": ["トーストマスターズ見学① 10:00"],
-    "2026-10-11": ["#4 調整期間の判定（カロリー確定）"],
-    "2026-10-24": ["トーストマスターズ見学② 10:00"],
-    "2026-10-25": ["中間判定（ウエスト−3cm・体脂肪17.5%）"],
-    "2026-11-08": ["ダーマペン最後の施術の期限", "手法の見直し（08）"],
-    "2026-11-14": ["トーストマスターズ見学③ 10:00"],
-    "2026-11-22": ["最終判定：計測・Before/After・次の8週間を計画"]
+    "2026-09-27": [["Day1：計測・写真4枚・動画", LINK.measure]],
+    "2026-10-10": [["トーストマスターズ見学① 10:00", LINK.tm]],
+    "2026-10-11": [["判定：調整期間（08の#4）", LINK.recover]],
+    "2026-10-24": [["トーストマスターズ見学② 10:00", LINK.tm]],
+    "2026-10-25": [["中間判定（08の#10）", LINK.recover]],
+    "2026-11-08": [["ダーマペン最後の施術の期限", LINK.dermapen], ["手法の見直し（08）", LINK.recover]],
+    "2026-11-14": [["トーストマスターズ見学③ 10:00", LINK.tm]],
+    "2026-11-22": [["最終判定：計測・Before/After・次の8週間を計画", LINK.kpi]]
   };
-  const WEEK_NOTES = [
-    ["皮膚科2院のカウンセリング（在宅日）→ ダーマペン1回目（9/30–10/8）", "一般歯科で虫歯チェック・クリーニング", "矯正歯科2–3院の相談を予約", "眉を整える（W2まで）", "トーストマスターズに見学のメール・VRChat初回"],
-    ["矯正の初診相談（2–3院）→ 精密検査を予約", "ダーマペン1回目（まだなら）"],
-    ["矯正の精密検査", "黒ずみ型：肌2回目（10/13–10/22）"],
-    ["矯正の治療計画の説明 → 1週間考える", "施術後の経過を写真で記録"],
-    ["矯正の契約 → 前処置", "黒ずみ型：肌3回目（10/27–11/6）"],
-    ["開き型：肌2回目（10/28–11/6）", "ワイヤーなら装置の装着"],
-    ["施術なし（赤み・内出血を引かせる）"],
-    ["マウスピースの装着開始（12月にずれ込んでもOK）", "最後に食事を削らない"]
+
+  // 予約：決まったら date（"2026-10-01"）と time・place を入れる。入れるとカレンダーにも出る
+  const BOOKINGS = [
+    { name: "皮膚科カウンセリング①", week: 0, date: "", time: "", place: "", link: LINK.skinChoose },
+    { name: "皮膚科カウンセリング②", week: 0, date: "", time: "", place: "", link: LINK.skinChoose },
+    { name: "一般歯科：虫歯チェック・クリーニング", week: 0, date: "", time: "", place: "", link: LINK.ortho },
+    { name: "ダーマペン1回目", week: 0, date: "", time: "", place: "", link: LINK.dermapen },
+    { name: "矯正の初診相談①", week: 1, date: "", time: "", place: "", link: LINK.ortho },
+    { name: "矯正の初診相談②", week: 1, date: "", time: "", place: "", link: LINK.ortho },
+    { name: "矯正の初診相談③", week: 1, date: "", time: "", place: "", link: LINK.ortho },
+    { name: "矯正の精密検査", week: 2, date: "", time: "", place: "", link: LINK.ortho },
+    { name: "ダーマペン2回目", week: 2, date: "", time: "", place: "", link: LINK.dermapen },
+    { name: "矯正の治療計画の説明", week: 3, date: "", time: "", place: "", link: LINK.ortho }
   ];
 
-  // ---- 04_nutrition.md 1週間の献立例（曜日で引く） ----
-  const MEALS = [
-    ["A 和の定番", "鶏むねの塩麹焼き・ご飯150g・ブロッコリー・トマト", "牛もも赤身ステーキ180g・玄米ご飯100g・ほうれん草・豆腐としめじ"],
-    ["B オートミール", "鶏もも（皮なし）の照り焼き・ご飯150g・蒸し野菜", "生鮭のホイル焼き180g・ご飯100g・小松菜・冷奴"],
-    ["A 和の定番", null, "豚ヒレのピカタ180g・ご飯100g・キャベツ・わかめのみそ汁"],
-    ["C パン", "ささみの梅しそ焼き・ざるそば・オクラと納豆", "さばの塩焼き120g・ご飯100g・豆腐とまいたけ（油・アーモンドなし）"],
-    ["D 鮭おにぎり", null, "えび・いかのトマトパスタ（パプリカ・ブロッコリー）"],
-    ["A 和の定番", "豚ももの生姜焼き・ご飯150g・ピーマンともやし", "まぐろ赤身の漬け丼（ご飯100g）・ほうれん草・豆腐とわかめのみそ汁"],
-    ["B オートミール", "たらの鍋焼きうどん（白菜・にんじん・しいたけ）", "寿司8–10貫 or 鶏むね"]
+  // 週ごとのロードマップ（分野ごと）
+  const ROADMAP = [
+    { body: "開始重量を探す", skin: ["皮膚科2院のカウンセリング → ダーマペン1回目（9/30–10/8）", LINK.dermapen], teeth: ["一般歯科の虫歯チェック・矯正2–3院の相談を予約", LINK.ortho], voice: ["1分原稿を録音（声のDay1）・車のメニューを覚える・あめんぼ ア・カ行", LINK.amenbo], social: ["VRChatの設定と初回・トーストマスターズに見学のメール", LINK.vrc], other: "眉を整える（W2まで）・あすけん・Instagram開始" },
+    { body: "", skin: ["ダーマペン1回目（まだなら）", LINK.dermapen], teeth: ["初診相談（2–3院）→ 精密検査を予約", LINK.ortho], voice: ["腹式呼吸とリップロールで喉が楽な声をつかむ・サ・タ行", LINK.amenbo], social: ["トーストマスターズ見学①（10/10）", LINK.tm], other: "" },
+    { body: "", skin: ["黒ずみ型なら2回目（10/13–10/22）", LINK.dermapen], teeth: ["精密検査", LINK.ortho], voice: ["V4・V5のテンポを上げる・ナ・ハ行", LINK.amenbo], social: ["VRChat＋勉強会・交流会", LINK.social], other: "" },
+    { body: "", skin: ["施術後の経過を写真で記録", LINK.aftercare], teeth: ["治療計画の説明 → 1週間考える", LINK.ortho], voice: ["同じ条件で1分原稿を録音・マ・ヤ行", LINK.amenbo], social: ["トーストマスターズ見学②（10/24）", LINK.tm], other: "" },
+    { body: "", skin: ["黒ずみ型なら3回目（10/27–11/6）", LINK.dermapen], teeth: ["契約 → 前処置", LINK.ortho], voice: ["会議で話し方のルール3つを使う・ラ・ワ行", LINK.meeting], social: ["VRChat＋勉強会・交流会", LINK.social], other: "" },
+    { body: "", skin: ["開き型なら2回目（10/28–11/6）。11/8が最後の施術の期限", LINK.dermapen], teeth: ["ワイヤーなら装着", LINK.ortho], voice: ["会議で話し方のルール3つを使う・あめんぼを通しで", LINK.meeting], social: ["VRChat＋勉強会・交流会", LINK.social], other: "" },
+    { body: "", skin: ["施術なし（赤み・内出血を引かせる）", LINK.aftercare], teeth: ["", ""], voice: ["あめんぼの歌を通しで", LINK.amenbo], social: ["トーストマスターズ見学③（11/14）", LINK.tm], other: "" },
+    { body: "最後に食事を削らない", skin: ["", ""], teeth: ["マウスピースなら装着開始（12月でも可）", LINK.ortho], voice: ["Day1の録音と聴き比べ", LINK.voiceSun], social: ["トーストマスターズに入会するか決める", LINK.tm], other: "" }
   ];
-  const BASE_LUNCH = "鶏むね150g・ご飯150g・ブロッコリー・トマト（基準メニュー）";
-  const MEAT_NIGHT = [0, 2]; // 日・火はビタミンD
-  const WALK = ["U", "Push", "Pull"]; // 筋トレ後の傾斜ウォーク20分
+  const MEAT_NIGHT = [0, 2];                     // 04の献立例で夜が肉の曜日（ビタミンD）
 
-  // ---- 出社日と筋トレの割り当て ----
+  // 毎日のルーティン（中身は 02）
+  const ROUTINE = [
+    ["朝", [
+      ["m-weigh", "7:00", "体重・体脂肪を測る", LINK.morning],
+      ["m-mirror", "7:05", "鏡で正面と横顔を見る", LINK.morning],
+      ["m-skin", "7:10", "洗顔 → 保湿 → 日焼け止め", LINK.morning],
+      ["m-food", "7:15", "朝食", LINK.morning],
+      ["m-sleep", "7:30", "睡眠時間を確認", LINK.morning]
+    ]],
+    ["日中", [
+      ["d-steps", "", "1万歩", LINK.daytime],
+      ["d-face", "", "顔・首＋発声 15分", LINK.car],
+      ["d-talk", "", "自分から話しかける", LINK.daytime],
+      ["d-snack", "15:30", "間食", LINK.daytime]
+    ]],
+    ["夜", [
+      ["n-asken", "23:30", "あすけん確認・翌日の準備", LINK.night],
+      ["n-skin", "0:00", "洗顔 → 保湿", LINK.night],
+      ["n-posture", "0:10", "姿勢ケア＋マッサージ＋目元", LINK.night],
+      ["n-phone", "0:30", "スマホを置く", LINK.night],
+      ["n-sleep", "1:00", "就寝", LINK.night]
+    ]]
+  ];
+  // ======================================================================
+
+  // ---- 出社日と筋トレの割り当て（ルールは 01） ----
   const officeDays = store.get("office", {});
   const getOffice = w => officeDays[w] || DEFAULT_OFFICE;
-
   function planWeek(w) {
     const office = getOffice(w);
     const free = [0, 1, 2, 3, 4, 5, 6].filter(d => !office.includes(d));
@@ -249,110 +330,74 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
     const seq = seqs[free.length] || ["U", "L", "U"].slice(0, free.length);
     const out = Array(7).fill(null).map((_, d) => ({ type: office.includes(d) ? "office" : "rest", hiit: false }));
     free.forEach((d, i) => { out[d].type = seq[i] || "rest"; });
-    // HIIT: W1–2 は Push（なければ最初のU）、W3以降は U と Push、W6 はなし
-    if (w !== 5) {
-      const hasPush = out.some(o => o.type === "Push");
-      out.forEach((o, i) => {
-        if (w <= 1) { if (o.type === "Push") o.hiit = true; }
-        else if (o.type === "Push" || (o.type === "U" && out.findIndex(x => x.type === "U") === i)) o.hiit = true;
-      });
-      if (w <= 1 && !hasPush) { const u = out.find(o => o.type === "U"); if (u) u.hiit = true; }
-    }
+    const hiitOn = HIIT_BY_PHASE[PHASE[w]];
+    const done = new Set();
+    out.forEach(o => { if (hiitOn.includes(o.type) && !done.has(o.type)) { o.hiit = true; done.add(o.type); } });
+    if (hiitOn.length && !done.size) { const u = out.find(o => o.type === "U"); if (u) u.hiit = true; }
     return out;
   }
-
   function dayInfo(d) {
     const w = weekOf(d), dow = d.getDay();
     if (w >= 8) return { w, dow, type: "judge", hiit: false };
     const p = planWeek(w)[dow];
     return { w, dow, type: p.type, hiit: p.hiit };
   }
-
-  const chip = (type, small) => {
+  function eventsOn(k) {
+    const list = (DATED[k] || []).slice();
+    BOOKINGS.filter(b => b.date === k).forEach(b => list.push([`${b.name}${b.time ? " " + b.time : ""}${b.place ? "（" + b.place + "）" : ""}`, b.link]));
+    return list;
+  }
+  const chip = type => {
     if (type === "office") return `<span class="chip office">出社</span>`;
     if (type === "rest") return `<span class="chip rest">休養</span>`;
     if (type === "judge") return `<span class="chip office">判定</span>`;
     return `<span class="chip ${type}">${type}</span>`;
   };
 
-  // ---- 毎日のルーティン（02_daily-routine.md のうち、毎日同じもの） ----
-  const ROUTINE = [
-    ["朝", [
-      ["m-weigh", "7:00", "体重・体脂肪を測る", "起床 → トイレ → 服を着ていない状態で"],
-      ["m-mirror", "7:05", "鏡で正面と横顔を10秒見る", "気になる点を1つだけ言葉にする"],
-      ["m-skin", "7:10", "洗顔 → 保湿 → 日焼け止め", "SPF30以上"],
-      ["m-food", "7:15", "朝食（朝の型A–D）", "今日の型は「今日」タブの食事欄"],
-      ["m-sleep", "7:30", "前夜の睡眠時間を確認", "6時間未満が週3日で08の#2"]
-    ]],
-    ["日中", [
-      ["d-steps", "", "1万歩", "足りなければ夜に家のトレッドミル"],
-      ["d-face", "", "顔・首＋発声のルーティン15分（05→09）", "車の中で。車に乗らない日は家で"],
-      ["d-talk", "", "自分から話しかける1回（雑談・相談・お礼）", ""],
-      ["d-snack", "15:30", "間食（間食の型から1つ）", "筋トレの日は筋トレ直後でもよい"]
-    ]],
-    ["夜", [
-      ["n-asken", "23:30", "あすけんの入れ忘れ確認・翌日の準備", "タンパク質170gに届いたか"],
-      ["n-skin", "0:00", "コンタクトを外す → 洗顔 → 保湿", "〜11/22はレチノールを使わない"],
-      ["n-posture", "0:10", "姿勢ケア5分＋セルフマッサージ3分＋目元1分", "日中に済ませていればスキップ"],
-      ["n-phone", "0:30", "スマホを置く・照明を落とす", ""],
-      ["n-sleep", "1:00", "就寝", ""]
-    ]]
-  ];
-
-  // ---- その日だけのこと ----
+  // ---- その日だけのこと（中身は 02・03・04・07・09） ----
   function buildDay(d) {
     const info = dayInfo(d);
     const { dow, type, w } = info;
-    const gym = SESSIONS[type];
     const items = [];
     const weekday = dow >= 1 && dow <= 5;
-    if (MEAT_NIGHT.includes(dow)) items.push(["x-vitd", "朝", "ビタミンDを飲む", "今夜は肉の日"]);
+    if (MEAT_NIGHT.includes(dow)) items.push(["x-vitd", "朝", "ビタミンD（今夜は肉）", LINK.supp]);
     if (dow === 0 && w < 8) {
-      items.push(["s-measure", "朝", "ウエスト・首回りを測る", "起床後すぐ、息を吐き切って"]);
-      items.push(["s-photo", "8:00", "写真4枚（正面・横・背面・横顔）→ Instagram", "むくみが引いてから"]);
-      items.push(["s-report", "午前", "Claudeに週次の報告", "weekly_review の「送るもの」。来週の出社日をカレンダーで設定"]);
+      items.push(["s-measure", "起床後", "ウエスト・首回りを測る", LINK.measure]);
+      items.push(["s-photo", "8:00", "写真4枚 → Instagram", LINK.sunday]);
+      items.push(["s-report", "午前", "Claudeに週次の報告・来週の出社日を設定", LINK.send]);
     }
     if (type === "office") {
-      items.push(["o-train", "行き", "話し方トレーニング（07）", "前半インプット、後半は今日のネタを起承転結でメモ"]);
-      items.push(["o-lunch", "昼", "コンビニのセット＋昼休みに10分歩く", "P20g以上の商品1つ＋主食1つ＋野菜1つ"]);
-      items.push(["o-back", "帰り", "会話の振り返り＋Homework for Life 1行", ""]);
+      items.push(["o-train", "行き", "話し方トレーニング", LINK.go]);
+      items.push(["o-lunch", "昼", "コンビニのセット＋10分歩く", LINK.konbini]);
+      items.push(["o-back", "帰り", "振り返り＋Homework for Life", LINK.back]);
     } else if (weekday) {
-      items.push(["h-walk", "日中", "50分作業 → トレッドミル15分 × 4回", "5–6km/h、合計60分"]);
-      items.push(["h-voice", "日中", "家の発声メニュー5分（09）", ""]);
+      items.push(["h-walk", "日中", "トレッドミル休憩 15分×4", LINK.home]);
+      items.push(["h-voice", "日中", "家の発声メニュー 5分", LINK.voiceHome]);
     }
-    if (gym) {
-      items.push(["g-gym", weekday ? "18:30" : "午前", `ジム：${type}（${gym.name}）${info.hiit ? "＋HIIT" : ""}${WALK.includes(type) ? "＋傾斜ウォーク20分" : ""}`, PHASE[w].rule]);
+    if (SESSION_NAME[type]) {
+      const t = weekday ? "18:30" : "午前";
+      items.push(["g-gym", t, `ジム：${type}（${SESSION_NAME[type]}）`, LINK[type]]);
+      if (info.hiit) items.push(["g-hiit", "", "HIIT（バイク）", LINK.cardio]);
+      if (WALK.includes(type)) items.push(["g-walk", "", "傾斜ウォーク 20分", LINK.cardio]);
     }
-    if (dow === 0 && w < 8) items.push(["prep", "午後", "献立を決めて買い出し → 作り置き60分", "04の入れ替え表から1週間分"]);
-    if (dow === 3) items.push(["prep", "夜", "後半分の買い出しと作り置き60分", ""]);
-    if (dow === 0 && w < 8) items.push(["s-voice", "夜", "1分原稿の録音＋2分トークの自撮り → 見返す（09）", ""]);
+    if (dow === 0 && w < 8) items.push(["prep", "午後", "献立・買い出し・作り置き", LINK.prep]);
+    if (dow === 3) items.push(["prep", "夜", "買い出し・作り置き", LINK.prep]);
+    if (dow === 0 && w < 8) items.push(["s-voice", "夜", "1分原稿の録音＋2分トーク", LINK.voiceSun]);
     return { info, items };
   }
 
   let current = clamp(today);
-  const viewToday = document.getElementById("view-today");
-  const viewRoutine = document.getElementById("view-routine");
+  const views = { today: null, routine: null, calendar: null, roadmap: null };
+  Object.keys(views).forEach(k => { views[k] = document.getElementById("view-" + k); });
 
-  const itemHtml = (checks) => ([id, t, label, sub]) => `
-    <label class="item${checks[id] ? " checked" : ""}" for="c-${id}">
-      <input type="checkbox" id="c-${id}" data-id="${id}"${checks[id] ? " checked" : ""}>
+  const itemHtml = checks => ([id, t, label, href]) => `
+    <div class="item${checks[id] ? " checked" : ""}">
+      <input type="checkbox" id="c-${id}" data-id="${id}" aria-label="${label}"${checks[id] ? " checked" : ""}>
       <span class="t">${t}</span>
-      <span class="x"><span>${label}</span>${sub ? `<small>${sub}</small>` : ""}</span>
-    </label>`;
-
-  function dayNav(d, info) {
-    const wn = info.w < 8 ? `W${info.w + 1}` : "判定日";
-    return `<div class="daynav">
-      <button class="navbtn" data-nav="-1" aria-label="前の日">‹</button>
-      <span class="date">${md(d)}（${DOW[info.dow]}）</span>
-      <button class="navbtn" data-nav="1" aria-label="次の日">›</button>
-      <span class="wk">${wn}${info.w < 8 ? " · " + PHASE[info.w].label : ""}</span>
-      ${chip(info.type)}
-      ${key(d) !== key(clamp(today)) ? `<button class="navbtn today" data-nav="0">今日へ</button>` : ""}
+      <a class="x" href="${href}" target="_blank" rel="noopener"><span>${label}</span></a>
     </div>`;
-  }
 
-  function checklist(title, groups, k, checks) {
+  function checklist(title, groups, checks, empty) {
     const all = groups.flatMap(g => g[1]);
     const done = all.filter(i => checks[i[0]]).length;
     return `<div class="panel">
@@ -360,7 +405,20 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
         <h3>${title}</h3><span class="count">${done} / ${all.length}</span>
       </div>
       <div class="bar"><i style="width:${all.length ? done / all.length * 100 : 0}%"></i></div>
-      ${all.length ? groups.map(([g, items]) => `<div class="todo-group">${g ? `<h4>${g}</h4>` : ""}${items.map(itemHtml(checks)).join("")}</div>`).join("") : `<div class="note">今日だけのことはありません。毎日のルーティンだけでOK。</div>`}
+      ${all.length ? groups.map(([g, items]) => `<div class="todo-group">${g ? `<h4>${g}</h4>` : ""}${items.map(itemHtml(checks)).join("")}</div>`).join("") : `<div class="note">${empty}</div>`}
+      <div class="note">項目名をタップすると、やり方（markdown）が開く。</div>
+    </div>`;
+  }
+
+  function dayNav(d, info) {
+    const wn = info.w < 8 ? `W${info.w + 1}` : "判定日";
+    return `<div class="daynav">
+      <button class="navbtn" data-nav="-1" aria-label="前の日">‹</button>
+      <span class="date">${md(d)}（${DOW[info.dow]}）</span>
+      <button class="navbtn" data-nav="1" aria-label="次の日">›</button>
+      <span class="wk">${wn}${info.w < 8 ? " · " + PHASE[info.w] : ""}</span>
+      ${chip(info.type)}
+      ${key(d) !== key(clamp(today)) ? `<button class="navbtn today" data-nav="0">今日へ</button>` : ""}
     </div>`;
   }
 
@@ -378,108 +436,94 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
     }));
   }
 
-  // ---- render: today（その日だけのこと） ----
+  function weekTracks(w) {
+    const r = ROADMAP[w];
+    const rows = [
+      ["体づくり", `段階：${a(LINK.phase, PHASE[w])}${HIIT_BY_PHASE[PHASE[w]].length ? `・HIIT 週${HIIT_BY_PHASE[PHASE[w]].length}回` : "・HIITなし"}${r.body ? "・" + r.body : ""}`],
+      ["肌", r.skin[0] && a(r.skin[1], r.skin[0])],
+      ["歯", r.teeth[0] && a(r.teeth[1], r.teeth[0])],
+      ["声", r.voice[0] && a(r.voice[1], r.voice[0])],
+      ["人と関わる", r.social[0] && a(r.social[1], r.social[0])],
+      ["その他", r.other]
+    ].filter(x => x[1]);
+    return `<dl class="tracks">${rows.map(([t, v]) => `<dt>${t}</dt><dd>${v}</dd>`).join("")}</dl>`;
+  }
+
+  // ---- 今日 ----
   function renderToday() {
-    const d = current;
+    const d = current, k = key(d);
     const { info, items } = buildDay(d);
-    const k = key(d);
     const checks = store.get("todo:" + k, {});
-    const events = (DATED[k] || []).concat(info.w < 8 && info.dow === 0 && !(DATED[k] || []).length ? ["週次レビュー"] : []);
+    const events = eventsOn(k);
     const wn = info.w < 8 ? `W${info.w + 1}` : "判定日";
-    const gym = SESSIONS[info.type];
-    const ph = PHASE[info.w];
-
-    let sessionHtml = "";
-    if (gym) {
-      sessionHtml = `<div class="panel">
-        <h3>今日のジム</h3>
-        <div class="session-head">${chip(info.type)}<b>${gym.name}</b>${info.hiit ? `<span class="chip hiit">＋HIIT</span>` : ""}${WALK.includes(info.type) ? `<span class="chip hiit">＋傾斜20分</span>` : ""}</div>
-        <div class="phase">${wn} ${ph.label}：${ph.rule}</div>
-        <table class="ex"><tbody>${gym.ex.map(e => `<tr><td>${e[0]}</td><td>${e[1]}</td></tr>`).join("")}</tbody></table>
-        ${info.hiit ? `<div class="note">筋トレの後にバイクHIIT：20秒きつく＋100秒軽く × ${info.w <= 1 ? 6 : "6–8"}本</div>` : ""}
-        ${WALK.includes(info.type) ? `<div class="note">最後に傾斜ウォーク20分：傾斜10–12%・5.0–5.5km/h・手すりを持たない</div>` : ""}
-        <div class="note">上限回数を全セットでできたら次回+2.5kg。重量×回数を記録。</div>
-      </div>`;
-    } else {
-      const label = info.type === "office" ? "出社日＝休養日" : info.type === "judge" ? "最終判定の日" : "休養日";
-      sessionHtml = `<div class="panel"><h3>今日のジム</h3><div class="session-head">${chip(info.type)}<b>${label}</b></div><div class="note">筋トレなし。</div></div>`;
-    }
-    const meal = MEALS[info.dow];
-    const office = info.type === "office";
-    const lunch = office ? "コンビニのセット（①定番 ②麺 ③時間がない）" : (meal[1] || BASE_LUNCH);
-
-    viewToday.innerHTML = `
+    const bookingsDue = info.w < 8 ? BOOKINGS.filter(b => b.week === info.w && !b.date) : [];
+    views.today.innerHTML = `
       <div style="display:grid;gap:16px">
         ${dayNav(d, info)}
-        ${events.length ? `<div class="panel"><h3>今日の予定</h3><div class="events">${events.map(e => `<div class="ev">${e}</div>`).join("")}</div></div>` : ""}
+        ${events.length ? `<div class="panel"><h3>今日の予定</h3><div class="events">${events.map(([t, l]) => `<div class="ev">${a(l, t)}</div>`).join("")}</div></div>` : ""}
         <div class="grid2">
           <div style="display:grid;gap:16px;min-width:0">
-            ${checklist("今日だけのこと", [["", items]], k, checks)}
+            ${checklist("今日だけのこと", [["", items]], checks, "今日だけのことはなし。毎日のルーティンだけでOK。")}
             <div class="panel">
-              <h3>今日の食事（1,900kcal・P170g）</h3>
-              <div class="meal"><b>朝</b><span>${meal[0]}</span></div>
-              <div class="meal"><b>昼</b><span>${lunch}</span></div>
-              <div class="meal"><b>間食</b><span>プロテイン＋低脂肪乳＋アーモンド（または間食の型）</span></div>
-              <div class="meal"><b>夜</b><span>${meal[2]}${office ? "＋ブロッコリー100g" : ""}</span></div>
-              <div class="note">ご飯は昼150g・夜100g、夜のメインは入れ替え表の1.2倍（04）。</div>
+              <h3>食事</h3>
+              <div class="linkrow"><b>献立</b>${a(LINK.menu, `04の献立例の${DOW[info.dow]}曜日`)}</div>
+              ${info.type === "office" ? `<div class="linkrow"><b>昼</b>${a(LINK.konbini, "コンビニのセット")}</div>` : ""}
+              <div class="linkrow"><b>替える</b>${a(LINK.swap, "入れ替え表")}</div>
             </div>
           </div>
           <div style="display:grid;gap:16px;min-width:0">
-            ${sessionHtml}
-            ${info.w < 8 ? `<div class="panel"><h3>${wn}のうちにやること</h3><div class="events">${WEEK_NOTES[info.w].map(n => `<div class="ev wknote">${n}</div>`).join("")}<div class="ev wknote">人と関わる枠：VRChat 1回＋対面 1回</div></div></div>` : ""}
+            ${info.w < 8 ? `<div class="panel"><h3>${wn}（${md(addDays(START, info.w * 7))}–${md(addDays(START, info.w * 7 + 6))}）のロードマップ</h3>${weekTracks(info.w)}
+              ${bookingsDue.length ? `<div class="note">今週中に予約：${bookingsDue.map(b => b.name).join("・")}</div>` : ""}</div>` : ""}
           </div>
         </div>
       </div>`;
-    wire(viewToday, k, renderToday);
+    wire(views.today, k, renderToday);
   }
 
-  // ---- render: 毎日のルーティン ----
+  // ---- 毎日 ----
   function renderRoutine() {
-    const d = current;
+    const d = current, k = key(d);
     const info = dayInfo(d);
-    const k = key(d);
     const checks = store.get("todo:" + k, {});
-    viewRoutine.innerHTML = `
+    views.routine.innerHTML = `
       <div style="display:grid;gap:16px;max-width:560px">
         ${dayNav(d, info)}
-        ${checklist("毎日のルーティン", ROUTINE, k, checks)}
-        <div class="note">毎日同じ内容。その日だけのことは「今日」タブ。</div>
+        ${checklist("毎日のルーティン", ROUTINE, checks, "")}
+        <div class="note">崩れた日は ${a(LINK.minimum, "最低限の日")} の4つだけ。</div>
       </div>`;
-    wire(viewRoutine, k, renderRoutine);
+    wire(views.routine, k, renderRoutine);
   }
 
-  // ---- render: calendar ----
-  const viewCal = document.getElementById("view-calendar");
+  // ---- カレンダー ----
   function renderCalendar() {
     const todayKey = key(today);
     const curW = weekOf(today);
     let html = `<div style="display:grid;gap:14px">
-      <div class="legend">${["U", "L", "Push", "Pull", "Legs"].map(t => chip(t)).join("")}${chip("office")}${chip("rest")}<span>曜日ボタンで出社日を選ぶと、残りの日に U→L→Push→Pull→Legs が入る</span></div>`;
+      <div class="legend">${["U", "L", "Push", "Pull", "Legs"].map(t => a(LINK[t], chip(t))).join("")}${chip("office")}${chip("rest")}<span>出社日を選ぶと、残りの日に U→L→Push→Pull→Legs が入る（${a(LINK.rules, "ルール")}）</span></div>`;
     for (let w = 0; w < 8; w++) {
       const plan = planWeek(w);
       const s = addDays(START, w * 7);
       const office = getOffice(w);
       html += `<article class="week${w === curW ? " current" : ""}">
-        <div class="whead"><span class="wn">W${w + 1}</span><span class="wd">${md(s)} – ${md(addDays(s, 6))}</span><span class="ph">${PHASE[w].label}</span>
+        <div class="whead"><span class="wn">W${w + 1}</span><span class="wd">${md(s)} – ${md(addDays(s, 6))}</span><span class="ph">${PHASE[w]}</span>
           <span class="office-pick" style="margin-left:auto">出社日
             ${DOW.map((n, i) => `<button type="button" id="o-${w}-${i}" data-w="${w}" data-d="${i}" aria-pressed="${office.includes(i)}" aria-label="W${w + 1} ${n}曜を出社日にする">${n}</button>`).join("")}
           </span></div>
         <div class="days">${plan.map((p, i) => {
           const d = addDays(s, i), k = key(d);
-          const evs = (DATED[k] || []).concat(i === 0 && !(DATED[k] || []).length ? ["週次レビュー"] : []);
+          const evs = eventsOn(k).map(e => e[0]).concat(i === 0 ? ["週次レビュー"] : []);
           return `<button type="button" class="day${k === todayKey ? " is-today" : ""}${i === 0 ? " sun" : ""}" data-date="${k}">
             <span class="d"><span>${md(d)}</span><span class="dow">${DOW[i]}</span></span>
             ${chip(p.type)}${p.hiit ? `<span class="chip hiit">HIIT</span>` : ""}
             ${evs.length ? `<span class="evs">${evs.join("<br>")}</span>` : ""}
           </button>`;
         }).join("")}</div>
-        <div class="wnotes">${WEEK_NOTES[w].map(n => `<div class="ev wknote">${n}</div>`).join("")}</div>
       </article>`;
     }
     html += `<div class="judge"><b>11/22（日）最終判定</b><span>ウエスト・体脂肪率・ベンチを計測、Before/After写真と動画、次の8週間の計画</span></div></div>`;
-    viewCal.innerHTML = html;
+    views.calendar.innerHTML = html;
 
-    viewCal.querySelectorAll(".office-pick button").forEach(b => b.addEventListener("click", () => {
+    views.calendar.querySelectorAll(".office-pick button").forEach(b => b.addEventListener("click", () => {
       const w = +b.dataset.w, d = +b.dataset.d;
       const list = getOffice(w).slice();
       const i = list.indexOf(d);
@@ -487,13 +531,38 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
       officeDays[w] = list.sort();
       store.set("office", officeDays);
       renderCalendar();
-      renderProgress();
     }));
-    viewCal.querySelectorAll(".day").forEach(b => b.addEventListener("click", () => {
+    views.calendar.querySelectorAll(".day").forEach(b => b.addEventListener("click", () => {
       const [y, m, dd] = b.dataset.date.split("-").map(Number);
       current = new Date(y, m - 1, dd);
       show("today");
     }));
+  }
+
+  // ---- ロードマップ ----
+  function renderRoadmap() {
+    const curW = weekOf(today);
+    const judges = Object.entries(DATED).filter(([, v]) => v.some(e => e[1] === LINK.recover || e[1] === LINK.kpi));
+    const fmt = k => { const [y, m, d] = k.split("-").map(Number); const dt = new Date(y, m - 1, d); return `${md(dt)}（${DOW[dt.getDay()]}）`; };
+    let html = `<div class="rm">
+      <div class="panel"><h3>判定の日</h3><div class="events">${judges.map(([k, v]) => v.filter(e => e[1] === LINK.recover || e[1] === LINK.kpi).map(e => `<div class="milestone"><span class="count" style="font-size:16px;min-width:74px">${fmt(k)}</span>${a(e[1], e[0])}</div>`).join("")).join("")}</div>
+        <div class="note">週ごとの目標ラインは ${a(LINK.targets, "00の目標ライン")}、外れたときは ${a(LINK.recover, "08のルール")}。</div></div>`;
+    for (let w = 0; w < 8; w++) {
+      const s = addDays(START, w * 7);
+      html += `<article class="rm-week${w === curW ? " current" : ""}">
+        <div class="whead"><span class="wn">W${w + 1}</span><span class="wd">${md(s)} – ${md(addDays(s, 6))}</span><span class="ph">${PHASE[w]}</span></div>
+        ${weekTracks(w)}
+      </article>`;
+    }
+    html += `<div class="panel"><h3>予約（決まったらClaudeに日時を伝える → カレンダーにも出る）</h3>
+      <div class="tbl"><table class="book"><thead><tr><th>予定</th><th>目安</th><th>日時</th><th>場所</th></tr></thead><tbody>
+      ${BOOKINGS.map(b => `<tr><td>${a(b.link, b.name)}</td><td class="when">W${b.week + 1}</td><td class="when">${b.date ? fmt(b.date) + (b.time ? " " + b.time : "") : "未定"}</td><td>${b.place || ""}</td></tr>`).join("")}
+      </tbody></table></div></div>
+      <div class="panel"><h3>中身（何を・どうやるか）</h3><div class="docs">
+        ${[["00 ゴールとKPI", F.kpi], ["01 週の組み方", F.rules], ["02 ルーティンのやり方", F.routine], ["03 トレーニング", F.train], ["04 食事", F.food], ["05 顔・首・姿勢", F.face], ["06 肌と歯並び", F.skin], ["07 話し方トレーニング", F.speak], ["08 外れたときのルール", F.recover], ["09 滑舌と声", F.voice], ["10 人と関わる", F.social], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
+      </div></div>
+    </div>`;
+    views.roadmap.innerHTML = html;
   }
 
   function renderProgress() {
@@ -504,10 +573,11 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
     document.getElementById("prog-bar").style.width = (n / total * 100) + "%";
   }
 
+  const RENDER = { today: renderToday, routine: renderRoutine, calendar: renderCalendar, roadmap: renderRoadmap };
   function show(tab) {
     document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === tab)));
-    ["today", "routine", "calendar"].forEach(t => { document.getElementById("view-" + t).hidden = tab !== t; });
-    if (tab === "today") renderToday(); else if (tab === "routine") renderRoutine(); else renderCalendar();
+    Object.keys(views).forEach(t => { views[t].hidden = tab !== t; });
+    RENDER[tab]();
     store.set("tab", tab);
     window.scrollTo(0, 0);
   }
@@ -515,8 +585,7 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
 
   renderProgress();
   const hash = location.hash.replace("#", "");
-  const TABS = ["today", "routine", "calendar"];
   const saved = store.get("tab", "today");
-  show(TABS.includes(hash) ? hash : TABS.includes(saved) ? saved : "today");
+  show(RENDER[hash] ? hash : RENDER[saved] ? saved : "today");
 })();
 </script>
