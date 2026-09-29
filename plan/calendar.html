@@ -206,7 +206,7 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
     "2026-10-10": ["トーストマスターズ見学① 10:00"],
     "2026-10-11": ["#4 調整期間の判定（カロリー確定）"],
     "2026-10-24": ["トーストマスターズ見学② 10:00"],
-    "2026-10-25": ["中間判定（ウエスト−2cm・体脂肪18%）"],
+    "2026-10-25": ["中間判定（ウエスト−3cm・体脂肪17.5%）"],
     "2026-11-08": ["ダーマペン最後の施術の期限", "手法の見直し（08）"],
     "2026-11-14": ["トーストマスターズ見学③ 10:00"],
     "2026-11-22": ["最終判定：計測・Before/After・次の8週間を計画"]
@@ -224,16 +224,17 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
 
   // ---- 04_nutrition.md 1週間の献立例（曜日で引く） ----
   const MEALS = [
-    ["A 和の定番", "鶏むねの塩麹焼き・ご飯200g・ブロッコリー・トマト", "牛もも赤身ステーキ・玄米ご飯・ほうれん草・豆腐としめじ"],
-    ["B オートミール", "鶏もも（皮なし）の照り焼き・ご飯200g・蒸し野菜", "生鮭のホイル焼き・ご飯200g・小松菜・冷奴"],
-    ["A 和の定番", null, "豚ヒレのピカタ・ご飯200g・キャベツ・わかめのみそ汁"],
-    ["C パン", "ささみの梅しそ焼き・ざるそば・オクラと納豆", "さばの塩焼き100g・ご飯200g・豆腐とまいたけ（油・アーモンドなし）"],
+    ["A 和の定番", "鶏むねの塩麹焼き・ご飯150g・ブロッコリー・トマト", "牛もも赤身ステーキ180g・玄米ご飯100g・ほうれん草・豆腐としめじ"],
+    ["B オートミール", "鶏もも（皮なし）の照り焼き・ご飯150g・蒸し野菜", "生鮭のホイル焼き180g・ご飯100g・小松菜・冷奴"],
+    ["A 和の定番", null, "豚ヒレのピカタ180g・ご飯100g・キャベツ・わかめのみそ汁"],
+    ["C パン", "ささみの梅しそ焼き・ざるそば・オクラと納豆", "さばの塩焼き120g・ご飯100g・豆腐とまいたけ（油・アーモンドなし）"],
     ["D 鮭おにぎり", null, "えび・いかのトマトパスタ（パプリカ・ブロッコリー）"],
-    ["A 和の定番", "豚ももの生姜焼き・ご飯200g・ピーマンともやし", "まぐろ赤身の漬け丼・ほうれん草・豆腐とわかめのみそ汁"],
+    ["A 和の定番", "豚ももの生姜焼き・ご飯150g・ピーマンともやし", "まぐろ赤身の漬け丼（ご飯100g）・ほうれん草・豆腐とわかめのみそ汁"],
     ["B オートミール", "たらの鍋焼きうどん（白菜・にんじん・しいたけ）", "寿司8–10貫 or 鶏むね"]
   ];
-  const BASE_LUNCH = "鶏むね150g・ご飯200g・ブロッコリー・トマト（基準メニュー）";
+  const BASE_LUNCH = "鶏むね150g・ご飯150g・ブロッコリー・トマト（基準メニュー）";
   const MEAT_NIGHT = [0, 2]; // 日・火はビタミンD
+  const WALK = ["U", "Push", "Pull"]; // 筋トレ後の傾斜ウォーク20分
 
   // ---- 出社日と筋トレの割り当て ----
   const officeDays = store.get("office", {});
@@ -298,20 +299,20 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
       mid.push(["o-lunch", "昼", "コンビニのセット＋昼休みに10分歩く", "P20g以上の商品1つ＋主食1つ＋野菜1つ"]);
       mid.push(["o-talk", "日中", "自分から話しかける（雑談・相談・お礼）1回", ""]);
       mid.push(["o-back", "帰り", "会話の振り返り＋Homework for Life 1行", ""]);
-      mid.push(["o-steps", "夜", "歩数1万歩（8,000未満なら家のトレッドミル）", "筋トレはしない日"]);
+      mid.push(["o-steps", "夜", "歩数1万歩（足りなければ家のトレッドミル）", "筋トレはしない日"]);
     } else {
       const weekday = dow >= 1 && dow <= 5;
       if (weekday) {
-        mid.push(["h-walk", "日中", "50分作業 → トレッドミル10–15分 × 4回", "5–6km/h、合計40–60分"]);
+        mid.push(["h-walk", "日中", "50分作業 → トレッドミル15分 × 4回", "5–6km/h、合計60分。ジムと合わせて1万歩"]);
         mid.push(["h-voice", "日中", "家の発声メニュー5分（09）", ""]);
         mid.push(["h-talk", "日中", "自分から話しかける（雑談・相談・お礼）1回", ""]);
       } else {
-        mid.push(["w-walk", "日中", "歩行を合計60分（8,000歩以上）", ""]);
+        mid.push(["w-walk", "日中", "歩行を合計60分以上（1万歩）", ""]);
       }
       mid.push(["h-lunch", "12:00", "昼食", meal[1] || BASE_LUNCH]);
       mid.push(["h-snack", "15:30", "間食（間食の型から1つ）", gym ? "筋トレ直後に回してもよい" : "プロテイン＋低脂肪乳＋アーモンドなど"]);
       if (gym) {
-        mid.push(["g-gym", weekday ? "18:30" : "午前", `ジム：${type}（${gym.name}）${info.hiit && info.w !== 5 ? "＋バイクHIIT" : ""}`, PHASE[info.w] ? PHASE[info.w].rule : ""]);
+        mid.push(["g-gym", weekday ? "18:30" : "午前", `ジム：${type}（${gym.name}）${info.hiit ? "＋バイクHIIT" : ""}${WALK.includes(type) ? "＋傾斜ウォーク20分" : ""}`, PHASE[info.w] ? PHASE[info.w].rule : ""]);
         mid.push(["g-car", "移動中", "車で顔・首＋発声のルーティン15分（05→09）", ""]);
       } else if (type === "rest") {
         mid.push(["r-car", "どこかで", "顔・首＋発声のルーティン15分（05→09）", "休養日。筋トレなし"]);
@@ -351,15 +352,16 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
     if (gym) {
       sessionHtml = `<div class="panel">
         <h3>今日のジム</h3>
-        <div class="session-head">${chip(info.type)}<b>${gym.name}</b>${info.hiit ? `<span class="chip hiit">＋HIIT</span>` : ""}</div>
+        <div class="session-head">${chip(info.type)}<b>${gym.name}</b>${info.hiit ? `<span class="chip hiit">＋HIIT</span>` : ""}${WALK.includes(info.type) ? `<span class="chip hiit">＋傾斜20分</span>` : ""}</div>
         <div class="phase">${wn} ${ph.label}：${ph.rule}</div>
         <table class="ex"><tbody>${gym.ex.map(e => `<tr><td>${e[0]}</td><td>${e[1]}</td></tr>`).join("")}</tbody></table>
-        ${info.hiit ? `<div class="note">最後にバイクHIIT：20秒きつく＋100秒軽く × ${info.w <= 1 ? 6 : "6–8"}本</div>` : ""}
+        ${info.hiit ? `<div class="note">筋トレの後にバイクHIIT：20秒きつく＋100秒軽く × ${info.w <= 1 ? 6 : "6–8"}本</div>` : ""}
+        ${WALK.includes(info.type) ? `<div class="note">最後に傾斜ウォーク20分：傾斜10–12%・5.0–5.5km/h・手すりを持たない</div>` : ""}
         <div class="note">上限回数を全セットでできたら次回+2.5kg。重量×回数を記録。</div>
       </div>`;
     } else {
       const label = info.type === "office" ? "出社日＝休養日" : info.type === "judge" ? "最終判定の日" : "休養日";
-      sessionHtml = `<div class="panel"><h3>今日のジム</h3><div class="session-head">${chip(info.type)}<b>${label}</b></div><div class="note">筋トレなし。歩数8,000歩以上だけ守る。</div></div>`;
+      sessionHtml = `<div class="panel"><h3>今日のジム</h3><div class="session-head">${chip(info.type)}<b>${label}</b></div><div class="note">筋トレなし。歩数1万歩だけ守る。</div></div>`;
     }
     const meal = MEALS[info.dow];
     const lunch = info.type === "office" ? "コンビニのセット（①定番 ②麺 ③時間がない）" : (meal[1] || BASE_LUNCH);
@@ -391,12 +393,12 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
             ${events.length || (info.w < 8 && info.dow === 0) ? `<div class="panel"><h3>今日の予定</h3><div class="events">${events.map(e => `<div class="ev">${e}</div>`).join("")}${info.w < 8 && info.dow === 0 ? `<div class="ev">週次レビュー（計測・写真・Claudeに報告）</div>` : ""}</div></div>` : ""}
             ${sessionHtml}
             <div class="panel">
-              <h3>今日の食事（2,100kcal・P160g）</h3>
+              <h3>今日の食事（1,900kcal・P170g）</h3>
               <div class="meal"><b>朝</b><span>${meal[0]}</span></div>
               <div class="meal"><b>昼</b><span>${lunch}</span></div>
               <div class="meal"><b>間食</b><span>プロテイン＋低脂肪乳＋アーモンド（または間食の型）</span></div>
               <div class="meal"><b>夜</b><span>${meal[2]}</span></div>
-              <div class="note">04の1週間の献立例より。入れ替え表の同じ枠ならどれに替えてもよい。</div>
+              <div class="note">04の1週間の献立例より。ご飯は昼150g・夜100g、夜のメインは入れ替え表の1.2倍。</div>
             </div>
             ${info.w < 8 ? `<div class="panel"><h3>${wn}にやること</h3><div class="events">${WEEK_NOTES[info.w].map(n => `<div class="ev wknote">${n}</div>`).join("")}<div class="ev wknote">人と関わる枠：VRChat 1回＋対面 1回</div></div></div>` : ""}
           </div>

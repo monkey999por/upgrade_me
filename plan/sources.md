@@ -11,6 +11,7 @@
 | 運動は細切れでも積み上げてよい（「10分以上続ける」という条件は撤廃） | [WHO Guidelines on physical activity (2020)](https://www.ncbi.nlm.nih.gov/books/NBK566046/) | A |
 | ウォーキングは5分ウォームアップ → 速歩 → 5分クールダウン | [ACSM: Starting a walking program](https://www.acsm.org/docs/default-source/files-for-resource-library/starting-a-walking-program.pdf) | A |
 | 水中運動で体組成が改善（※水泳は2026-09-29の見直しで計画から外した） | [PubMed 37167802（システマティックレビュー／メタ解析）](https://pubmed.ncbi.nlm.nih.gov/37167802/) | A |
+| HIITと普通の強さの有酸素運動（MICT）で、体脂肪の減り方に差はほぼない（HIITは短時間で済む） | [Wewege et al., Obes Rev 2017（メタ解析）](https://doi.org/10.1111/obr.12532) | A |
 | 筋肥大は1部位あたりの週のセット数が多いほど大きい（週10セット以上で最大） | [Schoenfeld, Ogborn & Krieger, J Sports Sci 2017（メタ解析）](https://doi.org/10.1080/02640414.2016.1210197) | A |
 | 同じ量なら、1部位を週2回に分けて鍛える方が週1回より筋肥大が大きい | [Schoenfeld et al., Sports Med 2016（メタ解析）](https://doi.org/10.1007/s40279-016-0543-8) | A |
 | 筋トレで増えた筋核は、トレーニングをやめて筋肉が細くなっても残る（マッスルメモリーの仕組み） | [Bruusgaard et al., PNAS 2010](https://doi.org/10.1073/pnas.0913935107) | C（動物実験） |

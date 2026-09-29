@@ -1,6 +1,6 @@
 # Day1：2026-09-27（日）今日やること
 
-> **2026-09-29に計画を見直した**（[Issue #1](https://github.com/monkey999por/upgrade_me/issues/1)）：筋トレは週5回の筋肥大（[03](03_training.md)）、水泳はなし、カロリーは2,100kcal、目標は体重ではなく体脂肪率とウエスト（[00](00_goals-kpi.md)）。以下はDay1当時の記録。これからの毎日のTODOは [calendar.html](calendar.html)。
+> **2026-09-29に計画を見直した**（[Issue #1](https://github.com/monkey999por/upgrade_me/issues/1)）：筋トレは週5回の筋肥大（[03](03_training.md)）、水泳はなし、ジムでHIIT＋傾斜ウォーク、1日1万歩、カロリーは1,900kcal・P170g、目標は体重ではなく体脂肪率とウエスト（[00](00_goals-kpi.md)）。以下はDay1当時の記録。これからの毎日のTODOは [calendar.html](calendar.html)。
 
 合計 約3.5時間。上から順に。
 
