@@ -19,6 +19,9 @@
 | 高用量の亜鉛は銅の吸収を妨げる | [NIH ODS: Zinc fact sheet](https://ods.od.nih.gov/factsheets/Zinc-HealthProfessional/) | A |
 | コラーゲンサプリ：企業からの資金提供がない研究・質の高い研究に絞ると効果が消える | [Am J Med 2025 メタ解析（23件のRCT）](https://www.sciencedirect.com/science/article/pii/S0002934325002839) | A |
 | ニキビと栄養サプリ：亜鉛は最も研究されているが結果は一貫しない | [PMC11015159 システマティックレビュー（42研究）](https://pmc.ncbi.nlm.nih.gov/articles/PMC11015159/) | A |
+| 食材ごとの栄養素（100gあたり）。固定メニューの計算に使用 | [文部科学省 日本食品標準成分表（八訂）増補2023年（Excel、2026-03-27更新）](https://www.mext.go.jp/a_menu/syokuhinseibun/mext_00001.html)／[食品成分データベース](https://fooddb.mext.go.jp/) | A（公的データ） |
+| 18–29歳男性：たんぱく質 推奨65g・13–20%E／炭水化物50–65%E／食物繊維20g以上／n-3系2.2g／ビタミンD 9.0μg（上限100）／カリウム目標3,000mg以上／カルシウム800mg／マグネシウム340mg／鉄7.0mg／亜鉛9.0mg（上限40）／ビタミンB1 1.1mg／葉酸240μg／ビタミンC 100mg | [厚生労働省 日本人の食事摂取基準（2025年版）](https://www.mhlw.go.jp/web/t_doc?dataId=78ab4652&dataType=0&pageNo=2) | A |
+| タンパク質は1回0.4g/kgを1日4回以上に分けると筋肉の合成に効率がよい | [Schoenfeld & Aragon, JISSN 2018](https://jissn.biomedcentral.com/articles/10.1186/s12970-018-0215-1) | C（総説） |
 | あすけんの栄養計算は日本食品標準成分表2020年版（八訂）に準拠 | [あすけん公式FAQ](https://www.asken.jp/info/5148) | C（提供元の説明） |
 
 ## 顔・首・姿勢
