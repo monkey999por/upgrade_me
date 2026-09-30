@@ -101,8 +101,6 @@
 | 4週間治らない声がれは喉の検査を勧める | [AAO-HNSF 診療ガイドライン：Hoarseness (Dysphonia) 2018](https://pubmed.ncbi.nlm.nih.gov/29494321/) | A |
 | 「五十音（あめんぼの歌）」の原文。演劇の発声練習の定番 | [Wikisource：五十音（北原白秋）](https://ja.wikisource.org/wiki/%E4%BA%94%E5%8D%81%E9%9F%B3_(%E5%8C%97%E5%8E%9F%E7%99%BD%E7%A7%8B)) | A（原文。著作権は切れている） |
 | あごを押さえて「らりるれろ」／「ろりょろりょ」の繰り返し | ユーザ本人が調べて試した練習法 | C（効果の研究はなし。舌だけで発音する練習として採用） |
-| 『1分で話せ』著者の経歴 | [SBクリエイティブ 書籍ページ](https://www.sbcr.jp/product/4797395235/)／[講演プロフィール](https://www.sbrain.co.jp/keyperson/K-17734.htm) | C |
-| Matthew Dicks：The Moth GrandSLAM 10回優勝。Homework for Life | [Wikipedia](https://en.wikipedia.org/wiki/Matthew_Dicks)／[著者公式 Homework for Life](https://matthewdicks.com/homework-for-life/) | C |
 
 ## 参考にしなかったもの（D：二次情報）
 - 医療の紹介・ランキングサイト（ドクターズ・ファイル、マイナビクリニックナビ、メディカルドック、カルー等）：掲載に広告費が関わる可能性があるため、候補探しにだけ使い、資格は学会の公式名簿で確認した

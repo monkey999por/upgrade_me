@@ -214,7 +214,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   const F = {
     kpi: "plan/00_goals-kpi.md",
     train: "plan/03_training.md", food: "plan/04_nutrition.md", face: "plan/05_face-neck-posture.md",
-    skin: "plan/06_skin-teeth.md", speak: "plan/07_inner-speaking.md", recover: "plan/08_recovery-rules.md",
+    skin: "plan/06_skin-teeth.md", recover: "plan/08_recovery-rules.md",
     voice: "plan/09_voice-articulation.md", social: "plan/10_social-reps.md", review: "tracking/weekly_review.md"
   };
   const LINK = {
@@ -230,7 +230,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     measure: L(F.kpi, "ウエストの測り方"), car: L(F.face, "車の中のルーティン（毎日・15分＝前半：表情筋7分 → 後半：発声・滑舌8分）"),
     dermapen: L(F.skin, "ダーマペンの間隔と回数（逆算のルール）"), ortho: L(F.skin, "進め方（最短で始める。治療自体は8週間のあとも続く）"),
     skinChoose: L(F.skin, "皮膚科の選び方"), aftercare: L(F.skin, "施術の前後に守ること"),
-    voiceHome: L(F.voice, "家（在宅日に5分。休憩のトレッドミル前後などに）"), voiceSun: L(F.voice, "日曜（週1回の記録・10分）"),
+    voiceHome: L(F.voice, "家（在宅日に5分。休憩のトレッドミル前後などに）"), voiceSun: L(F.voice, "日曜（週1回の記録・5分）"),
     amenbo: L(F.voice, "あめんぼの歌（北原白秋「五十音」1922年）"), meeting: L(F.voice, "プレゼン・会議での話し方のルール（実際の場面で意識するのは3つだけ）"),
     tm: L(F.social, "枠B：対面"), vrc: L(F.social, "枠A：VRChat"),
     send: L(F.review, "Claudeに送るもの（コピーして埋める）"), targets: L(F.kpi, "週ごとの目標ライン"),
@@ -353,7 +353,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     return `<span class="chip ${type}">${type}</span>`;
   };
 
-  // ---- その日だけのこと（中身は 02・03・04・07・09） ----
+  // ---- その日だけのこと（中身は 03・04・09） ----
   function buildDay(d) {
     const info = dayInfo(d);
     const { dow, type, w } = info;
@@ -377,7 +377,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     }
     if (dow === 0 && w < 8) items.push(["prep", "午後", "献立・買い出し・作り置き", LINK.prep]);
     if (dow === 3) items.push(["prep", "夜", "買い出し・作り置き", LINK.prep]);
-    if (dow === 0 && w < 8) items.push(["s-voice", "夜", "1分原稿の録音＋2分トーク", LINK.voiceSun]);
+    if (dow === 0 && w < 8) items.push(["s-voice", "夜", "1分原稿の録音", LINK.voiceSun]);
     return { info, items };
   }
 
@@ -552,7 +552,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       ${BOOKINGS.map(b => `<tr><td>${a(b.link, b.name)}</td><td class="when">W${b.week + 1}</td><td class="when">${b.date ? fmt(b.date) + (b.time ? " " + b.time : "") : "未定"}</td><td>${b.place || ""}</td></tr>`).join("")}
       </tbody></table></div></div>
       <div class="panel"><h3>中身（何を・どうやるか）</h3><div class="docs">
-        ${[["00 ゴールとKPI", F.kpi], ["03 トレーニング", F.train], ["04 食事", F.food], ["05 顔・首・姿勢", F.face], ["06 肌と歯並び", F.skin], ["07 話し方トレーニング", F.speak], ["08 外れたときのルール", F.recover], ["09 滑舌と声", F.voice], ["10 人と関わる", F.social], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
+        ${[["00 ゴールとKPI", F.kpi], ["03 トレーニング", F.train], ["04 食事", F.food], ["05 顔・首・姿勢", F.face], ["06 肌と歯並び", F.skin], ["08 外れたときのルール", F.recover], ["09 滑舌と声", F.voice], ["10 人と関わる", F.social], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
       </div></div>
     </div>`;
     views.roadmap.innerHTML = html;

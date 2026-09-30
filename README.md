@@ -32,7 +32,6 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 | 04 | [nutrition](plan/04_nutrition.md) | 1,900kcal・P170g、基準メニュー、入れ替え表、献立例、コンビニ、サプリ、買い物、作り置き |
 | 05 | [face-neck-posture](plan/05_face-neck-posture.md) | 車の中のルーティン、姿勢ケア、マッサージ、目元・眉、横顔のチェック、Instagram |
 | 06 | [skin-teeth](plan/06_skin-teeth.md) | 自宅ケア、皮膚科・ダーマペン、矯正歯科の進め方、契約ルール |
-| 07 | [inner-speaking](plan/07_inner-speaking.md) | 出社日の電車での話し方トレーニング |
 | 08 | [recovery-rules](plan/08_recovery-rules.md) | 数値が外れたときのルール |
 | 09 | [voice-articulation](plan/09_voice-articulation.md) | 滑舌と声（車・家・日曜のメニュー、会議での話し方） |
 | 10 | [social-reps](plan/10_social-reps.md) | 人と関わる：VRChat・トーストマスターズ・仕事の中で毎日 |
