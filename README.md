@@ -33,7 +33,6 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 | 04 | [skin](plan/04_skin.md) | 洗顔・保湿・日焼け止め、何を揃えるか |
 | 05 | [teeth](plan/05_teeth.md) | 矯正歯科の選び方・進め方、契約ルール |
 | 06 | [voice-articulation](plan/06_voice-articulation.md) | 滑舌と声（車・家・日曜のメニュー、会議での話し方） |
-| — | [oneshot_todo](plan/oneshot_todo.md) | 一度だけやること（予約・買うもの・導入） |
 | — | [12月以降検討](plan/12月以降検討.md) | 8週間ではやらないもの（ダーマペン・レチノール・髪型など） |
 | — | [goals-kpi](plan/goals-kpi.md) | 開始値・最終目標・週ごとの目標ライン |
 | — | [recovery-rules](plan/recovery-rules.md) | 数値が外れたときのルール（日曜にClaudeが使う） |
