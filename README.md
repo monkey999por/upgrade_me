@@ -10,7 +10,7 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 - **脂肪を本気で減らす**（体重の数字は目標にしない）。1,900kcal＋ジムの有酸素＋1日1万歩で脂肪を落とし、筋トレ週5回で筋肉を戻す
 - 毎日やることが決まっている（→ calendar.html）
 - 目標から外れたときの対応が決まっている（→ [recovery-rules](plan/recovery-rules.md)）
-- 自分の見た目を毎日・毎週直視する（鏡・週1回の写真と動画・Instagram匿名アカ）
+- 自分の見た目を毎日・毎週直視する（鏡・週1回の写真と動画）
 
 ## KPI（詳細は [goals-kpi](plan/goals-kpi.md)）
 | | 開始 | 11/22の本命 | 挑戦 |
@@ -29,7 +29,7 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 |---|---|---|
 | 01 | [training](plan/01_training.md) | 筋トレ週5分割・強さの段階・ジムの有酸素・1日1万歩 |
 | 02 | [nutrition](plan/02_nutrition.md) | 何を食べるか：1,900kcal・P170g、食材リスト（量とkcal）、料理の例、1日のサンプル、献立例、コンビニ・外食、サプリ |
-| 03 | [face-neck-posture](plan/03_face-neck-posture.md) | 車の中のルーティン、姿勢ケア、マッサージ、目元・眉、横顔のチェック、Instagram |
+| 03 | [face-neck-posture](plan/03_face-neck-posture.md) | 車の中のルーティン、姿勢ケア、マッサージ、目元・眉、横顔のチェック、写真の保存 |
 | 04 | [skin](plan/04_skin.md) | 洗顔・保湿・日焼け止め、何を揃えるか |
 | 05 | [teeth](plan/05_teeth.md) | 矯正歯科の選び方・進め方、契約ルール |
 | 06 | [voice-articulation](plan/06_voice-articulation.md) | 滑舌と声（車・家・日曜のメニュー、会議での話し方） |
@@ -42,7 +42,7 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 ## 記録
 - 毎日：アプリに任せる（体重・体脂肪＝体組成計、歩数・睡眠＝スマートウォッチ）。食事は記録せず、02の量を守る
 - 毎週日曜：Claudeに報告（[tracking/weekly_review.md](tracking/weekly_review.md)）
-- 写真：Instagram匿名アカに毎週投稿。元の写真はカメラロールに残す
+- 写真：毎週スマホの専用アルバムに保存し、報告で Claude に貼る（SNSには上げない）
 
 ## 下書き
 - [ペルソナ.md](ペルソナ.md)
