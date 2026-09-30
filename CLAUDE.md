@@ -6,6 +6,7 @@
 - **いつ**（日付・曜日・時刻・週の段階・予約）：`plan/calendar.html` だけ。データはスクリプト内の `PHASE` / `DATED` / `BOOKINGS` / `ROADMAP` / `ROUTINE`・`WEEK`（曜日ごとの筋トレ：月U 火L 水Push 木休 金Pull 土Legs 日休）。出社はない前提（ユーザー指定）
 - **何を・どうやるか**：`plan/01`〜`06` のmd。`goals-kpi.md`（目標）と `recovery-rules.md`（日曜にClaudeが使う）は連番なし。日付は書かない
 - 8週間ではやらないが後でやるものは `plan/12月以降検討.md` に置く（ダーマペン・レチノールなど）
+- 食事（02）は「何を食べるか」だけ。買い出し・作り置きはプランに入れない（ユーザー指定）
 - 話し方・人と関わる（旧07・10）はプランから外した。ユーザーが別で考える
 - calendar.html の各項目は `L(F.x, "見出し")` で md の見出しにリンクしている。**mdの見出しを変えたら calendar.html も直す**。確認は、`L(F.x, "…")` を抜き出して GitHub の描画結果の `id="user-content-<slug>"` と照合する
 - calendar.html を変えたら、artifact https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD を **単一ファイル**（`plan/calendar.html`）で再公開する。ページや情報量は増やさない（複数ページ版はユーザーが「情報が多すぎて見づらい」と戻した）

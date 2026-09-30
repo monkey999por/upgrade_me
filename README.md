@@ -28,7 +28,7 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 | # | ファイル | 内容 |
 |---|---|---|
 | 01 | [training](plan/01_training.md) | 筋トレ週5分割・強さの段階・ジムの有酸素・1日1万歩 |
-| 02 | [nutrition](plan/02_nutrition.md) | 1,900kcal・P170g、基準メニュー、入れ替え表、献立例、コンビニ、サプリ、買い物、作り置き |
+| 02 | [nutrition](plan/02_nutrition.md) | 何を食べるか：1,900kcal・P170g、基準メニュー、入れ替え表、献立例、コンビニ・外食、サプリ |
 | 03 | [face-neck-posture](plan/03_face-neck-posture.md) | 車の中のルーティン、姿勢ケア、マッサージ、目元・眉、横顔のチェック、Instagram |
 | 04 | [skin](plan/04_skin.md) | 洗顔・保湿・日焼け止め、何を揃えるか |
 | 05 | [teeth](plan/05_teeth.md) | 矯正歯科の選び方・進め方、契約ルール |

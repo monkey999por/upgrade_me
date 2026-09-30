@@ -224,7 +224,6 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     Pull: L(F.train, "Pull：引く日"), Legs: L(F.train, "Legs：脚"),
     phase: L(F.train, "強さ：段階ごとにRIR（あと何回できるか）で決める"), cardio: L(F.train, "ジムの有酸素（HIIT＋傾斜ウォーク）"),
     menu: L(F.food, "1週間の献立例（入れ替え表から組んだ例）"), swap: L(F.food, "入れ替え表（食品のバリエーション）"),
-    prep: L(F.food, "作り置き（日曜・水曜、各60分）"),
     supp: L(F.food, "サプリ（食事で足りない分だけ）"),
     measure: L(F.kpi, "ウエストの測り方"), car: L(F.face, "車の中のルーティン（毎日・15分＝前半：表情筋7分 → 後半：発声・滑舌8分）"),
     ortho: L(F.teeth, "進め方（最短で始める。治療自体は8週間のあとも続く）"),
@@ -262,7 +261,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
 
   // 日付が決まっている予定
   const DATED = {
-    "2026-09-27": [["Day1：計測・写真4枚・動画", LINK.measure]],
+    "2026-09-27": [["Day1：計測・写真4枚", LINK.measure]],
     "2026-10-11": [["判定：調整期間（ルール#4）", LINK.recover]],
     "2026-10-25": [["中間判定（ルール#10）", LINK.recover]],
     "2026-11-08": [["計画の見直し（ルール）", LINK.recover]],
@@ -316,7 +315,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   ];
   // ======================================================================
 
-  // ---- 曜日ごとの筋トレ（日曜は計測・報告・作り置き、木曜は中休み） ----
+  // ---- 曜日ごとの筋トレ（日曜は計測・報告、木曜は中休み） ----
   const WEEK = ["rest", "U", "L", "Push", "rest", "Pull", "Legs"];  // 日〜土
   function planWeek(w) {
     const out = WEEK.map(type => ({ type, hiit: false }));
@@ -365,8 +364,6 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       if (info.hiit) items.push(["g-hiit", "", "HIIT（バイク）", LINK.cardio]);
       if (WALK.includes(type)) items.push(["g-walk", "", "傾斜ウォーク 20分", LINK.cardio]);
     }
-    if (dow === 0 && w < 8) items.push(["prep", "午後", "献立・買い出し・作り置き", LINK.prep]);
-    if (dow === 3) items.push(["prep", "夜", "買い出し・作り置き", LINK.prep]);
     if (dow === 0 && w < 8) items.push(["s-voice", "夜", "1分原稿の録音", LINK.voiceSun]);
     return { info, items };
   }
