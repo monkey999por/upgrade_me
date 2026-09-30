@@ -223,7 +223,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     U: L(F.train, "U：上半身（重め）"), L: L(F.train, "L：下半身（重め）"), Push: L(F.train, "Push：押す日"),
     Pull: L(F.train, "Pull：引く日"), Legs: L(F.train, "Legs：脚"),
     phase: L(F.train, "強さ：段階ごとにRIR（あと何回できるか）で決める"), cardio: L(F.train, "ジムの有酸素（HIIT＋傾斜ウォーク）"),
-    menu: L(F.food, "1週間の献立例（入れ替え表から組んだ例）"), swap: L(F.food, "入れ替え表（食品のバリエーション）"),
+    menu: L(F.food, "1週間の献立例"), swap: L(F.food, "1日の組み立て方"),
     supp: L(F.food, "サプリ（食事で足りない分だけ）"),
     measure: L(F.kpi, "ウエストの測り方"), car: L(F.face, "車の中のルーティン（毎日・15分＝前半：表情筋7分 → 後半：発声・滑舌8分）"),
     ortho: L(F.teeth, "進め方（最短で始める。治療自体は8週間のあとも続く）"),
@@ -280,7 +280,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
 
   // 週ごとのロードマップ（分野ごと）
   const ROADMAP = [
-    { body: "開始重量を探す", skin: ["毎晩の洗顔を習慣にする（風呂に入らない日も）", LINK.skinDaily], teeth: ["一般歯科の虫歯チェック・矯正2–3院の相談を予約", LINK.ortho], voice: ["1分原稿を録音（声のDay1）・車のメニューを覚える・あめんぼ ア・カ行", LINK.amenbo], other: "眉を整える（W2まで）・あすけん・Instagram開始" },
+    { body: "開始重量を探す", skin: ["毎晩の洗顔を習慣にする（風呂に入らない日も）", LINK.skinDaily], teeth: ["一般歯科の虫歯チェック・矯正2–3院の相談を予約", LINK.ortho], voice: ["1分原稿を録音（声のDay1）・車のメニューを覚える・あめんぼ ア・カ行", LINK.amenbo], other: "眉を整える（W2まで）・Instagram開始" },
     { body: "", skin: ["", ""], teeth: ["初診相談（2–3院）→ 精密検査を予約", LINK.ortho], voice: ["腹式呼吸とリップロールで喉が楽な声をつかむ・サ・タ行", LINK.amenbo], other: "" },
     { body: "", skin: ["", ""], teeth: ["精密検査", LINK.ortho], voice: ["V4・V5のテンポを上げる・ナ・ハ行", LINK.amenbo], other: "" },
     { body: "", skin: ["写真で肌をDay1と比べる", LINK.insta], teeth: ["治療計画の説明 → 1週間考える", LINK.ortho], voice: ["同じ条件で1分原稿を録音・マ・ヤ行", LINK.amenbo], other: "" },
@@ -306,7 +306,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       ["d-snack", "15:30", "間食", LINK.swap]
     ]],
     ["夜", [
-      ["n-asken", "23:30", "あすけん確認・翌日の準備", ""],
+      ["n-prep", "23:30", "翌日の食事を決める", LINK.swap],
       ["n-skin", "0:00", "洗顔 → 保湿", LINK.skinDaily],
       ["n-posture", "0:10", "姿勢ケア＋マッサージ＋目元", LINK.posture],
       ["n-phone", "0:30", "スマホを置く", ""],
@@ -469,7 +469,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       <div style="display:grid;gap:16px;max-width:560px">
         ${dayNav(d, info)}
         ${checklist("毎日のルーティン", ROUTINE, checks, "")}
-        <div class="note">崩れた日は「体重を測る・あすけんにざっくり入力・日焼け止め・1:00に寝る」の4つだけ。</div>
+        <div class="note">崩れた日は「体重を測る・食事はサンプル1に戻す・日焼け止め・1:00に寝る」の4つだけ。</div>
       </div>`;
     wire(views.routine, k, renderRoutine);
   }

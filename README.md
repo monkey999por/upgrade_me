@@ -28,7 +28,7 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 | # | ファイル | 内容 |
 |---|---|---|
 | 01 | [training](plan/01_training.md) | 筋トレ週5分割・強さの段階・ジムの有酸素・1日1万歩 |
-| 02 | [nutrition](plan/02_nutrition.md) | 何を食べるか：1,900kcal・P170g、基準メニュー、入れ替え表、献立例、コンビニ・外食、サプリ |
+| 02 | [nutrition](plan/02_nutrition.md) | 何を食べるか：1,900kcal・P170g、食材リスト（量とkcal）、料理の例、1日のサンプル、献立例、コンビニ・外食、サプリ |
 | 03 | [face-neck-posture](plan/03_face-neck-posture.md) | 車の中のルーティン、姿勢ケア、マッサージ、目元・眉、横顔のチェック、Instagram |
 | 04 | [skin](plan/04_skin.md) | 洗顔・保湿・日焼け止め、何を揃えるか |
 | 05 | [teeth](plan/05_teeth.md) | 矯正歯科の選び方・進め方、契約ルール |
@@ -40,7 +40,7 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 | — | [sources](plan/sources.md) | 出典と信頼度 |
 
 ## 記録
-- 毎日：アプリに任せる（体重・体脂肪＝体組成計、歩数・睡眠＝スマートウォッチ、食事＝あすけん）
+- 毎日：アプリに任せる（体重・体脂肪＝体組成計、歩数・睡眠＝スマートウォッチ）。食事は記録せず、02の量を守る
 - 毎週日曜：Claudeに報告（[tracking/weekly_review.md](tracking/weekly_review.md)）
 - 写真：Instagram匿名アカに毎週投稿。元の写真はカメラロールに残す
 
