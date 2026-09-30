@@ -3,7 +3,7 @@
 ユーザーが読むmarkdownは簡潔に保つ。根拠・出典・計算の途中・Claude向けの手順はそこに書かず、出典は `plan/sources.md`、手順はこのファイルに置く。
 
 ## ファイルの役割
-- **いつ**（日付・曜日・時刻・週の段階・予約）：`plan/calendar.html` だけ。データはスクリプト内の `PHASE` / `DATED` / `BOOKINGS` / `ROADMAP` / `ROUTINE`。出社日に応じた並べ方は `planWeek()`（出社日＝休養、残りに U→L→Push→Pull→Legs、4日なら U→L→U→L、6–7日なら Push の後に休養）
+- **いつ**（日付・曜日・時刻・週の段階・予約）：`plan/calendar.html` だけ。データはスクリプト内の `PHASE` / `DATED` / `BOOKINGS` / `ROADMAP` / `ROUTINE`・`WEEK`（曜日ごとの筋トレ：月U 火L 水Push 木休 金Pull 土Legs 日休）。出社はない前提（ユーザー指定）
 - **何を・どうやるか**：`plan/00`〜`10` のmd（01・02は廃止。HTMLで管理）。日付は書かない
 - calendar.html の各項目は `L(F.x, "見出し")` で md の見出しにリンクしている。**mdの見出しを変えたら calendar.html も直す**。確認は、`L(F.x, "…")` を抜き出して GitHub の描画結果の `id="user-content-<slug>"` と照合する
 - calendar.html を変えたら、artifact https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD を **単一ファイル**（`plan/calendar.html`）で再公開する。ページや情報量は増やさない（複数ページ版はユーザーが「情報が多すぎて見づらい」と戻した）

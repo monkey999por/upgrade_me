@@ -120,16 +120,12 @@ table.ex td:last-child { text-align: right; font-family: var(--font-display); fo
 .legend-grid .ph { font-size: 13px; padding: 1px 8px; border-radius: 6px; background: var(--soft); }
 .evs-sample { color: var(--event); font-size: 12.5px; }
 .today-sample { font-family: var(--font-display); font-weight: 600; border: 2px solid var(--ink); border-radius: 6px; padding: 0 6px; font-variant-numeric: tabular-nums; }
-.pick-sample { width: 28px; height: 24px; border-radius: 6px; background: var(--office); color: var(--on-ink); display: inline-grid; place-items: center; font-size: 12.5px; }
 .week { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 10px; min-width: 0; }
 .week.current { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
 .whead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
 .whead .wn { font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 1; }
 .whead .wd { font-family: var(--font-display); color: var(--muted); font-size: 16px; font-variant-numeric: tabular-nums; }
 .whead .ph { font-size: 13px; padding: 1px 8px; border-radius: 6px; background: var(--soft); }
-.office-pick { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
-.office-pick button { width: 28px; height: 26px; border-radius: 6px; border: 1px solid var(--line); background: transparent; cursor: pointer; font-size: 12.5px; }
-.office-pick button[aria-pressed="true"] { background: var(--office); border-color: var(--office); color: var(--on-ink); }
 .days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
 .day { border: 1px solid var(--soft); border-radius: 8px; padding: 6px 5px; min-height: 92px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; background: transparent; text-align: left; min-width: 0; }
 .day:hover { border-color: var(--line); background: var(--soft); }
@@ -229,12 +225,11 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     Pull: L(F.train, "Pull：引く日"), Legs: L(F.train, "Legs：脚"),
     phase: L(F.train, "強さ：段階ごとにRIR（あと何回できるか）で決める"), cardio: L(F.train, "ジムの有酸素（HIIT＋傾斜ウォーク）"),
     menu: L(F.food, "1週間の献立例（入れ替え表から組んだ例）"), swap: L(F.food, "入れ替え表（食品のバリエーション）"),
-    konbini: L(F.food, "コンビニの日（出社日の昼など）"), prep: L(F.food, "作り置き（日曜・水曜、各60分）"),
+    prep: L(F.food, "作り置き（日曜・水曜、各60分）"),
     supp: L(F.food, "サプリ（食事で足りない分だけ）"),
     measure: L(F.kpi, "ウエストの測り方"), car: L(F.face, "車の中のルーティン（毎日・15分＝前半：表情筋7分 → 後半：発声・滑舌8分）"),
     dermapen: L(F.skin, "ダーマペンの間隔と回数（逆算のルール）"), ortho: L(F.skin, "進め方（最短で始める。治療自体は8週間のあとも続く）"),
     skinChoose: L(F.skin, "皮膚科の選び方"), aftercare: L(F.skin, "施術の前後に守ること"),
-    go: L(F.speak, "行き（60分）"), back: L(F.speak, "帰り（60分）"),
     voiceHome: L(F.voice, "家（在宅日に5分。休憩のトレッドミル前後などに）"), voiceSun: L(F.voice, "日曜（週1回の記録・10分）"),
     amenbo: L(F.voice, "あめんぼの歌（北原白秋「五十音」1922年）"), meeting: L(F.voice, "プレゼン・会議での話し方のルール（実際の場面で意識するのは3つだけ）"),
     tm: L(F.social, "枠B：対面"), vrc: L(F.social, "枠A：VRChat"),
@@ -245,7 +240,6 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   const START = new Date(2026, 8, 27);           // 9/27 (Sun)
   const END = new Date(2026, 10, 22);            // 11/22 (Sun) 最終判定
   const DOW = ["日", "月", "火", "水", "木", "金", "土"];
-  const DEFAULT_OFFICE = [2, 4];                 // 火・木
 
   const store = {
     get(k, d) { try { const v = localStorage.getItem("um:" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -332,16 +326,10 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   ];
   // ======================================================================
 
-  // ---- 出社日と筋トレの割り当て（ルールは 01） ----
-  const officeDays = store.get("office", {});
-  const getOffice = w => officeDays[w] || DEFAULT_OFFICE;
+  // ---- 曜日ごとの筋トレ（日曜は計測・報告・作り置き、木曜は中休み） ----
+  const WEEK = ["rest", "U", "L", "Push", "rest", "Pull", "Legs"];  // 日〜土
   function planWeek(w) {
-    const office = getOffice(w);
-    const free = [0, 1, 2, 3, 4, 5, 6].filter(d => !office.includes(d));
-    const seqs = { 7: ["U", "L", "Push", "rest", "Pull", "Legs", "rest"], 6: ["U", "L", "Push", "rest", "Pull", "Legs"], 5: ["U", "L", "Push", "Pull", "Legs"], 4: ["U", "L", "U", "L"] };
-    const seq = seqs[free.length] || ["U", "L", "U"].slice(0, free.length);
-    const out = Array(7).fill(null).map((_, d) => ({ type: office.includes(d) ? "office" : "rest", hiit: false }));
-    free.forEach((d, i) => { out[d].type = seq[i] || "rest"; });
+    const out = WEEK.map(type => ({ type, hiit: false }));
     const hiitOn = HIIT_BY_PHASE[PHASE[w]];
     const done = new Set();
     out.forEach(o => { if (hiitOn.includes(o.type) && !done.has(o.type)) { o.hiit = true; done.add(o.type); } });
@@ -360,7 +348,6 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     return list;
   }
   const chip = type => {
-    if (type === "office") return `<span class="chip office">出社</span>`;
     if (type === "rest") return `<span class="chip rest">休養</span>`;
     if (type === "judge") return `<span class="chip office">判定</span>`;
     return `<span class="chip ${type}">${type}</span>`;
@@ -376,13 +363,9 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     if (dow === 0 && w < 8) {
       items.push(["s-measure", "起床後", "ウエストを測る", LINK.measure]);
       items.push(["s-photo", "8:00", "写真4枚 → Instagram", LINK.insta]);
-      items.push(["s-report", "午前", "Claudeに週次の報告・来週の出社日を設定", LINK.send]);
+      items.push(["s-report", "午前", "Claudeに週次の報告", LINK.send]);
     }
-    if (type === "office") {
-      items.push(["o-train", "行き", "話し方トレーニング", LINK.go]);
-      items.push(["o-lunch", "昼", "コンビニのセット＋10分歩く", LINK.konbini]);
-      items.push(["o-back", "帰り", "振り返り＋Homework for Life", LINK.back]);
-    } else if (weekday) {
+    if (weekday) {
       items.push(["h-walk", "日中", "トレッドミル休憩 15分×4", LINK.walking]);
       items.push(["h-voice", "日中", "家の発声メニュー 5分", LINK.voiceHome]);
     }
@@ -479,7 +462,6 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
             <div class="panel">
               <h3>食事</h3>
               <div class="linkrow"><b>献立</b>${a(LINK.menu, `04の献立例の${DOW[info.dow]}曜日`)}</div>
-              ${info.type === "office" ? `<div class="linkrow"><b>昼</b>${a(LINK.konbini, "コンビニのセット")}</div>` : ""}
               <div class="linkrow"><b>替える</b>${a(LINK.swap, "入れ替え表")}</div>
             </div>
           </div>
@@ -516,23 +498,17 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
         <dl class="legend-grid">
           ${["U", "L", "Push", "Pull", "Legs"].map(t => `<dt>${chip(t)}</dt><dd>${a(LINK[t], SESSION_NAME[t])}の筋トレ${WALK.includes(t) ? "＋傾斜ウォーク20分" : ""}</dd>`).join("")}
           <dt><span class="chip hiit">HIIT</span></dt><dd>筋トレの後にバイクHIIT（${a(LINK.cardio, "やり方")}）</dd>
-          <dt>${chip("office")}</dt><dd>出社日＝休養日。筋トレなし、1万歩＋話し方トレーニング</dd>
-          <dt>${chip("rest")}</dt><dd>休養日（出社が1日以下の週だけ出る）</dd>
+          <dt>${chip("rest")}</dt><dd>休養日（日・木）。筋トレなし、1万歩だけ</dd>
           <dt><span class="evs-sample">紫の文字</span></dt><dd>その日の予定・予約・判定。日曜は週次レビュー</dd>
           <dt><span class="today-sample">${md(clamp(today))}</span></dt><dd>太い枠は今日。日付をタップするとその日の「今日」タブが開く</dd>
           <dt><span class="ph">本番</span></dt><dd>週の横のラベルはトレーニングの段階（${a(LINK.phase, "段階の中身")}）</dd>
-          <dt><span class="pick-sample">火</span></dt><dd>曜日ボタンで出社日を選ぶと、残りの日に U→L→Push→Pull→Legs が並び直す</dd>
         </dl>
       </details>`;
     for (let w = 0; w < 8; w++) {
       const plan = planWeek(w);
       const s = addDays(START, w * 7);
-      const office = getOffice(w);
       html += `<article class="week${w === curW ? " current" : ""}">
-        <div class="whead"><span class="wn">W${w + 1}</span><span class="wd">${md(s)} – ${md(addDays(s, 6))}</span><span class="ph">${PHASE[w]}</span>
-          <span class="office-pick" style="margin-left:auto">出社日
-            ${DOW.map((n, i) => `<button type="button" id="o-${w}-${i}" data-w="${w}" data-d="${i}" aria-pressed="${office.includes(i)}" aria-label="W${w + 1} ${n}曜を出社日にする">${n}</button>`).join("")}
-          </span></div>
+        <div class="whead"><span class="wn">W${w + 1}</span><span class="wd">${md(s)} – ${md(addDays(s, 6))}</span><span class="ph">${PHASE[w]}</span></div>
         <div class="days">${plan.map((p, i) => {
           const d = addDays(s, i), k = key(d);
           const evs = eventsOn(k).map(e => e[0]).concat(i === 0 ? ["週次レビュー"] : []);
@@ -547,15 +523,6 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     html += `<div class="judge"><b>11/22（日）最終判定</b><span>ウエスト・体脂肪率・ベンチを計測、Before/After写真と動画、次の8週間の計画</span></div></div>`;
     views.calendar.innerHTML = html;
 
-    views.calendar.querySelectorAll(".office-pick button").forEach(b => b.addEventListener("click", () => {
-      const w = +b.dataset.w, d = +b.dataset.d;
-      const list = getOffice(w).slice();
-      const i = list.indexOf(d);
-      if (i >= 0) list.splice(i, 1); else list.push(d);
-      officeDays[w] = list.sort();
-      store.set("office", officeDays);
-      renderCalendar();
-    }));
     const lg = document.getElementById("legend");
     if (lg) lg.addEventListener("toggle", () => store.set("legendOpen", lg.open));
     views.calendar.querySelectorAll(".day").forEach(b => b.addEventListener("click", () => {
