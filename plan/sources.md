@@ -53,6 +53,18 @@
 | 針とRF（高周波）を組み合わせた施術で毛穴が改善（75人） | [PubMed 36038248](https://pubmed.ncbi.nlm.nih.gov/36038248/) | C（後ろ向き研究） |
 | 皮膚科専門医の所属先（大宮区11名） | [日本皮膚科学会 皮膚科専門医MAP（2026-09-27取得）](https://www.dermatol.or.jp/spmap/) | A（学会の公式名簿） |
 | 各院の施術メニュー | [はなふさ皮膚科 大宮院](https://mitakabiyou.com/omiya)／[肌クリニック大宮](https://e-hifu.jp/beauty/treatment/) | C（院の公式サイト） |
+| 男性のスキンケアの基本：マイルドな洗顔料とぬるま湯で毎日・運動後に洗う、毛穴が詰まりやすいならノンコメドジェニック、湿っているうちに保湿、SPF30以上 | [AAD：Skin care tips for men](https://www.aad.org/public/everyday-care/skin-care-basics/care/skin-care-for-men) | A（専門職団体） |
+| 保湿剤は水分を引き込む成分（グリセリン等）と蒸発を防ぐ成分の組み合わせ。セラミドはバリア機能を支える | [Purnamawati et al., Clin Med Res 2017（総説）](https://pmc.ncbi.nlm.nih.gov/articles/PMC4885180/) | B |
+| 化粧水だけでは保湿にならず、乳液・クリームの油分が必要 | [美的.com：皮膚科医のコメント](https://www.biteki.com/skin-care/feature/860946) | C（医師のコメント記事） |
+| 日焼け止めは顔全体でパール2–3粒分（約2mg/cm²）、2–3時間おきに塗り直し | [美的.com](https://www.biteki.com/282754/) | C |
+| 2%ナイアシンアミドで皮脂の分泌が減った（日本人100人・4週間の二重盲検） | [Draelos et al., J Cosmet Laser Ther 2006](https://pubmed.ncbi.nlm.nih.gov/16766489/) | B（RCT） |
+| レチノール0.1–0.5%で光老化が改善、効果は12週間ほどで出る。刺激は濃度が高いほど出やすい | [JDD：Topical Treatments for Photoaged Skin](https://jddonline.com/articles/dermatology/S1545961623P0867X)／[PMC9112391](https://pmc.ncbi.nlm.nih.gov/articles/PMC9112391/) | B（総説） |
+| 毛穴への外用レチノイド（トレチノイン0.025%・90日）などの治療。毛穴を主目的にした研究は少ない | [Dong et al., Cutis 2016](https://www.mdedge.com/cutis/article/110032/acne/enlarged-facial-pores-update-treatments) | B（総説） |
+| 純粋レチノールは2017年にレチノール類で日本で唯一の医薬部外品のシワ改善成分として承認。ナイアシンアミドもシワ改善・肌荒れ防止の有効成分 | [資生堂 Beauty Technology Lab](https://corp.shiseido.com/beautytechnologylab/jp/wrinkles/part1/)／[美的.com](https://www.biteki.com/451470/) | B（メーカー・業界誌） |
+| アダパレン（ディフェリンゲル0.1%）は尋常性ざ瘡の処方薬。面皰（詰まり）を減らす | [PMDA 再審査報告書](https://www.pmda.go.jp/drugs_reexam/2018/P20180413004/200483000_22000AMX01713_A100_1.pdf) | A |
+| 化粧品のサリチル酸は0.2%まで | [厚労省 化粧品基準](https://www.mhlw.go.jp/file/06-Seisakujouhou-11120000-Iyakushokuhinkyoku/keshouhin-standard.pdf) | A |
+| ビタミンCは光老化・色素沈着に効果。純粋なアスコルビン酸は不安定で、誘導体の研究は少ない | [JCAD 系統的レビュー](https://jcadonline.com/clinical-applications-of-vitamin-c-in-dermatology-a-systematic-review/)／[PubMed 34559950](https://pubmed.ncbi.nlm.nih.gov/34559950/) | B |
+| レチノール誘導体（パルミチン酸レチノール等）は穏やかで初心者向け。無印良品の美容液は誘導体0.1% | [無印良品 商品ページ](https://www.muji.com/jp/ja/store/cmdty/detail/4550583451356) | C |
 
 ### ダーマペンのスケジュール
 | 主張 | 出典 | 信頼度 |
