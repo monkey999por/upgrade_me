@@ -214,7 +214,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   const F = {
     kpi: "plan/goals-kpi.md",
     train: "plan/01_training.md", food: "plan/02_nutrition.md", face: "plan/03_face-neck-posture.md",
-    skin: "plan/04_skin-teeth.md", recover: "plan/recovery-rules.md",
+    skin: "plan/04_skin-teeth.md", later: "plan/12月以降検討.md", recover: "plan/recovery-rules.md",
     voice: "plan/05_voice-articulation.md", review: "tracking/weekly_review.md"
   };
   const LINK = {
@@ -227,8 +227,8 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     prep: L(F.food, "作り置き（日曜・水曜、各60分）"),
     supp: L(F.food, "サプリ（食事で足りない分だけ）"),
     measure: L(F.kpi, "ウエストの測り方"), car: L(F.face, "車の中のルーティン（毎日・15分＝前半：表情筋7分 → 後半：発声・滑舌8分）"),
-    dermapen: L(F.skin, "ダーマペンの間隔と回数（逆算のルール）"), ortho: L(F.skin, "進め方（最短で始める。治療自体は8週間のあとも続く）"),
-    skinChoose: L(F.skin, "皮膚科の選び方"), aftercare: L(F.skin, "施術の前後に守ること"),
+    ortho: L(F.skin, "進め方（最短で始める。治療自体は8週間のあとも続く）"),
+    later: L(F.later),
     voiceHome: L(F.voice, "家（在宅日に5分。休憩のトレッドミル前後などに）"), voiceSun: L(F.voice, "日曜（週1回の記録・5分）"),
     amenbo: L(F.voice, "あめんぼの歌（北原白秋「五十音」1922年）"), meeting: L(F.voice, "プレゼン・会議での話し方のルール（実際の場面で意識するのは3つだけ）"),
     send: L(F.review, "Claudeに送るもの（コピーして埋める）"), targets: L(F.kpi, "週ごとの目標ライン"),
@@ -265,34 +265,30 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     "2026-09-27": [["Day1：計測・写真4枚・動画", LINK.measure]],
     "2026-10-11": [["判定：調整期間（ルール#4）", LINK.recover]],
     "2026-10-25": [["中間判定（ルール#10）", LINK.recover]],
-    "2026-11-08": [["ダーマペン最後の施術の期限", LINK.dermapen], ["計画の見直し（ルール）", LINK.recover]],
+    "2026-11-08": [["計画の見直し（ルール）", LINK.recover]],
     "2026-11-22": [["最終判定：計測・Before/After・次の8週間を計画", LINK.kpi]]
   };
 
   // 予約：決まったら date（"2026-10-01"）と time・place を入れる。入れるとカレンダーにも出る
   const BOOKINGS = [
-    { name: "皮膚科カウンセリング①", week: 0, date: "", time: "", place: "", link: LINK.skinChoose },
-    { name: "皮膚科カウンセリング②", week: 0, date: "", time: "", place: "", link: LINK.skinChoose },
     { name: "一般歯科：虫歯チェック・クリーニング", week: 0, date: "", time: "", place: "", link: LINK.ortho },
-    { name: "ダーマペン1回目", week: 0, date: "", time: "", place: "", link: LINK.dermapen },
     { name: "矯正の初診相談①", week: 1, date: "", time: "", place: "", link: LINK.ortho },
     { name: "矯正の初診相談②", week: 1, date: "", time: "", place: "", link: LINK.ortho },
     { name: "矯正の初診相談③", week: 1, date: "", time: "", place: "", link: LINK.ortho },
     { name: "矯正の精密検査", week: 2, date: "", time: "", place: "", link: LINK.ortho },
-    { name: "ダーマペン2回目", week: 2, date: "", time: "", place: "", link: LINK.dermapen },
     { name: "矯正の治療計画の説明", week: 3, date: "", time: "", place: "", link: LINK.ortho }
   ];
 
   // 週ごとのロードマップ（分野ごと）
   const ROADMAP = [
-    { body: "開始重量を探す", skin: ["皮膚科2院のカウンセリング → ダーマペン1回目（9/30–10/8）", LINK.dermapen], teeth: ["一般歯科の虫歯チェック・矯正2–3院の相談を予約", LINK.ortho], voice: ["1分原稿を録音（声のDay1）・車のメニューを覚える・あめんぼ ア・カ行", LINK.amenbo], other: "眉を整える（W2まで）・あすけん・Instagram開始" },
-    { body: "", skin: ["ダーマペン1回目（まだなら）", LINK.dermapen], teeth: ["初診相談（2–3院）→ 精密検査を予約", LINK.ortho], voice: ["腹式呼吸とリップロールで喉が楽な声をつかむ・サ・タ行", LINK.amenbo], other: "" },
-    { body: "", skin: ["黒ずみ型なら2回目（10/13–10/22）", LINK.dermapen], teeth: ["精密検査", LINK.ortho], voice: ["V4・V5のテンポを上げる・ナ・ハ行", LINK.amenbo], other: "" },
-    { body: "", skin: ["施術後の経過を写真で記録", LINK.aftercare], teeth: ["治療計画の説明 → 1週間考える", LINK.ortho], voice: ["同じ条件で1分原稿を録音・マ・ヤ行", LINK.amenbo], other: "" },
-    { body: "", skin: ["黒ずみ型なら3回目（10/27–11/6）", LINK.dermapen], teeth: ["契約 → 前処置", LINK.ortho], voice: ["会議で話し方のルール3つを使う・ラ・ワ行", LINK.meeting], other: "" },
-    { body: "", skin: ["開き型なら2回目（10/28–11/6）。11/8が最後の施術の期限", LINK.dermapen], teeth: ["ワイヤーなら装着", LINK.ortho], voice: ["会議で話し方のルール3つを使う・あめんぼを通しで", LINK.meeting], other: "" },
-    { body: "", skin: ["施術なし（赤み・内出血を引かせる）", LINK.aftercare], teeth: ["", ""], voice: ["あめんぼの歌を通しで", LINK.amenbo], other: "" },
-    { body: "最後に食事を削らない", skin: ["", ""], teeth: ["マウスピースなら装着開始（12月でも可）", LINK.ortho], voice: ["Day1の録音と聴き比べ", LINK.voiceSun], other: "" }
+    { body: "開始重量を探す", skin: ["毎晩の洗顔を習慣にする（風呂に入らない日も）", LINK.skinDaily], teeth: ["一般歯科の虫歯チェック・矯正2–3院の相談を予約", LINK.ortho], voice: ["1分原稿を録音（声のDay1）・車のメニューを覚える・あめんぼ ア・カ行", LINK.amenbo], other: "眉を整える（W2まで）・あすけん・Instagram開始" },
+    { body: "", skin: ["", ""], teeth: ["初診相談（2–3院）→ 精密検査を予約", LINK.ortho], voice: ["腹式呼吸とリップロールで喉が楽な声をつかむ・サ・タ行", LINK.amenbo], other: "" },
+    { body: "", skin: ["", ""], teeth: ["精密検査", LINK.ortho], voice: ["V4・V5のテンポを上げる・ナ・ハ行", LINK.amenbo], other: "" },
+    { body: "", skin: ["写真で肌をDay1と比べる", LINK.insta], teeth: ["治療計画の説明 → 1週間考える", LINK.ortho], voice: ["同じ条件で1分原稿を録音・マ・ヤ行", LINK.amenbo], other: "" },
+    { body: "", skin: ["", ""], teeth: ["契約 → 前処置", LINK.ortho], voice: ["会議で話し方のルール3つを使う・ラ・ワ行", LINK.meeting], other: "" },
+    { body: "", skin: ["", ""], teeth: ["ワイヤーなら装着", LINK.ortho], voice: ["会議で話し方のルール3つを使う・あめんぼを通しで", LINK.meeting], other: "" },
+    { body: "", skin: ["", ""], teeth: ["", ""], voice: ["あめんぼの歌を通しで", LINK.amenbo], other: "" },
+    { body: "最後に食事を削らない", skin: ["12月以降の肌ケア（レチノール・ダーマペン）を決める", LINK.later], teeth: ["マウスピースなら装着開始（12月でも可）", LINK.ortho], voice: ["Day1の録音と聴き比べ", LINK.voiceSun], other: "" }
   ];
   const MEAT_NIGHT = [0, 2];                     // 02の献立例で夜が肉の曜日（ビタミンD）
 
@@ -545,7 +541,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       ${BOOKINGS.map(b => `<tr><td>${a(b.link, b.name)}</td><td class="when">W${b.week + 1}</td><td class="when">${b.date ? fmt(b.date) + (b.time ? " " + b.time : "") : "未定"}</td><td>${b.place || ""}</td></tr>`).join("")}
       </tbody></table></div></div>
       <div class="panel"><h3>中身（何を・どうやるか）</h3><div class="docs">
-        ${[["01 トレーニング", F.train], ["02 食事", F.food], ["03 顔・首・姿勢", F.face], ["04 肌と歯並び", F.skin], ["05 滑舌と声", F.voice], ["ゴールとKPI", F.kpi], ["外れたときのルール", F.recover], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
+        ${[["01 トレーニング", F.train], ["02 食事", F.food], ["03 顔・首・姿勢", F.face], ["04 肌と歯並び", F.skin], ["05 滑舌と声", F.voice], ["ゴールとKPI", F.kpi], ["外れたときのルール", F.recover], ["12月以降検討", F.later], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
       </div></div>
     </div>`;
     views.roadmap.innerHTML = html;

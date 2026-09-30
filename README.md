@@ -19,7 +19,7 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 | 体脂肪率（体組成計・7日平均） | 20 % | 15 % | 14 % |
 | ベンチプレス | 40 kg × 8回 | 52.5 kg × 8回 | 57.5 kg × 8回 |
 | 体重（参考） | 72.0 kg | 68–69 kg前後 | |
-| 肌 | — | 施術2回完了 | |
+| 肌 | — | 夜の洗顔 週6日以上 | |
 | 歯 | — | 治療方針が確定 | 治療開始 |
 
 ## ドキュメント
@@ -30,8 +30,9 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 | 01 | [training](plan/01_training.md) | 筋トレ週5分割・強さの段階・ジムの有酸素・1日1万歩 |
 | 02 | [nutrition](plan/02_nutrition.md) | 1,900kcal・P170g、基準メニュー、入れ替え表、献立例、コンビニ、サプリ、買い物、作り置き |
 | 03 | [face-neck-posture](plan/03_face-neck-posture.md) | 車の中のルーティン、姿勢ケア、マッサージ、目元・眉、横顔のチェック、Instagram |
-| 04 | [skin-teeth](plan/04_skin-teeth.md) | 自宅ケア、皮膚科・ダーマペン、矯正歯科の進め方、契約ルール |
+| 04 | [skin-teeth](plan/04_skin-teeth.md) | 洗顔・保湿・日焼け止め、矯正歯科の進め方、契約ルール |
 | 05 | [voice-articulation](plan/05_voice-articulation.md) | 滑舌と声（車・家・日曜のメニュー、会議での話し方） |
+| — | [12月以降検討](plan/12月以降検討.md) | 8週間ではやらないもの（ダーマペン・レチノール・髪型など） |
 | — | [goals-kpi](plan/goals-kpi.md) | 開始値・最終目標・週ごとの目標ライン |
 | — | [recovery-rules](plan/recovery-rules.md) | 数値が外れたときのルール（日曜にClaudeが使う） |
 | — | [sources](plan/sources.md) | 出典と信頼度 |
@@ -40,10 +41,6 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 - 毎日：アプリに任せる（体重・体脂肪＝体組成計、歩数・睡眠＝スマートウォッチ、食事＝あすけん）
 - 毎週日曜：Claudeに報告（[tracking/weekly_review.md](tracking/weekly_review.md)）
 - 写真：Instagram匿名アカに毎週投稿。元の写真はカメラロールに残す
-
-## 今回の8週間の対象外
-- 髪型（途中で一度カットに行くのはOK）
-- 姿勢の本格的な改善（首まわりは03で扱う）
 
 ## 下書き
 - [ペルソナ.md](ペルソナ.md)
