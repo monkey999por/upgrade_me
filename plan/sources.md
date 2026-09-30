@@ -75,16 +75,6 @@
 | マウスピース矯正は診察・検査・診断が前提。抜歯症例・骨格性の不正には推奨されない。通販のマウスピースは危険 | [日本矯正歯科学会 マウスピース型矯正装置による治療に関する見解](https://www.jos.gr.jp/4348) | A（学会の見解） |
 | 大宮区・見沼区の認定医・専門医 | [日本矯正歯科学会 認定医・専門医名簿（2026年8月時点）](https://www.jos.gr.jp/roster) | A（学会の公式名簿） |
 
-## 人と関わる土台
-| 主張 | 出典 | 信頼度 |
-|---|---|---|
-| 大宮トーストマスターズ：第2・第4土曜10:00、シーノ大宮、英日両方、見学3回まで無料 | [トーストマスターズ日本（第76地区）クラブ紹介](https://district76.org/ja/introduce/omiya/)／[クラブ公式サイト](https://omiyatmc.wixsite.com/website-1) | A（運営団体・クラブの公式情報） |
-| トーストマスターズ国際本部の会費：半年72ドル（2026年8月から）、入会金25ドル | [Toastmasters International：Membership Dues](https://www.toastmasters.org/footer/faq/Membership-Dues-and-Payments)／[Dues Increase](https://www.toastmasters.org/footer/faq/dues-increase) | A（公式） |
-| VRChatは無料、VRゴーグルなしのデスクトップモードで参加できる | [VRChat公式ヘルプ：Getting Started](https://help.vrchat.com/hc/en-us/articles/28526267258515-Getting-Started-with-VRChat)／[Wikipedia](https://en.wikipedia.org/wiki/VRChat) | A（公式） |
-| VRChatの安全機能（信頼度ごとの表示制限、ブロック、パーソナルスペース） | [VRChat Safety and Trust System](https://docs.vrchat.com/docs/vrchat-safety-and-trust-system)／[Safety Resources](https://help.vrchat.com/hc/en-us/articles/33302819755539-Safety-Resources-For-Players) | A（公式） |
-| VRで英語を話す練習は、Zoomでの練習より話す不安が低かった | [Smart Learning Environments 2023](https://slejournal.springeropen.com/articles/10.1186/s40561-023-00263-9)／[ReCALL（Cambridge）](https://www.cambridge.org/core/journals/recall/article/impact-of-highimmersion-virtual-reality-on-efl-learners-foreign-language-speaking-anxiety-a-mixedmethod-approach/85BE8BBFAE95134856A9AC649969BA3F) | B（小規模の比較研究） |
-| レアジョブ英会話 日常英会話コース 月8回 4,980円（税込） | [レアジョブ公式FAQ](https://help.rarejob.com/answer/5de7587f45b510375d725dc7/) | A（公式） |
-
 ## 契約トラブル
 | 主張 | 出典 | 信頼度 |
 |---|---|---|

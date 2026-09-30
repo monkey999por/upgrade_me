@@ -212,15 +212,14 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   const slug = h => h.toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, "").replace(/\s/g, "-");
   const L = (file, heading) => REPO + file + (heading ? "#" + slug(heading) : "");
   const F = {
-    kpi: "plan/00_goals-kpi.md",
-    train: "plan/03_training.md", food: "plan/04_nutrition.md", face: "plan/05_face-neck-posture.md",
-    skin: "plan/06_skin-teeth.md", recover: "plan/08_recovery-rules.md",
-    voice: "plan/09_voice-articulation.md", social: "plan/10_social-reps.md", review: "tracking/weekly_review.md"
+    kpi: "plan/goals-kpi.md",
+    train: "plan/01_training.md", food: "plan/02_nutrition.md", face: "plan/03_face-neck-posture.md",
+    skin: "plan/04_skin-teeth.md", recover: "plan/recovery-rules.md",
+    voice: "plan/05_voice-articulation.md", review: "tracking/weekly_review.md"
   };
   const LINK = {
     walking: L(F.train, "ウォーキング（毎日1万歩が目標）"), skinDaily: L(F.skin, "今日から毎日（自宅ケア）"),
     posture: L(F.face, "毎日の姿勢ケア（5分、在宅日のトレッドミルの前後や入浴後）"), insta: L(F.face, "Instagramの運用"),
-    workTalk: L(F.social, "仕事の中で毎日（出社日もテレワークの日も）"),
     U: L(F.train, "U：上半身（重め）"), L: L(F.train, "L：下半身（重め）"), Push: L(F.train, "Push：押す日"),
     Pull: L(F.train, "Pull：引く日"), Legs: L(F.train, "Legs：脚"),
     phase: L(F.train, "強さ：段階ごとにRIR（あと何回できるか）で決める"), cardio: L(F.train, "ジムの有酸素（HIIT＋傾斜ウォーク）"),
@@ -232,7 +231,6 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     skinChoose: L(F.skin, "皮膚科の選び方"), aftercare: L(F.skin, "施術の前後に守ること"),
     voiceHome: L(F.voice, "家（在宅日に5分。休憩のトレッドミル前後などに）"), voiceSun: L(F.voice, "日曜（週1回の記録・5分）"),
     amenbo: L(F.voice, "あめんぼの歌（北原白秋「五十音」1922年）"), meeting: L(F.voice, "プレゼン・会議での話し方のルール（実際の場面で意識するのは3つだけ）"),
-    tm: L(F.social, "枠B：対面"), vrc: L(F.social, "枠A：VRChat"),
     send: L(F.review, "Claudeに送るもの（コピーして埋める）"), targets: L(F.kpi, "週ごとの目標ライン"),
     recover: L(F.recover), kpi: L(F.kpi)
   };
@@ -257,7 +255,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
 
   // ================= スケジュールのデータ（ここを更新する） =================
   const SESSION_NAME = { U: "上半身（重め）", L: "下半身（重め）", Push: "押す日", Pull: "引く日", Legs: "脚" };
-  // 週ごとの段階（中身は 03 の「強さ」）
+  // 週ごとの段階（中身は 01 の「強さ」）
   const PHASE = ["導入", "慣らし", "本番", "本番", "本番", "デロード", "追い込み", "追い込み"];
   const HIIT_BY_PHASE = { "導入": ["Push"], "慣らし": ["Push"], "本番": ["U", "Push"], "デロード": [], "追い込み": ["U", "Push"] };
   const WALK = ["U", "Push", "Pull"];            // 筋トレ後の傾斜ウォーク20分
@@ -265,12 +263,9 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   // 日付が決まっている予定
   const DATED = {
     "2026-09-27": [["Day1：計測・写真4枚・動画", LINK.measure]],
-    "2026-10-10": [["トーストマスターズ見学① 10:00", LINK.tm]],
-    "2026-10-11": [["判定：調整期間（08の#4）", LINK.recover]],
-    "2026-10-24": [["トーストマスターズ見学② 10:00", LINK.tm]],
-    "2026-10-25": [["中間判定（08の#10）", LINK.recover]],
-    "2026-11-08": [["ダーマペン最後の施術の期限", LINK.dermapen], ["手法の見直し（08）", LINK.recover]],
-    "2026-11-14": [["トーストマスターズ見学③ 10:00", LINK.tm]],
+    "2026-10-11": [["判定：調整期間（ルール#4）", LINK.recover]],
+    "2026-10-25": [["中間判定（ルール#10）", LINK.recover]],
+    "2026-11-08": [["ダーマペン最後の施術の期限", LINK.dermapen], ["計画の見直し（ルール）", LINK.recover]],
     "2026-11-22": [["最終判定：計測・Before/After・次の8週間を計画", LINK.kpi]]
   };
 
@@ -290,18 +285,18 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
 
   // 週ごとのロードマップ（分野ごと）
   const ROADMAP = [
-    { body: "開始重量を探す", skin: ["皮膚科2院のカウンセリング → ダーマペン1回目（9/30–10/8）", LINK.dermapen], teeth: ["一般歯科の虫歯チェック・矯正2–3院の相談を予約", LINK.ortho], voice: ["1分原稿を録音（声のDay1）・車のメニューを覚える・あめんぼ ア・カ行", LINK.amenbo], social: ["VRChatの設定と初回・トーストマスターズに見学のメール", LINK.vrc], other: "眉を整える（W2まで）・あすけん・Instagram開始" },
-    { body: "", skin: ["ダーマペン1回目（まだなら）", LINK.dermapen], teeth: ["初診相談（2–3院）→ 精密検査を予約", LINK.ortho], voice: ["腹式呼吸とリップロールで喉が楽な声をつかむ・サ・タ行", LINK.amenbo], social: ["トーストマスターズ見学①（10/10）", LINK.tm], other: "" },
-    { body: "", skin: ["黒ずみ型なら2回目（10/13–10/22）", LINK.dermapen], teeth: ["精密検査", LINK.ortho], voice: ["V4・V5のテンポを上げる・ナ・ハ行", LINK.amenbo], social: ["VRChat＋勉強会・交流会", LINK.social], other: "" },
-    { body: "", skin: ["施術後の経過を写真で記録", LINK.aftercare], teeth: ["治療計画の説明 → 1週間考える", LINK.ortho], voice: ["同じ条件で1分原稿を録音・マ・ヤ行", LINK.amenbo], social: ["トーストマスターズ見学②（10/24）", LINK.tm], other: "" },
-    { body: "", skin: ["黒ずみ型なら3回目（10/27–11/6）", LINK.dermapen], teeth: ["契約 → 前処置", LINK.ortho], voice: ["会議で話し方のルール3つを使う・ラ・ワ行", LINK.meeting], social: ["VRChat＋勉強会・交流会", LINK.social], other: "" },
-    { body: "", skin: ["開き型なら2回目（10/28–11/6）。11/8が最後の施術の期限", LINK.dermapen], teeth: ["ワイヤーなら装着", LINK.ortho], voice: ["会議で話し方のルール3つを使う・あめんぼを通しで", LINK.meeting], social: ["VRChat＋勉強会・交流会", LINK.social], other: "" },
-    { body: "", skin: ["施術なし（赤み・内出血を引かせる）", LINK.aftercare], teeth: ["", ""], voice: ["あめんぼの歌を通しで", LINK.amenbo], social: ["トーストマスターズ見学③（11/14）", LINK.tm], other: "" },
-    { body: "最後に食事を削らない", skin: ["", ""], teeth: ["マウスピースなら装着開始（12月でも可）", LINK.ortho], voice: ["Day1の録音と聴き比べ", LINK.voiceSun], social: ["トーストマスターズに入会するか決める", LINK.tm], other: "" }
+    { body: "開始重量を探す", skin: ["皮膚科2院のカウンセリング → ダーマペン1回目（9/30–10/8）", LINK.dermapen], teeth: ["一般歯科の虫歯チェック・矯正2–3院の相談を予約", LINK.ortho], voice: ["1分原稿を録音（声のDay1）・車のメニューを覚える・あめんぼ ア・カ行", LINK.amenbo], other: "眉を整える（W2まで）・あすけん・Instagram開始" },
+    { body: "", skin: ["ダーマペン1回目（まだなら）", LINK.dermapen], teeth: ["初診相談（2–3院）→ 精密検査を予約", LINK.ortho], voice: ["腹式呼吸とリップロールで喉が楽な声をつかむ・サ・タ行", LINK.amenbo], other: "" },
+    { body: "", skin: ["黒ずみ型なら2回目（10/13–10/22）", LINK.dermapen], teeth: ["精密検査", LINK.ortho], voice: ["V4・V5のテンポを上げる・ナ・ハ行", LINK.amenbo], other: "" },
+    { body: "", skin: ["施術後の経過を写真で記録", LINK.aftercare], teeth: ["治療計画の説明 → 1週間考える", LINK.ortho], voice: ["同じ条件で1分原稿を録音・マ・ヤ行", LINK.amenbo], other: "" },
+    { body: "", skin: ["黒ずみ型なら3回目（10/27–11/6）", LINK.dermapen], teeth: ["契約 → 前処置", LINK.ortho], voice: ["会議で話し方のルール3つを使う・ラ・ワ行", LINK.meeting], other: "" },
+    { body: "", skin: ["開き型なら2回目（10/28–11/6）。11/8が最後の施術の期限", LINK.dermapen], teeth: ["ワイヤーなら装着", LINK.ortho], voice: ["会議で話し方のルール3つを使う・あめんぼを通しで", LINK.meeting], other: "" },
+    { body: "", skin: ["施術なし（赤み・内出血を引かせる）", LINK.aftercare], teeth: ["", ""], voice: ["あめんぼの歌を通しで", LINK.amenbo], other: "" },
+    { body: "最後に食事を削らない", skin: ["", ""], teeth: ["マウスピースなら装着開始（12月でも可）", LINK.ortho], voice: ["Day1の録音と聴き比べ", LINK.voiceSun], other: "" }
   ];
-  const MEAT_NIGHT = [0, 2];                     // 04の献立例で夜が肉の曜日（ビタミンD）
+  const MEAT_NIGHT = [0, 2];                     // 02の献立例で夜が肉の曜日（ビタミンD）
 
-  // 毎日のルーティン（中身は 02）
+  // 毎日のルーティン（中身は 01・03・04・05）
   const ROUTINE = [
     ["朝", [
       ["m-weigh", "7:00", "体重・体脂肪を測る", ""],
@@ -313,7 +308,6 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     ["日中", [
       ["d-steps", "", "1万歩", LINK.walking],
       ["d-face", "", "顔・首＋発声 15分", LINK.car],
-      ["d-talk", "", "自分から話しかける", LINK.workTalk],
       ["d-snack", "15:30", "間食", LINK.swap]
     ]],
     ["夜", [
@@ -353,7 +347,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     return `<span class="chip ${type}">${type}</span>`;
   };
 
-  // ---- その日だけのこと（中身は 03・04・09） ----
+  // ---- その日だけのこと（中身は 01・02・05） ----
   function buildDay(d) {
     const info = dayInfo(d);
     const { dow, type, w } = info;
@@ -438,7 +432,6 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       ["肌", r.skin[0] && a(r.skin[1], r.skin[0])],
       ["歯", r.teeth[0] && a(r.teeth[1], r.teeth[0])],
       ["声", r.voice[0] && a(r.voice[1], r.voice[0])],
-      ["人と関わる", r.social[0] && a(r.social[1], r.social[0])],
       ["その他", r.other]
     ].filter(x => x[1]);
     return `<dl class="tracks">${rows.map(([t, v]) => `<dt>${t}</dt><dd>${v}</dd>`).join("")}</dl>`;
@@ -461,7 +454,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
             ${checklist("今日だけのこと", [["", items]], checks, "今日だけのことはなし。毎日のルーティンだけでOK。")}
             <div class="panel">
               <h3>食事</h3>
-              <div class="linkrow"><b>献立</b>${a(LINK.menu, `04の献立例の${DOW[info.dow]}曜日`)}</div>
+              <div class="linkrow"><b>献立</b>${a(LINK.menu, `02の献立例の${DOW[info.dow]}曜日`)}</div>
               <div class="linkrow"><b>替える</b>${a(LINK.swap, "入れ替え表")}</div>
             </div>
           </div>
@@ -539,7 +532,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     const fmt = k => { const [y, m, d] = k.split("-").map(Number); const dt = new Date(y, m - 1, d); return `${md(dt)}（${DOW[dt.getDay()]}）`; };
     let html = `<div class="rm">
       <div class="panel"><h3>判定の日</h3><div class="events">${judges.map(([k, v]) => v.filter(e => e[1] === LINK.recover || e[1] === LINK.kpi).map(e => `<div class="milestone"><span class="count" style="font-size:16px;min-width:74px">${fmt(k)}</span>${a(e[1], e[0])}</div>`).join("")).join("")}</div>
-        <div class="note">週ごとの目標ラインは ${a(LINK.targets, "00の目標ライン")}、外れたときは ${a(LINK.recover, "08のルール")}。</div></div>`;
+        <div class="note">週ごとの目標ラインは ${a(LINK.targets, "goals-kpiの目標ライン")}、外れたときは ${a(LINK.recover, "recovery-rulesのルール")}。</div></div>`;
     for (let w = 0; w < 8; w++) {
       const s = addDays(START, w * 7);
       html += `<article class="rm-week${w === curW ? " current" : ""}">
@@ -552,7 +545,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       ${BOOKINGS.map(b => `<tr><td>${a(b.link, b.name)}</td><td class="when">W${b.week + 1}</td><td class="when">${b.date ? fmt(b.date) + (b.time ? " " + b.time : "") : "未定"}</td><td>${b.place || ""}</td></tr>`).join("")}
       </tbody></table></div></div>
       <div class="panel"><h3>中身（何を・どうやるか）</h3><div class="docs">
-        ${[["00 ゴールとKPI", F.kpi], ["03 トレーニング", F.train], ["04 食事", F.food], ["05 顔・首・姿勢", F.face], ["06 肌と歯並び", F.skin], ["08 外れたときのルール", F.recover], ["09 滑舌と声", F.voice], ["10 人と関わる", F.social], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
+        ${[["01 トレーニング", F.train], ["02 食事", F.food], ["03 顔・首・姿勢", F.face], ["04 肌と歯並び", F.skin], ["05 滑舌と声", F.voice], ["ゴールとKPI", F.kpi], ["外れたときのルール", F.recover], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
       </div></div>
     </div>`;
     views.roadmap.innerHTML = html;
