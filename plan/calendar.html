@@ -214,8 +214,8 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   const F = {
     kpi: "plan/goals-kpi.md",
     train: "plan/01_training.md", food: "plan/02_nutrition.md", face: "plan/03_face-neck-posture.md",
-    skin: "plan/04_skin-teeth.md", later: "plan/12月以降検討.md", recover: "plan/recovery-rules.md",
-    voice: "plan/05_voice-articulation.md", review: "tracking/weekly_review.md"
+    skin: "plan/04_skin.md", teeth: "plan/05_teeth.md", later: "plan/12月以降検討.md", recover: "plan/recovery-rules.md",
+    voice: "plan/06_voice-articulation.md", review: "tracking/weekly_review.md"
   };
   const LINK = {
     walking: L(F.train, "ウォーキング（毎日1万歩が目標）"), skinDaily: L(F.skin, "今日から毎日（自宅ケア）"),
@@ -227,7 +227,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     prep: L(F.food, "作り置き（日曜・水曜、各60分）"),
     supp: L(F.food, "サプリ（食事で足りない分だけ）"),
     measure: L(F.kpi, "ウエストの測り方"), car: L(F.face, "車の中のルーティン（毎日・15分＝前半：表情筋7分 → 後半：発声・滑舌8分）"),
-    ortho: L(F.skin, "進め方（最短で始める。治療自体は8週間のあとも続く）"),
+    ortho: L(F.teeth, "進め方（最短で始める。治療自体は8週間のあとも続く）"),
     later: L(F.later),
     voiceHome: L(F.voice, "家（在宅日に5分。休憩のトレッドミル前後などに）"), voiceSun: L(F.voice, "日曜（週1回の記録・5分）"),
     amenbo: L(F.voice, "あめんぼの歌（北原白秋「五十音」1922年）"), meeting: L(F.voice, "プレゼン・会議での話し方のルール（実際の場面で意識するのは3つだけ）"),
@@ -292,7 +292,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   ];
   const MEAT_NIGHT = [0, 2];                     // 02の献立例で夜が肉の曜日（ビタミンD）
 
-  // 毎日のルーティン（中身は 01・03・04・05）
+  // 毎日のルーティン（中身は 01・03・04・06）
   const ROUTINE = [
     ["朝", [
       ["m-weigh", "7:00", "体重・体脂肪を測る", ""],
@@ -343,7 +343,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     return `<span class="chip ${type}">${type}</span>`;
   };
 
-  // ---- その日だけのこと（中身は 01・02・05） ----
+  // ---- その日だけのこと（中身は 01・02・06） ----
   function buildDay(d) {
     const info = dayInfo(d);
     const { dow, type, w } = info;
@@ -541,7 +541,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       ${BOOKINGS.map(b => `<tr><td>${a(b.link, b.name)}</td><td class="when">W${b.week + 1}</td><td class="when">${b.date ? fmt(b.date) + (b.time ? " " + b.time : "") : "未定"}</td><td>${b.place || ""}</td></tr>`).join("")}
       </tbody></table></div></div>
       <div class="panel"><h3>中身（何を・どうやるか）</h3><div class="docs">
-        ${[["01 トレーニング", F.train], ["02 食事", F.food], ["03 顔・首・姿勢", F.face], ["04 肌と歯並び", F.skin], ["05 滑舌と声", F.voice], ["ゴールとKPI", F.kpi], ["外れたときのルール", F.recover], ["12月以降検討", F.later], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
+        ${[["01 トレーニング", F.train], ["02 食事", F.food], ["03 顔・首・姿勢", F.face], ["04 肌", F.skin], ["05 歯並び", F.teeth], ["06 滑舌と声", F.voice], ["ゴールとKPI", F.kpi], ["外れたときのルール", F.recover], ["12月以降検討", F.later], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
       </div></div>
     </div>`;
     views.roadmap.innerHTML = html;
