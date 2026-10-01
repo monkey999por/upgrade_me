@@ -90,6 +90,7 @@
 | さいたま市の認定医・専門医・研修指導医（2026年10月に再確認） | [日本矯正歯科学会 認定医・専門医名簿（埼玉県）](https://www.jos.gr.jp/?post_type=roster&s=&member_area_code=11&pref=2) | A（学会の公式名簿） |
 | 大宮こかい矯正歯科：院長の経歴・顎変形症学会認定医、料金、予約、保険の矯正 | [院長紹介](https://kokai-kyousei.com/doctor.html)／[料金](https://kokai-kyousei.com/price.html)／[予約](https://kokai-kyousei.com/reservation.html)／[保険の矯正](https://kokai-kyousei.com/medical/medical05.html) | C（院の公式情報） |
 | ファミリア歯科矯正：医師の資格、料金（トータルフィー）、保険の新規は3–6ヶ月待ち、診療時間 | [ドクター紹介](https://www.familia-ortho.or.jp/1513doctor/)／[料金](https://www.familia-ortho.or.jp/1055price-list/)／[保険診療](https://www.familia-ortho.or.jp/1075insurance/)／[アクセス](https://www.familia-ortho.or.jp/1525clinic-access/) | C（院の公式情報） |
+| 抜歯の考え方：こかい（口元優先・条件を満たす症例のみ非抜歯）、ファミリア（できるだけ非抜歯、無理な拡大に反対、症例写真で抜歯部位と費用を公開） | [こかい 矯正治療Q&A](https://kokai-kyousei.com/medical/medical01.html)／[ファミリア 美しさと機能](https://www.familia-ortho.or.jp/0505beauty_function/)／[ファミリア 症例](https://www.familia-ortho.or.jp/1040case-introduction/)／[ファミリア 治療方法（アンカースクリュー）](https://www.familia-ortho.or.jp/1015treatment-method/) | C（院の公式情報） |
 | スマイル矯正歯科：院長・開業年・診療時間・相談無料 | [ドクターズ・ファイル](https://doctorsfile.jp/h/137905/) | C（掲載サイト） |
 
 ## 契約トラブル
