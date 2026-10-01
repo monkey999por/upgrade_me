@@ -84,7 +84,10 @@
 | 主張 | 出典 | 信頼度 |
 |---|---|---|
 | マウスピース矯正は診察・検査・診断が前提。抜歯症例・骨格性の不正には推奨されない。通販のマウスピースは危険 | [日本矯正歯科学会 マウスピース型矯正装置による治療に関する見解](https://www.jos.gr.jp/4348) | A（学会の見解） |
-| 大宮区・見沼区の認定医・専門医 | [日本矯正歯科学会 認定医・専門医名簿（2026年8月時点）](https://www.jos.gr.jp/roster) | A（学会の公式名簿） |
+| さいたま市の認定医・専門医・研修指導医（2026年10月に再確認） | [日本矯正歯科学会 認定医・専門医名簿（埼玉県）](https://www.jos.gr.jp/?post_type=roster&s=&member_area_code=11&pref=2) | A（学会の公式名簿） |
+| 大宮こかい矯正歯科：院長の経歴・顎変形症学会認定医、料金、予約、保険の矯正 | [院長紹介](https://kokai-kyousei.com/doctor.html)／[料金](https://kokai-kyousei.com/price.html)／[予約](https://kokai-kyousei.com/reservation.html)／[保険の矯正](https://kokai-kyousei.com/medical/medical05.html) | C（院の公式情報） |
+| ファミリア歯科矯正：医師の資格、料金（トータルフィー）、保険の新規は3–6ヶ月待ち、診療時間 | [ドクター紹介](https://www.familia-ortho.or.jp/1513doctor/)／[料金](https://www.familia-ortho.or.jp/1055price-list/)／[保険診療](https://www.familia-ortho.or.jp/1075insurance/)／[アクセス](https://www.familia-ortho.or.jp/1525clinic-access/) | C（院の公式情報） |
+| スマイル矯正歯科：院長・開業年・診療時間・相談無料 | [ドクターズ・ファイル](https://doctorsfile.jp/h/137905/) | C（掲載サイト） |
 
 ## 契約トラブル
 | 主張 | 出典 | 信頼度 |
