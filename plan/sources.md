@@ -83,6 +83,9 @@
 ## 歯並び
 | 主張 | 出典 | 信頼度 |
 |---|---|---|
+| 成人の矯正費用は80–120万円が目安。トータルフィー制と処置料制がある | [日本臨床矯正歯科医会 FAQ（費用）](https://www.jpao.jp/faq/period-cost/entry-4405.html) | B（専門医の団体） |
+| マルチブラケットの期間は平均2–3年（20歳以上は約3年になりやすい）、保定は平均1–3年 | [日本臨床矯正歯科医会 FAQ（期間）](https://www.jpao.jp/faq/period-cost/entry-4423.html) | B（専門医の団体） |
+| 過蓋咬合の治し方は奥歯の挺出・前歯の圧下・前歯の傾斜。挺出は下顔面高の増加と下あごの下後方回転、圧下は垂直的な高さを保ち下あごの前方回転を許す | [Intrusion (orthodontics)](https://en.wikipedia.org/wiki/Intrusion_(orthodontics))／[PMC4606337](https://pmc.ncbi.nlm.nih.gov/articles/PMC4606337) | C（総説・解説） |
 | マウスピース矯正は診察・検査・診断が前提。抜歯症例・骨格性の不正には推奨されない。通販のマウスピースは危険 | [日本矯正歯科学会 マウスピース型矯正装置による治療に関する見解](https://www.jos.gr.jp/4348) | A（学会の見解） |
 | さいたま市の認定医・専門医・研修指導医（2026年10月に再確認） | [日本矯正歯科学会 認定医・専門医名簿（埼玉県）](https://www.jos.gr.jp/?post_type=roster&s=&member_area_code=11&pref=2) | A（学会の公式名簿） |
 | 大宮こかい矯正歯科：院長の経歴・顎変形症学会認定医、料金、予約、保険の矯正 | [院長紹介](https://kokai-kyousei.com/doctor.html)／[料金](https://kokai-kyousei.com/price.html)／[予約](https://kokai-kyousei.com/reservation.html)／[保険の矯正](https://kokai-kyousei.com/medical/medical05.html) | C（院の公式情報） |
