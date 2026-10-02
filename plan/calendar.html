@@ -231,6 +231,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     voiceHome: L(F.voice, "家（在宅日に5分。休憩のトレッドミル前後などに）"), voiceSun: L(F.voice, "日曜（週1回の記録・5分）"),
     amenbo: L(F.voice, "あめんぼの歌（北原白秋「五十音」1922年）"), meeting: L(F.voice, "プレゼン・会議での話し方のルール（実際の場面で意識するのは3つだけ）"),
     send: L(F.review, "Claudeに送るもの（コピーして埋める）"), targets: L(F.kpi, "週ごとの目標ライン"),
+    retinol: L(F.skin, "レチノール"), beard: L(F.skin, "進め方"),
     recover: L(F.recover), kpi: L(F.kpi)
   };
 
@@ -262,6 +263,9 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   // 日付が決まっている予定
   const DATED = {
     "2026-09-27": [["Day1：計測・写真4枚", LINK.measure]],
+    "2026-10-05": [["レチノール開始（月・水・金の夜）", LINK.retinol]],
+    "2026-10-19": [["レチノール：土曜以外の週5回に", LINK.retinol]],
+    "2026-11-02": [["レチノール：土曜以外の毎晩に", LINK.retinol]],
     "2026-10-11": [["判定：調整期間（ルール#4）", LINK.recover]],
     "2026-10-25": [["中間判定（ルール#10）", LINK.recover]],
     "2026-11-08": [["計画の見直し（ルール）", LINK.recover]],
@@ -271,6 +275,8 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
   // 予約：決まったら date（"2026-10-01"）と time・place を入れる。入れるとカレンダーにも出る
   const BOOKINGS = [
     { name: "眉サロン", week: 1, date: "2026-10-04", time: "17:00", place: "", link: LINK.brow },
+    { name: "ヒゲ脱毛のカウンセリング①", week: 1, date: "", time: "", place: "", link: LINK.beard },
+    { name: "ヒゲ脱毛のカウンセリング②", week: 1, date: "", time: "", place: "", link: LINK.beard },
     { name: "一般歯科：虫歯チェック・クリーニング", week: 0, date: "", time: "", place: "", link: LINK.ortho },
     { name: "矯正の初診相談①", week: 1, date: "2026-10-07", time: "15:00", place: "大宮こかい矯正歯科", link: LINK.ortho },
     { name: "矯正の初診相談②", week: 1, date: "2026-11-01", time: "16:00", place: "スマイル矯正歯科", link: LINK.ortho },
@@ -289,7 +295,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     { body: "", skin: ["", ""], teeth: ["契約 → 前処置", LINK.ortho], voice: ["会議で話し方のルール3つを使う・ラ・ワ行", LINK.meeting], other: "" },
     { body: "", skin: ["", ""], teeth: ["ワイヤーなら装着", LINK.ortho], voice: ["会議で話し方のルール3つを使う・あめんぼを通しで", LINK.meeting], other: "" },
     { body: "", skin: ["", ""], teeth: ["", ""], voice: ["あめんぼの歌を通しで", LINK.amenbo], other: "" },
-    { body: "最後に食事を削らない", skin: ["12月以降の肌ケア（レチノール・ダーマペン）を決める", LINK.later], teeth: ["マウスピースなら装着開始（12月でも可）", LINK.ortho], voice: ["Day1の録音と聴き比べ", LINK.voiceSun], other: "" }
+    { body: "最後に食事を削らない", skin: ["写真で肌をDay1と比べる（レチノールの判定は12/28）", LINK.retinol], teeth: ["マウスピースなら装着開始（12月でも可）", LINK.ortho], voice: ["Day1の録音と聴き比べ", LINK.voiceSun], other: "" }
   ];
   const MEAT_NIGHT = [0, 2];                     // 02の献立例で夜が肉の曜日（ビタミンD）
 
@@ -309,7 +315,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     ]],
     ["夜", [
       ["n-prep", "23:30", "翌日の食事を決める", LINK.swap],
-      ["n-skin", "0:00", "洗顔 → 保湿", LINK.skinDaily],
+      ["n-skin", "0:00", "洗顔 → 保湿 → レチノール（土曜は休み）", LINK.retinol],
       ["n-posture", "0:10", "姿勢ケア＋マッサージ＋目元", LINK.posture],
       ["n-phone", "0:30", "スマホを置く", ""],
       ["n-sleep", "1:00", "就寝", ""]

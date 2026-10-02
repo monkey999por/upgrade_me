@@ -74,6 +74,15 @@
 | 毛穴の開きには1ヶ月おきに3–5回、変化を感じやすいのは施術の2–4週間後 | [江坂駅前花ふさ皮ふ科の解説](https://esaka-hanafusa-hifuka.com/column/dermapen4-effect-timing-sessions/)（はなふさ皮膚科とは別の医院） | C |
 | マイクロニードリングは4–6週間おきが一般的。コラーゲンの産生は施術の4–6週間後がピーク。2週間おき6回でコラーゲンが増えたという研究 | [Microneedling: Advances and widening horizons（PMC4976400）](https://pmc.ncbi.nlm.nih.gov/articles/PMC4976400/) | C（総説） |
 
+### ヒゲ脱毛
+| 主張 | 出典 | 信頼度 |
+|---|---|---|
+| 肌クリニック大宮のひげ脱毛料金（口囲・頬＋口囲・全体、麻酔込み、2ヶ月以内リピート割引、初診料1,500円） | [肌クリニック大宮 料金表](https://e-hifu.jp/price/) | C（院の公式情報・2026/10/2確認） |
+| メンズリゼのヒゲ脱毛料金（3部位5回14,000円、全部位5回59,800円など）、麻酔料金 | [メンズリゼ 料金](https://www.mens-rize.com/price/) | C（院の公式情報・2026/10/2確認） |
+| ゴリラクリニックのヒゲ脱毛料金（3部位スタートプラン、完了コース、6部位）・大宮院の場所 | [ゴリラクリニック 料金](https://gorilla.clinic/price/)／[大宮院](https://gorilla.clinic/clinic/omiya/) | C（院の公式情報・2026/10/2確認） |
+| メンズリゼ大宮院：大宮駅東口 徒歩4分 | [駅探 メンズリゼ](https://ekitan.com/media/epi/mens-rize/mens-rize-shop004/) | D（まとめサイト。公式で要確認） |
+| 顔のワックスの2–5日前からレチノール・レチノイドを使わない（皮膚がはがれる） | [AAD: Hair removal: How to wax](https://www.aad.org/public/everyday-care/skin-care-basics/hair/how-to-wax) | A（専門職団体） |
+
 ### 矯正のスケジュール
 | 主張 | 出典 | 信頼度 |
 |---|---|---|
