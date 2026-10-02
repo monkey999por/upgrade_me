@@ -80,6 +80,8 @@
 | 肌クリニック大宮のひげ脱毛料金（口囲・頬＋口囲・全体、麻酔込み、2ヶ月以内リピート割引、初診料1,500円） | [肌クリニック大宮 料金表](https://e-hifu.jp/price/) | C（院の公式情報・2026/10/2確認） |
 | メンズリゼのヒゲ脱毛料金（3部位5回14,000円、全部位5回59,800円など）、麻酔料金 | [メンズリゼ 料金](https://www.mens-rize.com/price/) | C（院の公式情報・2026/10/2確認） |
 | ゴリラクリニックのヒゲ脱毛料金（3部位スタートプラン、完了コース、6部位）・大宮院の場所 | [ゴリラクリニック 料金](https://gorilla.clinic/price/)／[大宮院](https://gorilla.clinic/clinic/omiya/) | C（院の公式情報・2026/10/2確認） |
+| ゴリラクリニックの部位の分け方（3部位＝鼻下・アゴ・アゴ下、5部位＝＋ほほ・もみあげ、6部位＝＋首）と料金 | [ゴリラクリニック 料金](https://gorilla.clinic/price/) | C（院の公式情報・2026/10/2確認） |
+| 肌の色が濃い人には長いパルスの1064nm（Nd:YAG）が最も副作用が少なく、次がダイオード（800–810nm） | [PMC2840900（レビュー）](https://pmc.ncbi.nlm.nih.gov/articles/PMC2840900/)／[ASLMS: laser hair removal in darker skin（MDedge）](https://mdedge.com/content/aslms-tips-effective-laser-hair-removal-darker-skin) | B（総説・学会での解説） |
 | メンズリゼ大宮院：大宮駅東口 徒歩4分 | [駅探 メンズリゼ](https://ekitan.com/media/epi/mens-rize/mens-rize-shop004/) | D（まとめサイト。公式で要確認） |
 | 顔のワックスの2–5日前からレチノール・レチノイドを使わない（皮膚がはがれる） | [AAD: Hair removal: How to wax](https://www.aad.org/public/everyday-care/skin-care-basics/hair/how-to-wax) | A（専門職団体） |
 
