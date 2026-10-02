@@ -215,7 +215,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     kpi: "plan/goals-kpi.md",
     train: "plan/01_training.md", food: "plan/02_nutrition.md", face: "plan/03_face-neck-posture.md",
     skin: "plan/04_skin.md", teeth: "plan/05_teeth.md", later: "plan/12月以降検討.md", recover: "plan/recovery-rules.md",
-    voice: "plan/06_voice-articulation.md", review: "tracking/weekly_review.md"
+    voice: "plan/06_voice-articulation.md", hair: "plan/07_hair-removal.md", review: "tracking/weekly_review.md"
   };
   const LINK = {
     walking: L(F.train, "ウォーキング（毎日1万歩が目標）"), skinDaily: L(F.skin, "今日から毎日（自宅ケア）"),
@@ -231,7 +231,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
     voiceHome: L(F.voice, "家（在宅日に5分。休憩のトレッドミル前後などに）"), voiceSun: L(F.voice, "日曜（週1回の記録・5分）"),
     amenbo: L(F.voice, "あめんぼの歌（北原白秋「五十音」1922年）"), meeting: L(F.voice, "プレゼン・会議での話し方のルール（実際の場面で意識するのは3つだけ）"),
     send: L(F.review, "Claudeに送るもの（コピーして埋める）"), targets: L(F.kpi, "週ごとの目標ライン"),
-    retinol: L(F.skin, "レチノール"), beard: L(F.skin, "進め方"),
+    retinol: L(F.skin, "レチノール"), beard: L(F.hair, "進め方"),
     recover: L(F.recover), kpi: L(F.kpi)
   };
 
@@ -546,7 +546,7 @@ table.book td.when { font-family: var(--font-display); font-size: 15px; white-sp
       ${BOOKINGS.map(b => `<tr><td>${a(b.link, b.name)}</td><td class="when">W${b.week + 1}</td><td class="when">${b.date ? fmt(b.date) + (b.time ? " " + b.time : "") : "未定"}</td><td>${b.place || ""}</td></tr>`).join("")}
       </tbody></table></div></div>
       <div class="panel"><h3>中身（何を・どうやるか）</h3><div class="docs">
-        ${[["01 トレーニング", F.train], ["02 食事", F.food], ["03 顔・首・姿勢", F.face], ["04 肌", F.skin], ["05 歯並び", F.teeth], ["06 滑舌と声", F.voice], ["ゴールとKPI", F.kpi], ["外れたときのルール", F.recover], ["12月以降検討", F.later], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
+        ${[["01 トレーニング", F.train], ["02 食事", F.food], ["03 顔・首・姿勢", F.face], ["04 肌", F.skin], ["05 歯並び", F.teeth], ["06 滑舌と声", F.voice], ["07 ヒゲ脱毛", F.hair], ["ゴールとKPI", F.kpi], ["外れたときのルール", F.recover], ["12月以降検討", F.later], ["週次レビュー", F.review]].map(([t, f]) => a(L(f), t)).join("")}
       </div></div>
     </div>`;
     views.roadmap.innerHTML = html;
