@@ -39,7 +39,7 @@ https://claude.ai/artifact/CEgAvkQ2xED4sxv4ADD4WD
 | — | [sources](plan/sources.md) | 出典と信頼度 |
 
 ## 記録
-- 毎日：アプリに任せる（体重・体脂肪＝体組成計、歩数・睡眠＝スマートウォッチ）。食事は記録せず、02の量を守る
+- 毎日：アプリに任せる（体重・体脂肪＝体組成計、歩数＝スマホのヘルスケアかトレッドミルの距離、睡眠＝寝た・起きた時刻からざっくり）。食事は記録せず、02の量を守る
 - 毎週日曜：Claudeに報告（[tracking/weekly_review.md](tracking/weekly_review.md)）
 - 写真：毎週スマホの専用アルバムに保存し、自分で見比べる（Claude・SNSには共有しない）
 
